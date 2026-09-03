@@ -19,7 +19,7 @@ export const profile = {
     heading: "Yash Roushan",
     title: "Software & Enterprise IT Professional",
     statement:
-      "I build and support reliable systems across full-stack software, cloud platforms, enterprise applications, automation, and network infrastructure.",
+      "I build software and support cloud platforms, enterprise applications, automation workflows, and network infrastructure, with a focus on reliability, troubleshooting, and clear documentation.",
   },
   professionalStory: [
     "My experience has grown across connected layers of technology: data quality and repeatable workflows, full-stack and backend development, user-facing IT support, automation, network observability, and enterprise application modernization.",

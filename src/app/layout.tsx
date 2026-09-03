@@ -15,7 +15,7 @@ const geistSans = Geist({
 });
 
 const description =
-  "Portfolio of Yash Roushan, a Halifax-based IT and software professional with experience in full-stack development, Azure and enterprise systems, network monitoring, automation, and technical support.";
+  "Yash Roushan is a Halifax-based software and enterprise IT professional with experience in backend development, Azure migration support, network monitoring, workflow automation, and technical support.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
