@@ -122,8 +122,8 @@ export default function HomePage() {
       >
         <SectionHeading
           eyebrow="Capabilities"
-          title="One systems mindset, applied across four layers"
-          description="The range is deliberate: understand what people need, trace how the system behaves, and make the work easier to support."
+          title="Four areas of technical experience"
+          description="I connect user needs with software, data, cloud, and infrastructure work to make systems easier to operate, troubleshoot, and support."
           action={
             <Link className="button-secondary" href="/skills">
               Evidence-linked skills <ArrowRight aria-hidden="true" size={16} />
