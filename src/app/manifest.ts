@@ -2,7 +2,7 @@ import type { MetadataRoute } from "next";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "Yash Roushan — IT & Software Professional",
+    name: "Yash Roushan — Software & Enterprise IT Professional",
     short_name: "Yash Roushan",
     description:
       "Portfolio spanning software, cloud, enterprise systems, automation, and network infrastructure.",

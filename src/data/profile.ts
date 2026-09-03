@@ -8,7 +8,7 @@ import type {
 export const profile = {
   name: "Yash Roushan",
   monogram: "YR",
-  title: "IT & Software Professional",
+  title: "Software & Enterprise IT Professional",
   location: "Halifax, Nova Scotia, Canada",
   availability: "Open to full-time technology roles",
   email: "yashroushan@dal.ca",
@@ -17,7 +17,7 @@ export const profile = {
   hero: {
     eyebrow: "Halifax, Nova Scotia · Open to full-time technology roles",
     heading: "Yash Roushan",
-    title: "IT & Software Professional",
+    title: "Software & Enterprise IT Professional",
     statement:
       "I build and support reliable systems across full-stack software, cloud platforms, enterprise applications, automation, and network infrastructure.",
   },

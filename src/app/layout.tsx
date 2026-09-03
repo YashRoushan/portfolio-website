@@ -20,7 +20,7 @@ const description =
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Yash Roushan | IT & Software Professional",
+    default: "Yash Roushan | Software & Enterprise IT Professional",
     template: "%s | Yash Roushan",
   },
   description,
@@ -33,20 +33,20 @@ export const metadata: Metadata = {
     locale: "en_CA",
     url: "/",
     siteName: "Yash Roushan Portfolio",
-    title: "Yash Roushan | IT & Software Professional",
+    title: "Yash Roushan | Software & Enterprise IT Professional",
     description,
     images: [
       {
         url: "/opengraph-image",
         width: 1200,
         height: 630,
-        alt: "Yash Roushan — IT & Software Professional",
+        alt: "Yash Roushan — Software & Enterprise IT Professional",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Yash Roushan | IT & Software Professional",
+    title: "Yash Roushan | Software & Enterprise IT Professional",
     description,
     images: ["/opengraph-image"],
   },
@@ -80,7 +80,7 @@ const structuredData = [
     "@type": "Person",
     "@id": absoluteUrl("/#person"),
     name: "Yash Roushan",
-    jobTitle: "IT & Software Professional",
+    jobTitle: "Software & Enterprise IT Professional",
     url: absoluteUrl("/"),
     email: `mailto:${publicEmail}`,
     sameAs: [socialLinks.linkedin, socialLinks.github],

@@ -33,7 +33,7 @@ export function createPageMetadata({
           url: "/opengraph-image",
           width: 1200,
           height: 630,
-          alt: "Yash Roushan — IT & Software Professional",
+          alt: "Yash Roushan — Software & Enterprise IT Professional",
         },
       ],
     },

@@ -61,7 +61,7 @@ export function HeroPortrait() {
               Yash Roushan
             </p>
             <p className="mt-1 text-sm text-white/80">
-              IT &amp; Software Professional
+              Software &amp; Enterprise IT Professional
             </p>
           </div>
           <span className="hidden font-mono text-[0.65rem] uppercase tracking-[0.12em] text-white/75 sm:block">

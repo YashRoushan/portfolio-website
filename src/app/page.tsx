@@ -22,7 +22,7 @@ import { emailHref } from "@/lib/site";
 import { createPageMetadata } from "@/lib/metadata";
 
 export const metadata = createPageMetadata({
-  title: "Yash Roushan | IT & Software Professional",
+  title: "Yash Roushan | Software & Enterprise IT Professional",
   description:
     "Portfolio of Yash Roushan, a Halifax-based IT and software professional with experience in full-stack development, Azure and enterprise systems, network monitoring, automation, and technical support.",
   path: "/",

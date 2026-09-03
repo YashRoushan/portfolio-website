@@ -1,6 +1,6 @@
 import { ImageResponse } from "next/og";
 
-export const alt = "Yash Roushan — IT & Software Professional";
+export const alt = "Yash Roushan — Software & Enterprise IT Professional";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -123,7 +123,7 @@ export default function OpenGraphImage() {
             color: "#60A5FA",
           }}
         >
-          IT &amp; Software Professional
+          Software &amp; Enterprise IT Professional
         </div>
       </div>
 
