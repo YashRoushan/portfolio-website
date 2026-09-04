@@ -7,7 +7,7 @@ import { createPageMetadata } from "@/lib/metadata";
 export const metadata = createPageMetadata({
   title: "Resume",
   description:
-    "Accessible resume preview and PDF download for Yash Roushan, an IT and software professional based in Halifax, Nova Scotia.",
+    "Accessible resume preview and PDF download for Yash Roushan, a software and enterprise IT professional based in Halifax, Nova Scotia.",
   path: "/resume",
 });
 
@@ -17,8 +17,8 @@ export default function ResumePage() {
       <div className="resume-page-intro">
         <PageHero
           eyebrow="Resume"
-          title="A concise view of the work"
-          description="Read the accessible web overview below or download the selected PDF resume."
+          title="Professional experience at a glance"
+          description="Read the web resume below or download the PDF."
           actions={
             <>
               <a
@@ -45,10 +45,10 @@ export default function ResumePage() {
                 aria-hidden="true"
                 size={28}
               />
-              <p className="mt-5 font-semibold">Accessible fallback included</p>
+              <p className="mt-5 font-semibold">Web and PDF formats</p>
               <p className="mt-2 text-sm leading-6 text-muted">
-                The full resume content is available as semantic HTML on this
-                page, so the PDF is never the only way to read it.
+                The complete resume is available as semantic HTML and as a
+                downloadable PDF.
               </p>
             </div>
           }
@@ -66,12 +66,12 @@ export default function ResumePage() {
               id="resume-preview-heading"
               className="mt-3 text-2xl font-semibold tracking-tight"
             >
-              Accessible preview
+              Web resume
             </h2>
           </div>
           <p className="max-w-lg text-sm text-muted">
-            Contact details use Yash&apos;s public job-search email. No private
-            employer contact information is included.
+            This version includes only the public contact details approved for
+            the portfolio.
           </p>
         </div>
         <ResumeDocument />

@@ -145,7 +145,7 @@ export default function HomePage() {
           <SectionHeading
             eyebrow="Selected experience"
             title="Professional work across software and enterprise IT"
-            description="Each case study separates verified contributions from confidential implementation detail and connects the work to its technical evidence."
+            description="Each case study explains my contribution, tools, troubleshooting approach, collaboration, and outcomes while keeping employer details confidential."
             action={
               <Link className="button-secondary" href="/experience">
                 Complete timeline <ArrowRight aria-hidden="true" size={16} />
@@ -163,8 +163,8 @@ export default function HomePage() {
       <section className="container-shell section-shell">
         <SectionHeading
           eyebrow="Selected projects"
-          title="Software work with inspectable technical context"
-          description="Project panels are intentionally illustrative—not fabricated screenshots. Open each case study for contribution, decisions, debugging, attribution, and available source evidence."
+          title="Projects with clear technical context"
+          description="Each case study covers the problem, my contribution, technical decisions, testing, team attribution, and public evidence where available."
           action={
             <Link className="button-secondary" href="/projects">
               All projects <ArrowRight aria-hidden="true" size={16} />
@@ -208,8 +208,8 @@ export default function HomePage() {
               {credentialsSectionTitle}
             </h2>
             <p className="mt-4 max-w-2xl text-muted">
-              Course and learning records are labeled conservatively while exact
-              issuer and certification status are confirmed.
+              Verified course-completion records in networking, Azure
+              fundamentals, and Python.
             </p>
             <ul className="mt-6 grid gap-3 sm:grid-cols-2">
               {credentials.map((credential) => (
@@ -251,13 +251,13 @@ export default function HomePage() {
             <div>
               <p className="eyebrow">Let&apos;s connect</p>
               <h2 className="mt-4 max-w-3xl text-balance text-3xl font-semibold tracking-[-0.04em] sm:text-4xl">
-                Building reliable technology across software, cloud, and
-                infrastructure.
+                Available for full-time software and enterprise IT roles in
+                Canada.
               </h2>
               <p className="mt-4 max-w-2xl text-muted-strong">
-                Yash is seeking full-time technology roles in Canada and is open
-                to conversations with recruiters, hiring managers, and technical
-                teams.
+                I bring experience across backend development, cloud and
+                enterprise systems, network monitoring, workflow automation, and
+                technical support.
               </p>
             </div>
             <div className="flex flex-wrap gap-3">

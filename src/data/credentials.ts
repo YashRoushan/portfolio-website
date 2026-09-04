@@ -27,16 +27,6 @@ export const credentials = [
       "Verified as a LinkedIn Learning course-completion record earned by Yash Roushan. It is not evidence of the official Microsoft AZ-900 certification.",
   },
   {
-    id: "web-development-learning",
-    publicLabel: "MERN Stack Course — MongoDB, Express, React and NodeJS",
-    suppliedLabel: "Web Development",
-    learningPlatform: "Udemy",
-    href: "https://www.udemy.com/certificate/UC-cb82e4e4-4b90-45b0-8374-4b25d8f5d7bd/",
-    verificationStatus: "link-provided-title-unconfirmed",
-    reviewNote:
-      "The exact credential ID and title are indexed on Yash's profile, but Udemy returned an automated Cloudflare challenge. Confirm the certificate manually in a normal browser before final publication.",
-  },
-  {
     id: "python-learning",
     publicLabel: "Python Data Structures",
     suppliedLabel: "Python",

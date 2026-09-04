@@ -17,8 +17,8 @@ export default function ProjectsPage() {
     <>
       <PageHero
         eyebrow="Selected technical work"
-        title="Projects with engineering context"
-        description="Each project page explains the problem, Yash's contribution, technical decisions, debugging work, outcome, attribution, and any public evidence that is safe to share."
+        title="Software projects and contributions"
+        description="Each case study explains the problem, my contribution, technical decisions, testing and debugging, outcomes, team attribution, and public evidence where available."
         aside={
           <div className="surface-card grid gap-4 rounded-2xl p-6">
             {[
@@ -53,9 +53,8 @@ export default function ProjectsPage() {
             Software, data, and interface work
           </h2>
           <p className="mt-4 text-muted">
-            The visual panels below are branded summaries, not product
-            screenshots. No private employer imagery or invented interfaces are
-            used.
+            These projects span full-stack web development, Android development,
+            REST APIs, databases, testing, and team collaboration.
           </p>
         </div>
         <div className="grid gap-5 md:grid-cols-2">

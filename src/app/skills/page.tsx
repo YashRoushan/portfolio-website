@@ -19,7 +19,7 @@ export default function SkillsPage() {
       <PageHero
         eyebrow="Evidence-linked capability matrix"
         title="Skills demonstrated in context"
-        description="No ratings, percentage bars, or unsupported expert labels. Every skill shown here connects to a professional role or substantial project where it was used."
+        description="Each skill is linked to the professional role or substantial project where I used it, giving recruiters concrete context instead of self-ratings."
         aside={
           <div className="surface-card rounded-2xl p-6">
             <p className="font-mono text-xs font-semibold uppercase tracking-[0.08em] text-secondary">
@@ -32,7 +32,7 @@ export default function SkillsPage() {
                   aria-hidden="true"
                   size={17}
                 />{" "}
-                Used in production or professional work
+                Used in professional work
               </li>
               <li className="flex gap-2.5">
                 <CheckCircle2

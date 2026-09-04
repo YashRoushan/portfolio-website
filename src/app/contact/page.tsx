@@ -33,7 +33,7 @@ export default function ContactPage() {
       <PageHero
         eyebrow="Contact"
         title="Start a professional conversation"
-        description="Yash is seeking full-time technology roles in Canada across software engineering, enterprise IT, cloud, networking, technical support, data, and automation."
+        description="I am seeking full-time software and enterprise IT roles in Canada, including work in cloud, networking, automation, and technical support."
         aside={
           <div className="surface-card rounded-2xl p-6">
             <p className="font-mono text-xs font-semibold uppercase tracking-[0.08em] text-secondary">
@@ -64,12 +64,12 @@ export default function ContactPage() {
             id="contact-options-heading"
             className="mt-3 text-3xl font-semibold tracking-[-0.035em]"
           >
-            Choose the channel that fits
+            Contact me directly
           </h2>
           <p className="mt-4 text-muted">
-            LinkedIn is the preferred professional contact. Email is the fastest
-            direct alternative. No form is used, so nothing is collected or
-            stored by this website.
+            LinkedIn is my preferred professional contact; email is the direct
+            alternative. This site has no contact form and does not collect or
+            store submissions.
           </p>
         </div>
 
@@ -134,12 +134,11 @@ export default function ContactPage() {
         <div className="container-shell py-12 sm:py-16">
           <p className="eyebrow">Useful context</p>
           <h2 className="mt-4 max-w-3xl text-balance text-3xl font-semibold tracking-[-0.035em]">
-            Include the role, team, and what you would like to discuss
+            What to include
           </h2>
           <p className="mt-4 max-w-2xl text-muted">
-            A short note with the position title and relevant area—software,
-            enterprise systems, networking, support, data, or automation—makes
-            it easy to start with the right context.
+            Include the position title, team, and main area of focus so I can
+            respond with the right context.
           </p>
         </div>
       </section>

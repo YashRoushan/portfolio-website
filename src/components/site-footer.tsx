@@ -24,8 +24,8 @@ export function SiteFooter() {
             Yash Roushan
           </Link>
           <p className="mt-3 max-w-xl text-sm text-muted">
-            Building reliable technology across software, cloud, and
-            infrastructure.
+            Software development and enterprise IT experience across cloud,
+            automation, networking, and support.
           </p>
           <p className="mt-5 font-mono text-xs text-muted">
             Halifax, Nova Scotia · Open to full-time technology roles

@@ -17,34 +17,34 @@ import { emailHref } from "@/lib/site";
 export const metadata = createPageMetadata({
   title: "About",
   description:
-    "The professional story, education, and working principles of Yash Roushan, an IT and software professional based in Halifax, Nova Scotia.",
+    "The professional story, education, and working principles of Yash Roushan, a software and enterprise IT professional based in Halifax, Nova Scotia.",
   path: "/about",
 });
 
 const progression = [
   {
     label: "Data and workflows",
-    text: "Early professional work at Dresma.ai connected data quality, repeatable ETL documentation, reporting, and reliable application workflows.",
+    text: "At Dresma.ai, I analyzed and validated data, documented ETL processes, and created Excel and Power BI reports for technical and business audiences.",
     href: "/experience/dresma-data-analyst-intern",
   },
   {
     label: "Software development",
-    text: "Full-stack projects and backend work added APIs, relational data modeling, frontend integration, debugging, testing, and distributed collaboration.",
+    text: "Full-stack projects and backend work added React, Node.js, REST APIs, relational database design, testing, debugging, and distributed collaboration.",
     href: "/experience/worsship-backend-developer",
   },
   {
     label: "Support and automation",
-    text: "At Dalhousie, user-facing IT support expanded into cross-platform troubleshooting, Power Platform workflows, SQL, reporting, and documentation.",
+    text: "At Dalhousie, I supported Windows, macOS, and Linux users and improved workflows with SQL, Power Automate, Excel, and documentation.",
     href: "/experience/dalhousie-it-technical-assistant-coop",
   },
   {
-    label: "Network observability",
-    text: "Network work at Irving Oil added monitoring accuracy, node validation, authentication hygiene, dashboard requirements, and structured troubleshooting.",
+    label: "Network monitoring",
+    text: "At Irving Oil, I configured and validated monitoring, gathered requirements, and troubleshot issues with Network, Service Desk, Cloud, and vendor teams.",
     href: "/experience/irving-oil-network-analyst-coop",
   },
   {
     label: "Enterprise systems",
-    text: "The current role brings those layers together through enterprise application support, cloud migration dependencies, workflow analysis, and cross-team coordination.",
+    text: "My current role brings those skills together through application support, Azure migration support, workflow analysis, documentation, and cross-team coordination.",
     href: "/experience/irving-oil-obt-it-analyst",
   },
 ];
@@ -54,8 +54,8 @@ export default function AboutPage() {
     <>
       <PageHero
         eyebrow="Professional story"
-        title="Breadth built layer by layer"
-        description="Yash's range is cumulative: each role has added another part of the same systems view—from users and requirements to applications, data, automation, cloud dependencies, and network visibility."
+        title="How my experience connects"
+        description="Each role has expanded how I work across user needs, software, data, automation, cloud dependencies, network monitoring, and technical support."
         actions={
           <>
             <Link className="button-primary" href="/experience">
@@ -73,7 +73,7 @@ export default function AboutPage() {
         <div>
           <p className="eyebrow">The through-line</p>
           <h2 className="mt-4 text-balance text-3xl font-semibold tracking-[-0.035em] sm:text-4xl">
-            Understand the whole system, then make it easier to rely on
+            Understand the system, then improve how it works
           </h2>
         </div>
         <div className="grid gap-5 text-pretty text-lg leading-8 text-muted-strong">
@@ -87,8 +87,8 @@ export default function AboutPage() {
         <div className="container-shell section-shell">
           <SectionHeading
             eyebrow="Progression"
-            title="Five stages, one connected practice"
-            description="The work moves from information quality to application behavior, user support, infrastructure visibility, and enterprise change."
+            title="How my experience developed"
+            description="Each role added a practical capability that now informs how I develop, troubleshoot, document, and support technology."
           />
           <ol className="grid gap-4 lg:grid-cols-5">
             {progression.map((step, index) => (
@@ -225,8 +225,8 @@ export default function AboutPage() {
             Continue the conversation
           </h2>
           <p className="mt-3 max-w-2xl text-muted">
-            View the complete record, inspect public code, or reach Yash
-            directly about a full-time technology role.
+            View my complete record, inspect public code, or reach me directly
+            about a full-time technology role.
           </p>
           <div className="mt-6 flex flex-wrap gap-3">
             <Link className="button-primary" href="/resume">

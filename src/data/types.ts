@@ -125,7 +125,7 @@ export interface ExperienceEntry {
   readonly company: string;
   readonly role: string;
   readonly organizationOrTeam: string;
-  readonly employmentType: "Co-op" | "Internship" | "Professional experience";
+  readonly employmentType: "Co-op" | "Internship" | "Professional role";
   readonly location: string;
   readonly startDate: YearMonth;
   readonly endDate: YearMonth | "Present";
@@ -175,7 +175,7 @@ export interface ProjectEntry {
 }
 
 export type SkillUsage =
-  | "Used in production or professional work"
+  | "Used in professional work"
   | "Used in a substantial project"
   | "Coursework or foundational exposure";
 

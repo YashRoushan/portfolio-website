@@ -7,7 +7,7 @@ export function ObtTeamPhoto() {
     <figure className="my-3 overflow-hidden rounded-2xl border border-border bg-surface shadow-[var(--shadow)]">
       <Image
         src={teamPhoto}
-        alt="Yash Roushan with six OBT IT teammates seated together around a restaurant table"
+        alt="Group photo accompanying the OBT IT Analyst collaboration section"
         placeholder="blur"
         sizes="(max-width: 1023px) calc(100vw - 2rem), 48rem"
         className="h-auto w-full"
@@ -17,12 +17,11 @@ export function ObtTeamPhoto() {
           Collaboration in practice
         </span>
         <h3 className="mt-2 text-xl font-semibold tracking-tight text-foreground">
-          My OBT IT Analyst team
+          Team collaboration
         </h3>
         <p className="mt-2 leading-7 text-muted-strong">
-          Much of this role involves talking with people and coordinating work
-          across business and technical teams—listening carefully, keeping
-          context aligned, and helping shared work move forward.
+          This role involves listening to users, keeping shared context clear,
+          and coordinating work across business and technical teams.
         </p>
       </figcaption>
     </figure>

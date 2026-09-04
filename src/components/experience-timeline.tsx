@@ -10,8 +10,8 @@ type FilterId = "all" | CapabilityId;
 const filters: { id: FilterId; label: string }[] = [
   { id: "all", label: "All" },
   { id: "software-engineering", label: "Software" },
-  { id: "cloud-enterprise", label: "Cloud and Enterprise" },
-  { id: "network-infrastructure", label: "Network and Infrastructure" },
+  { id: "cloud-enterprise", label: "Cloud and Enterprise Systems" },
+  { id: "network-infrastructure", label: "Networking and Infrastructure" },
   { id: "data-automation", label: "Data and Automation" },
 ];
 

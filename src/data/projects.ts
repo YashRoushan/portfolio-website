@@ -9,9 +9,9 @@ export const projects = [
     endDate: "2024-09",
     dateLabel: "April 2024–September 2024",
     shortSummary:
-      "A full-stack tournament administration application with dashboards and interfaces for working with tournament data.",
+      "A team-built full-stack application for tournament registration, administration, standings, pairings, and data management.",
     problemStatement:
-      "Tournament administrators needed interfaces for monitoring and working with tournament data while keeping the application, API, and database behavior reliable.",
+      "Tournament administrators needed interfaces for monitoring and working with tournament data while keeping the application, API, and database behaviour reliable.",
     capabilityCategories: ["software-engineering", "data-automation"],
     technologies: [
       "React",
@@ -22,10 +22,10 @@ export const projects = [
       "REST APIs",
     ],
     contribution: [
-      "Contributed full-stack features to a team tournament-administration application.",
-      "Worked on tournament registration and data-display functionality, administrative CRUD behavior, and standings or pairings interfaces.",
-      "Gathered stakeholder requirements and developed or debugged API, backend, database, and responsive interface behavior.",
-      "Supported reliability through troubleshooting, responsive fixes, and documentation.",
+      "Contributed full-stack features to a team-built tournament administration application.",
+      "Worked on tournament registration, administrative CRUD workflows, data displays, and standings and pairings interfaces.",
+      "Gathered stakeholder requirements and developed and debugged frontend, REST API, backend, and database behaviour.",
+      "Supported reliability through cross-layer troubleshooting, responsive fixes, and documentation.",
     ],
     keyFeatures: [
       "Tournament administration workflows",
@@ -35,16 +35,16 @@ export const projects = [
     ],
     engineeringDecisions: [
       "Separated interface, service, API, and relational data responsibilities across a full-stack application.",
-      "Used stakeholder requirements to guide administrative data views and workflow behavior.",
-      "Documented behavior and decisions while troubleshooting across application layers.",
+      "Used stakeholder requirements to guide administrative data views and workflow behaviour.",
+      "Documented behaviour and decisions while troubleshooting across application layers.",
     ],
     testingAndDebugging: [
       "Developed and debugged API, backend, database, and data-display functionality.",
       "Used troubleshooting and documentation to support application reliability.",
     ],
     outcomes: [
-      "Delivered tournament administration interfaces and data-monitoring functionality across the React, Node.js, API, and SQL stack.",
-      "Supported clearer maintenance through troubleshooting and technical documentation.",
+      "Contributed tournament administration interfaces and data workflows across the React, Node.js, REST API, and MySQL stack.",
+      "Supported maintenance through troubleshooting and technical documentation.",
     ],
     evidenceLinks: [
       {
@@ -95,8 +95,8 @@ export const projects = [
     contribution: [
       "Built a full-stack job-tracking application.",
       "Implemented CRUD functionality and persistent MongoDB storage.",
-      "Created responsive interfaces, user-account behavior, and backend services.",
-      "Tested and debugged frontend, backend, API, authentication, and database behavior.",
+      "Created responsive interfaces, user-account behaviour, and backend services.",
+      "Tested and debugged frontend, backend, REST API, user-account, and database behaviour.",
       "Deployed the application to Render.",
     ],
     keyFeatures: [
@@ -112,7 +112,7 @@ export const projects = [
       "Deployed the full-stack application on Render.",
     ],
     testingAndDebugging: [
-      "Tested and debugged the frontend, backend, REST API, authentication, and database behavior.",
+      "Tested and debugged the frontend, backend, REST API, user-account workflows, and database behaviour.",
       "Checked CRUD workflows across the interface, service, and persistence layers.",
     ],
     outcomes: [
@@ -151,43 +151,35 @@ export const projects = [
     endDate: "2024-04",
     dateLabel: "January 2024–April 2024",
     shortSummary:
-      "An Android marketplace application using Java, Firebase Realtime Database, and posting notifications.",
+      "A team-built Android marketplace application using Java and Firebase Realtime Database.",
     problemStatement:
-      "The project explored mobile marketplace flows that let users work with listings and receive timely posting updates across devices.",
+      "The project explored mobile marketplace workflows for creating, viewing, and managing listings in an Android application.",
     capabilityCategories: ["software-engineering", "data-automation"],
-    technologies: [
-      "Android Studio",
-      "Java",
-      "Firebase Realtime Database",
-      "Notifications",
-    ],
+    technologies: ["Android Studio", "Java", "Firebase Realtime Database"],
     contribution: [
-      "Built and tested an Android marketplace application as part of a team.",
-      "Contributed dashboard and navigation UI, UI tests, and location detection.",
-      "Worked on employer job posting with Firebase persistence and on preference storage and retrieval.",
-      "Contributed credit-card and CVV validation and refactoring.",
-      "Implemented or supported real-time data and posting notifications.",
-      "Designed user-facing flows and interfaces.",
-      "Troubleshot device compatibility and tested on multiple devices.",
+      "Contributed to a team-built Android marketplace application.",
+      "Built dashboard and navigation interfaces and added UI tests.",
+      "Implemented location detection, Firebase-backed job-posting persistence, and preference storage and retrieval.",
+      "Added credit-card and CVV validation and refactored related code.",
+      "Collaborated on user-facing flows, testing, and debugging.",
     ],
     keyFeatures: [
-      "Android marketplace flows",
-      "Firebase-backed real-time data",
-      "Posting notifications",
-      "User-facing mobile interfaces",
+      "Android marketplace workflows",
+      "Firebase-backed listing data",
+      "Dashboard and navigation interfaces",
+      "Location and preference features",
     ],
     engineeringDecisions: [
-      "Used Firebase Realtime Database to support shared marketplace data in the Android application.",
-      "Implemented the mobile application in Java with Android Studio.",
-      "Considered device behavior as part of interface and notification implementation.",
+      "Used Firebase Realtime Database for shared marketplace data.",
+      "Built the Android application in Java using Android Studio.",
     ],
     testingAndDebugging: [
-      "Tested application behavior on multiple devices.",
-      "Troubleshot device-compatibility issues and validated user-facing flows.",
+      "Added UI tests for dashboard and navigation behaviour.",
+      "Tested user-facing flows and refactored credit-card and CVV validation.",
     ],
     outcomes: [
-      "Delivered and tested marketplace flows backed by Firebase real-time data and posting notifications.",
-      "Supported more dependable device behavior through compatibility troubleshooting and multi-device testing.",
+      "Contributed Android marketplace features across interface, location, persistence, preference, and validation workflows.",
+      "Added UI coverage and refactored validation logic.",
     ],
     evidenceLinks: [
       {
@@ -220,7 +212,7 @@ export const projects = [
     endDate: "Present",
     dateLabel: "September 2024–Present",
     shortSummary:
-      "Ongoing team website maintenance covering blogs, registrations, announcements, troubleshooting, updates, and review.",
+      "Maintaining the team website through content updates, registration and announcement support, troubleshooting, code review, and team coordination.",
     problemStatement:
       "The team needs a maintained web presence for registrations, announcements, blogs, and other public updates.",
     capabilityCategories: ["software-engineering"],
@@ -232,9 +224,8 @@ export const projects = [
       "Team collaboration",
     ],
     contribution: [
-      "Developed or maintained the team website.",
-      "Supported blogs, registrations, and announcements.",
-      "Collaborated on web infrastructure, troubleshooting, updates, code review, and risk-mitigation decisions.",
+      "Maintained the team website and supported blogs, registrations, and announcements.",
+      "Collaborated on web-infrastructure troubleshooting, updates, code review, and implementation-risk decisions.",
     ],
     keyFeatures: [
       "Team blogs and announcements",
@@ -250,8 +241,8 @@ export const projects = [
       "Participated in code review and risk-mitigation decisions around updates.",
     ],
     outcomes: [
-      "Supported an up-to-date team web presence for blogs, registrations, and announcements.",
-      "Contributed to ongoing maintenance through troubleshooting, collaborative updates, and review.",
+      "Kept the team web presence current for blogs, registrations, and announcements.",
+      "Supported ongoing maintenance through troubleshooting, collaborative updates, and review.",
     ],
     evidenceLinks: [],
     teamAttribution:

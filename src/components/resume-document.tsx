@@ -59,9 +59,12 @@ export function ResumeDocument() {
           Professional summary
         </h3>
         <p className="mt-2 text-sm leading-6 text-muted-strong">
-          {profile.hero.statement} Experience spans user support, application
-          logic, relational data, automation, enterprise dependencies, network
-          monitoring, troubleshooting, and technical documentation.
+          Software and enterprise IT professional completing a Bachelor of
+          Computer Science at Dalhousie University, with experience in backend
+          development, Azure migration support, network monitoring, workflow
+          automation, and cross-platform technical support. Gathers
+          requirements, troubleshoots across system layers, coordinates with
+          technical and business teams, and documents solutions clearly.
         </p>
       </section>
 
@@ -70,7 +73,7 @@ export function ResumeDocument() {
         aria-labelledby="resume-skills-heading"
       >
         <h3 id="resume-skills-heading" className="resume-heading">
-          Technical capabilities
+          Skills and ways of working
         </h3>
         <p className="mt-2 text-sm leading-6 text-muted-strong">
           {skillNames.join(" · ")}

@@ -55,17 +55,17 @@ test("OBT case study presents the team collaboration photo", async ({
 }) => {
   await page.goto("/experience/irving-oil-obt-it-analyst");
   await expect(
-    page.getByRole("heading", { name: "My OBT IT Analyst team" }),
+    page.getByRole("heading", { name: "Team collaboration" }),
   ).toBeVisible();
   await expect(
     page.getByRole("img", {
-      name: "Yash Roushan with six OBT IT teammates seated together around a restaurant table",
+      name: "Group photo accompanying the OBT IT Analyst collaboration section",
     }),
   ).toBeVisible();
 
   await page.goto("/experience/irving-oil-network-analyst-coop");
   await expect(
-    page.getByRole("heading", { name: "My OBT IT Analyst team" }),
+    page.getByRole("heading", { name: "Team collaboration" }),
   ).toHaveCount(0);
 });
 

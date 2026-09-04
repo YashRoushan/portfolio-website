@@ -180,7 +180,7 @@ export default async function ExperienceDetailPage(
                     aria-hidden="true"
                     size={18}
                   />
-                  Type
+                  Experience type
                 </dt>
                 <dd className="mt-1 pl-[1.875rem] font-medium">
                   {experience.employmentType}
@@ -219,7 +219,7 @@ export default async function ExperienceDetailPage(
         <CaseStudySection
           id="systems-tools"
           number="04"
-          title="Systems, tools, and technologies"
+          title="Tools and technologies"
         >
           <div className="flex flex-wrap gap-2">
             {experience.technologies.map((technology) => (
@@ -238,13 +238,11 @@ export default async function ExperienceDetailPage(
           {experience.slug === "irving-oil-obt-it-analyst" ? (
             <ObtTeamPhoto />
           ) : null}
-          <h3 className="mt-3 font-semibold text-foreground">
-            Challenges considered
-          </h3>
+          <h3 className="mt-3 font-semibold text-foreground">Challenges</h3>
           <CaseStudyList items={experience.challenges} />
         </CaseStudySection>
 
-        <CaseStudySection id="value" number="06" title="Outcome or value">
+        <CaseStudySection id="value" number="06" title="Outcomes">
           <CaseStudyList items={experience.outcomes} />
         </CaseStudySection>
 
@@ -255,7 +253,7 @@ export default async function ExperienceDetailPage(
         <CaseStudySection
           id="evidence"
           number="08"
-          title="Public evidence or confidentiality note"
+          title="Evidence and confidentiality"
         >
           <ConfidentialityNotice>
             {experience.confidentialityNote}

@@ -13,7 +13,7 @@ export default function NotFound() {
         </h1>
         <p className="mt-5 text-muted">
           The page may have moved, or the address may be incomplete. Return home
-          to continue exploring Yash&apos;s work.
+          to continue exploring my work.
         </p>
         <Link className="button-primary mt-8" href="/">
           <ArrowLeft aria-hidden="true" size={16} /> Return home

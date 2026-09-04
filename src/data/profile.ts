@@ -22,9 +22,9 @@ export const profile = {
       "I build software and support cloud platforms, enterprise applications, automation workflows, and network infrastructure, with a focus on reliability, troubleshooting, and clear documentation.",
   },
   professionalStory: [
-    "My experience has grown across connected layers of technology: data quality and repeatable workflows, full-stack and backend development, user-facing IT support, automation, network observability, and enterprise application modernization.",
-    "That range is cumulative. It helps me follow a system from user needs and application logic through data, cloud dependencies, network visibility, troubleshooting, and the documentation that keeps teams aligned.",
-    "I am completing a Bachelor of Computer Science at Dalhousie University and seeking full-time technology roles where reliable delivery, clear communication, and practical problem-solving matter.",
+    "My experience spans backend and full-stack development, enterprise application support, workflow automation, network monitoring, data analysis, and cross-platform technical support.",
+    "Across those roles, I have gathered requirements, traced issues across applications, data, cloud, and network dependencies, coordinated with technical and business teams, and documented what others need to operate and change systems reliably.",
+    "I am completing a Bachelor of Computer Science at Dalhousie University and seeking full-time software and enterprise IT roles where practical problem-solving, clear communication, and dependable delivery matter.",
   ],
   principles: [
     "Reliability",
@@ -78,7 +78,7 @@ export const contactMethods = [
     id: "linkedin",
     label: "LinkedIn",
     href: "https://www.linkedin.com/in/yash-roushan-8636a1242/",
-    description: "Connect with Yash professionally on LinkedIn.",
+    description: "Connect with me professionally on LinkedIn.",
     priority: 1,
     external: true,
   },
@@ -87,7 +87,7 @@ export const contactMethods = [
     label: "Email",
     href: "mailto:yashroushan@dal.ca?subject=Portfolio%20inquiry%20for%20Yash%20Roushan",
     description:
-      "Email Yash about a technology role or professional conversation.",
+      "Email me about a technology role or professional conversation.",
     priority: 2,
     external: true,
   },
@@ -95,7 +95,7 @@ export const contactMethods = [
     id: "github",
     label: "GitHub",
     href: "https://github.com/YashRoushan",
-    description: "Review Yash's public code and repositories.",
+    description: "View my public code and repositories.",
     priority: 3,
     external: true,
   },
@@ -103,7 +103,7 @@ export const contactMethods = [
     id: "resume",
     label: "Resume",
     href: "/resume",
-    description: "View Yash's resume overview and download options.",
+    description: "View my web resume or download the PDF.",
     priority: 4,
     external: false,
   },
@@ -114,31 +114,31 @@ export const capabilityPillars = [
     id: "software-engineering",
     title: "Software Engineering",
     summary:
-      "Frontend, backend, API, database, debugging, testing, and deployment work across professional roles and substantial projects.",
+      "Full-stack and backend development spanning React, Node.js, REST APIs, databases, testing, debugging, and deployment.",
     href: "/skills#software-engineering",
   },
   {
     id: "cloud-enterprise",
     title: "Cloud and Enterprise Systems",
     summary:
-      "Enterprise application support, Azure migration dependencies, requirements gathering, troubleshooting, and clear technical documentation.",
+      "Enterprise application support, Azure migration support, requirements gathering, troubleshooting, and technical documentation.",
     href: "/skills#cloud-enterprise",
   },
   {
     id: "network-infrastructure",
     title: "Networking and Infrastructure",
     summary:
-      "Monitoring, node validation, network authentication hygiene, cross-platform support, and structured incident troubleshooting.",
+      "Network monitoring, node configuration and validation, authentication systems, cross-platform support, and incident troubleshooting.",
     href: "/skills#network-infrastructure",
   },
   {
     id: "data-automation",
     title: "Data and Automation",
     summary:
-      "Relational data, workflow automation, reporting, ETL documentation, and data-quality analysis grounded in real work.",
+      "SQL, workflow automation, reporting, ETL documentation, and data-quality analysis from professional work.",
     href: "/skills#data-automation",
   },
 ] as const satisfies readonly CapabilityPillar[];
 
 export const closingStatement =
-  "Building reliable technology across software, cloud, and infrastructure.";
+  "Software development and enterprise IT experience across cloud, automation, networking, and support.";

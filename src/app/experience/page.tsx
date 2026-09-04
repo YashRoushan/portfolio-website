@@ -15,25 +15,25 @@ export default function ExperiencePage() {
     <>
       <PageHero
         eyebrow="Professional timeline"
-        title="Experience across connected systems"
-        description="A progression from data quality and software development to user-facing IT support, network observability, cloud migration support, and business technology analysis. Every role opens into a dedicated case study."
+        title="Software, systems, and support"
+        description="My experience spans backend development, technical support, network monitoring, workflow automation, and enterprise application support. Each role includes a detailed case study."
         aside={
           <div className="surface-card rounded-2xl p-6">
             <p className="font-mono text-xs font-semibold uppercase tracking-[0.08em] text-secondary">
-              How to read this timeline
+              What each case study covers
             </p>
             <ol className="mt-5 grid gap-3 text-sm text-muted-strong">
               <li className="flex gap-3">
-                <span className="font-mono text-primary-strong">01</span> Scan
-                the role and contribution.
+                <span className="font-mono text-primary-strong">01</span> Role
+                and contribution
               </li>
               <li className="flex gap-3">
-                <span className="font-mono text-primary-strong">02</span> Open
-                the case study for context.
+                <span className="font-mono text-primary-strong">02</span> Tools
+                and technical context
               </li>
               <li className="flex gap-3">
-                <span className="font-mono text-primary-strong">03</span> Follow
-                technologies to evidence.
+                <span className="font-mono text-primary-strong">03</span>
+                Outcomes, learning, and evidence
               </li>
             </ol>
           </div>

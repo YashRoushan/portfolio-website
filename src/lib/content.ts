@@ -7,8 +7,8 @@ import type {
 
 export const capabilityLabels: Record<CapabilityId, string> = {
   "software-engineering": "Software Engineering",
-  "cloud-enterprise": "Cloud and Enterprise",
-  "network-infrastructure": "Network and Infrastructure",
+  "cloud-enterprise": "Cloud and Enterprise Systems",
+  "network-infrastructure": "Networking and Infrastructure",
   "data-automation": "Data and Automation",
 };
 

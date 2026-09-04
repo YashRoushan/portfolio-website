@@ -19,7 +19,7 @@ export const skills = [
     name: "JavaScript",
     group: "Programming and web",
     capabilityCategories: ["software-engineering", "data-automation"],
-    usage: "Used in production or professional work",
+    usage: "Used in professional work",
     evidence: [
       {
         label: "Worsship — Backend Developer",
@@ -57,7 +57,7 @@ export const skills = [
     name: "Python",
     group: "Programming and web",
     capabilityCategories: ["data-automation", "software-engineering"],
-    usage: "Used in production or professional work",
+    usage: "Used in professional work",
     evidence: [
       {
         label: "Dresma.ai — Data Analyst Intern",
@@ -72,7 +72,7 @@ export const skills = [
     name: "React",
     group: "Programming and web",
     capabilityCategories: ["software-engineering"],
-    usage: "Used in production or professional work",
+    usage: "Used in professional work",
     evidence: [
       {
         label: "Worsship — Backend Developer",
@@ -97,7 +97,7 @@ export const skills = [
     name: "Node.js",
     group: "Programming and web",
     capabilityCategories: ["software-engineering"],
-    usage: "Used in production or professional work",
+    usage: "Used in professional work",
     evidence: [
       {
         label: "Worsship — Backend Developer",
@@ -135,7 +135,7 @@ export const skills = [
     name: "REST APIs",
     group: "Programming and web",
     capabilityCategories: ["software-engineering"],
-    usage: "Used in production or professional work",
+    usage: "Used in professional work",
     evidence: [
       {
         label: "Worsship — Backend Developer",
@@ -161,13 +161,13 @@ export const skills = [
     name: "Relational database design",
     group: "Data and databases",
     capabilityCategories: ["software-engineering", "data-automation"],
-    usage: "Used in production or professional work",
+    usage: "Used in professional work",
     evidence: [
       {
         label: "Worsship — Backend Developer",
         href: "/experience/worsship-backend-developer",
         context:
-          "Designed and optimized SQL schemas with attention to data integrity.",
+          "Designed SQL schemas with attention to data integrity and maintainability.",
       },
     ],
   },
@@ -176,7 +176,7 @@ export const skills = [
     name: "SQL",
     group: "Data and databases",
     capabilityCategories: ["software-engineering", "data-automation"],
-    usage: "Used in production or professional work",
+    usage: "Used in professional work",
     evidence: [
       {
         label: "Worsship — Backend Developer",
@@ -200,7 +200,7 @@ export const skills = [
     name: "MySQL",
     group: "Data and databases",
     capabilityCategories: ["data-automation"],
-    usage: "Used in production or professional work",
+    usage: "Used in professional work",
     evidence: [
       {
         label: "Dresma.ai — Data Analyst Intern",
@@ -244,13 +244,13 @@ export const skills = [
     name: "Microsoft Azure",
     group: "Cloud and automation",
     capabilityCategories: ["cloud-enterprise"],
-    usage: "Used in production or professional work",
+    usage: "Used in professional work",
     evidence: [
       {
         label: "Irving Oil — OBT IT Analyst",
         href: "/experience/irving-oil-obt-it-analyst",
         context:
-          "Migration support, dependencies, network maps, and documentation.",
+          "Azure migration support, application dependencies, and technical documentation.",
       },
     ],
   },
@@ -259,7 +259,7 @@ export const skills = [
     name: "Power Automate",
     group: "Cloud and automation",
     capabilityCategories: ["data-automation", "cloud-enterprise"],
-    usage: "Used in production or professional work",
+    usage: "Used in professional work",
     evidence: [
       {
         label: "Dalhousie — IT Technical Assistant Co-op",
@@ -269,26 +269,11 @@ export const skills = [
     ],
   },
   {
-    id: "power-apps",
-    name: "Power Apps",
-    group: "Cloud and automation",
-    capabilityCategories: ["data-automation", "cloud-enterprise"],
-    usage: "Used in production or professional work",
-    evidence: [
-      {
-        label: "Dalhousie — IT Technical Assistant Co-op",
-        href: "/experience/dalhousie-it-technical-assistant-coop",
-        context:
-          "Built or maintained Power Platform workflows and applications.",
-      },
-    ],
-  },
-  {
     id: "power-bi",
     name: "Power BI",
     group: "Cloud and automation",
     capabilityCategories: ["data-automation"],
-    usage: "Used in production or professional work",
+    usage: "Used in professional work",
     evidence: [
       {
         label: "Dresma.ai — Data Analyst Intern",
@@ -302,7 +287,7 @@ export const skills = [
     name: "Excel",
     group: "Cloud and automation",
     capabilityCategories: ["data-automation"],
-    usage: "Used in production or professional work",
+    usage: "Used in professional work",
     evidence: [
       {
         label: "Dalhousie — IT Technical Assistant Co-op",
@@ -321,7 +306,7 @@ export const skills = [
     name: "Cisco networking",
     group: "Networking and systems",
     capabilityCategories: ["network-infrastructure"],
-    usage: "Used in production or professional work",
+    usage: "Used in professional work",
     evidence: [
       {
         label: "Irving Oil — Network Analyst Co-op",
@@ -336,7 +321,7 @@ export const skills = [
     name: "SolarWinds",
     group: "Networking and systems",
     capabilityCategories: ["network-infrastructure"],
-    usage: "Used in production or professional work",
+    usage: "Used in professional work",
     evidence: [
       {
         label: "Irving Oil — Network Analyst Co-op",
@@ -350,7 +335,7 @@ export const skills = [
     name: "Cisco ISE",
     group: "Networking and systems",
     capabilityCategories: ["network-infrastructure"],
-    usage: "Used in production or professional work",
+    usage: "Used in professional work",
     evidence: [
       {
         label: "Irving Oil — Network Analyst Co-op",
@@ -364,7 +349,7 @@ export const skills = [
     name: "ServiceNow",
     group: "Networking and systems",
     capabilityCategories: ["network-infrastructure", "cloud-enterprise"],
-    usage: "Used in production or professional work",
+    usage: "Used in professional work",
     evidence: [
       {
         label: "Irving Oil — Network Analyst Co-op",
@@ -379,7 +364,7 @@ export const skills = [
     name: "RT ticketing",
     group: "Networking and systems",
     capabilityCategories: ["network-infrastructure", "cloud-enterprise"],
-    usage: "Used in production or professional work",
+    usage: "Used in professional work",
     evidence: [
       {
         label: "Dalhousie — IT Technical Assistant Co-op",
@@ -393,7 +378,7 @@ export const skills = [
     name: "LDAP",
     group: "Networking and systems",
     capabilityCategories: ["network-infrastructure", "cloud-enterprise"],
-    usage: "Used in production or professional work",
+    usage: "Used in professional work",
     evidence: [
       {
         label: "Dalhousie — IT Technical Assistant Co-op",
@@ -407,7 +392,7 @@ export const skills = [
     name: "Windows",
     group: "Networking and systems",
     capabilityCategories: ["network-infrastructure"],
-    usage: "Used in production or professional work",
+    usage: "Used in professional work",
     evidence: [
       {
         label: "Dalhousie — IT Technical Assistant Co-op",
@@ -422,7 +407,7 @@ export const skills = [
     name: "macOS",
     group: "Networking and systems",
     capabilityCategories: ["network-infrastructure"],
-    usage: "Used in production or professional work",
+    usage: "Used in professional work",
     evidence: [
       {
         label: "Dalhousie — IT Technical Assistant Co-op",
@@ -436,7 +421,7 @@ export const skills = [
     name: "Linux",
     group: "Networking and systems",
     capabilityCategories: ["network-infrastructure"],
-    usage: "Used in production or professional work",
+    usage: "Used in professional work",
     evidence: [
       {
         label: "Dalhousie — IT Technical Assistant Co-op",
@@ -450,7 +435,7 @@ export const skills = [
     name: "Git and GitHub",
     group: "Ways of working",
     capabilityCategories: ["software-engineering"],
-    usage: "Used in production or professional work",
+    usage: "Used in professional work",
     evidence: [
       {
         label: "Worsship — Backend Developer",
@@ -465,7 +450,7 @@ export const skills = [
       {
         label: "DalChess Code",
         href: "/projects/dalchess-code",
-        context: "Public project branch on GitHub.",
+        context: "Full-stack collaboration in a multi-author repository.",
       },
     ],
   },
@@ -479,7 +464,7 @@ export const skills = [
       "network-infrastructure",
       "data-automation",
     ],
-    usage: "Used in production or professional work",
+    usage: "Used in professional work",
     evidence: [
       {
         label: "Irving Oil — OBT IT Analyst",
@@ -510,7 +495,7 @@ export const skills = [
       "network-infrastructure",
       "data-automation",
     ],
-    usage: "Used in production or professional work",
+    usage: "Used in professional work",
     evidence: [
       {
         label: "Irving Oil — OBT IT Analyst",
@@ -541,7 +526,7 @@ export const skills = [
       "network-infrastructure",
       "data-automation",
     ],
-    usage: "Used in production or professional work",
+    usage: "Used in professional work",
     evidence: [
       {
         label: "Irving Oil — OBT IT Analyst",
@@ -566,7 +551,7 @@ export const skills = [
     name: "Stakeholder and vendor communication",
     group: "Ways of working",
     capabilityCategories: ["cloud-enterprise", "network-infrastructure"],
-    usage: "Used in production or professional work",
+    usage: "Used in professional work",
     evidence: [
       {
         label: "Irving Oil — OBT IT Analyst",
@@ -587,7 +572,7 @@ export const skills = [
     name: "Agile collaboration",
     group: "Ways of working",
     capabilityCategories: ["software-engineering", "data-automation"],
-    usage: "Used in production or professional work",
+    usage: "Used in professional work",
     evidence: [
       {
         label: "Worsship — Backend Developer",
