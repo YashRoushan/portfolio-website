@@ -61,7 +61,7 @@ Edit `src/data/skills.ts` only when a skill can link to a role or substantial pr
 
 ### Resume
 
-Replace `public/Yash-Roushan-Resume.pdf` without changing its filename. The current PDF is the user-supplied `phreesia.pdf`, published under the site's stable download filename. Before future replacement, check:
+Replace `public/Yash-Roushan-Resume.pdf` without changing its filename. The current PDF is the user-supplied `Base Resume.pdf`, published under the site's stable download filename. Before future replacement, check:
 
 - public email and phone/privacy choices;
 - employer confidentiality and absence of internal data;
