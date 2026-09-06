@@ -21,6 +21,7 @@ import { EvidenceLink } from "@/components/evidence-link";
 import { ObtTeamPhoto } from "@/components/obt-team-photo";
 import { PreviousNext } from "@/components/previous-next";
 import { TechnologyTag } from "@/components/technology-tag";
+import { WorsshipLetter } from "@/components/worsship-letter";
 import { experiences } from "@/data/experience";
 import { projects } from "@/data/projects";
 import { categoryLabels, visibleEvidenceLinks } from "@/lib/content";
@@ -255,6 +256,9 @@ export default async function ExperienceDetailPage(
           number="08"
           title="Evidence and confidentiality"
         >
+          {experience.slug === "worsship-backend-developer" ? (
+            <WorsshipLetter />
+          ) : null}
           <ConfidentialityNotice>
             {experience.confidentialityNote}
           </ConfidentialityNotice>
