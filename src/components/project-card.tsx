@@ -9,10 +9,12 @@ import {
   projectPreviewVariant,
   visibleEvidenceLinks,
 } from "@/lib/content";
+import { getProjectScreenshot } from "@/lib/project-screenshots";
 
 export function ProjectCard({ project }: { project: ProjectEntry }) {
   const href = `/projects/${project.slug}`;
   const evidence = visibleEvidenceLinks(project)[0];
+  const screenshot = getProjectScreenshot(project.slug);
 
   return (
     <article className="surface-card surface-card-interactive group flex h-full flex-col overflow-hidden rounded-xl">
@@ -20,6 +22,9 @@ export function ProjectCard({ project }: { project: ProjectEntry }) {
         code={projectCode(project.slug)}
         label={project.title}
         variant={projectPreviewVariant(project.slug)}
+        image={screenshot?.src}
+        imageAlt={screenshot?.alt}
+        imageFit={screenshot?.fit}
       />
       <div className="flex flex-1 flex-col p-5 sm:p-6">
         <div className="flex flex-wrap items-center justify-between gap-2">

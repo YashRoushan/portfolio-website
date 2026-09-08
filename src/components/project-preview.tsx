@@ -1,7 +1,12 @@
+import Image, { type StaticImageData } from "next/image";
+
 type ProjectPreviewProps = {
   code: string;
   label: string;
   variant?: "blue" | "teal" | "violet" | "slate";
+  image?: StaticImageData;
+  imageAlt?: string;
+  imageFit?: "cover" | "contain";
 };
 
 const gradients = {
@@ -15,7 +20,26 @@ export function ProjectPreview({
   code,
   label,
   variant = "blue",
+  image,
+  imageAlt = "",
+  imageFit = "cover",
 }: ProjectPreviewProps) {
+  if (image) {
+    return (
+      <div
+        className={`relative aspect-[16/10] overflow-hidden border-b border-border bg-gradient-to-br ${gradients[variant]}`}
+      >
+        <Image
+          src={image}
+          alt={imageAlt}
+          placeholder="blur"
+          sizes="(max-width: 767px) calc(100vw - 2rem), (max-width: 1199px) 50vw, 25rem"
+          className={`h-full w-full ${imageFit === "contain" ? "object-contain" : "object-cover"}`}
+        />
+      </div>
+    );
+  }
+
   return (
     <div
       className={`relative aspect-[16/10] overflow-hidden border-b border-border bg-gradient-to-br ${gradients[variant]} p-5`}

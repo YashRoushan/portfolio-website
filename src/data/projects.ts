@@ -187,8 +187,8 @@ export const projects = [
         href: "https://github.com/KrutikChaudhary/Android-Quick-Cash",
         kind: "team-repository",
         validationStatus: "validated",
-        publicationStatus: "publish",
-        note: "This is a team repository owned by Krutik Chaudhary, not Yash Roushan's GitHub account.",
+        publicationStatus: "hold-for-review",
+        note: "This team repository is owned by Krutik Chaudhary and currently exposes credential files. Keep the link private until those credentials are revoked or rotated and removed from Git history.",
       },
     ],
     teamAttribution:

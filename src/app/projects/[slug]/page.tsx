@@ -22,6 +22,7 @@ import {
   visibleEvidenceLinks,
 } from "@/lib/content";
 import { createPageMetadata } from "@/lib/metadata";
+import { getProjectScreenshot } from "@/lib/project-screenshots";
 import { absoluteUrl } from "@/lib/site";
 
 export const dynamicParams = false;
@@ -56,6 +57,7 @@ export default async function ProjectDetailPage(
   const index = projects.findIndex((item) => item.slug === project.slug);
   const previous = projects[index - 1];
   const next = projects[index + 1];
+  const screenshot = getProjectScreenshot(project.slug);
   const evidence = visibleEvidenceLinks(project);
   const relatedExperience = project.relatedExperience
     .map((relatedSlug) => experiences.find((item) => item.slug === relatedSlug))
@@ -129,6 +131,9 @@ export default async function ProjectDetailPage(
                 code={projectCode(project.slug)}
                 label={project.title}
                 variant={projectPreviewVariant(project.slug)}
+                image={screenshot?.src}
+                imageAlt={screenshot?.alt}
+                imageFit={screenshot?.fit}
               />
               <dl className="grid gap-3 border-t border-border p-4 text-sm sm:grid-cols-3">
                 <div>
