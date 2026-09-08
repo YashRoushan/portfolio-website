@@ -27,6 +27,9 @@ export function projectPreviewVariant(slug: ProjectEntry["slug"]) {
   const variants = {
     "dalchess-code": "blue",
     "jobify-job-tracker": "teal",
+    "productivity-task-manager": "violet",
+    "stock-portfolio-tracker": "teal",
+    "multi-node-process-simulator": "slate",
     "quick-cash-marketplace": "violet",
     "dalhousie-combat-robotics": "slate",
   } as const;
@@ -37,6 +40,9 @@ export function projectCode(slug: ProjectEntry["slug"]) {
   const codes = {
     "dalchess-code": "DC",
     "jobify-job-tracker": "JF",
+    "productivity-task-manager": "PT",
+    "stock-portfolio-tracker": "SP",
+    "multi-node-process-simulator": "OS",
     "quick-cash-marketplace": "QC",
     "dalhousie-combat-robotics": "DCR",
   } as const;

@@ -144,6 +144,223 @@ export const projects = [
     featured: true,
   },
   {
+    slug: "productivity-task-manager",
+    title: "Productivity Task Manager",
+    role: "Full-Stack Developer",
+    startDate: "2025-11",
+    endDate: "2025-11",
+    dateLabel: "November 2025",
+    shortSummary:
+      "A TypeScript MERN application for task planning, calendar scheduling, recurring work, reminders, focus sessions, and productivity analytics.",
+    problemStatement:
+      "Students needed one place to capture coursework quickly, organize priorities and tags, schedule work, and review completion patterns.",
+    capabilityCategories: ["software-engineering", "data-automation"],
+    technologies: [
+      "React",
+      "TypeScript",
+      "Node.js",
+      "Express.js",
+      "MongoDB",
+      "React Query",
+      "Zustand",
+      "FullCalendar",
+    ],
+    contribution: [
+      "Structured the codebase as npm workspaces with separate React and Express applications.",
+      "Implemented account workflows with access and refresh tokens, password hashing, protected routes, rate limiting, and Zod validation.",
+      "Built task, tag, checklist, recurrence, reminder, calendar, and drag-and-drop status workflows.",
+      "Added a quick-add parser for dates, priorities, tags, all-day tasks, and descriptions.",
+      "Connected dashboard analytics and CSV export to MongoDB-backed task activity.",
+    ],
+    keyFeatures: [
+      "Kanban-style task management with priorities, tags, and checklists",
+      "Day, week, and month calendar views",
+      "Recurring tasks, reminders, and focus sessions",
+      "Quick-add task parsing",
+      "Completion, workload, and tag analytics with CSV export",
+    ],
+    engineeringDecisions: [
+      "Used React Query for server-backed data and Zustand for focused client state such as authentication, theme, and interface preferences.",
+      "Modeled recurrence, scheduling, checklists, tags, and user ownership in MongoDB with indexes for common status and due-date queries.",
+      "Separated routes, controllers, schemas, models, middleware, and services in the API workspace.",
+    ],
+    testingAndDebugging: [
+      "Added Jest and Supertest cases for registration, login, invalid email input, and rejected credentials.",
+      "Used shared query invalidation to keep task, calendar, and analytics views synchronized after updates.",
+    ],
+    outcomes: [
+      "Produced an end-to-end task-management codebase spanning planning, scheduling, focus, reminder, and reporting workflows.",
+      "Combined typed frontend and backend modules in one workspace with documented local and Docker setup paths.",
+    ],
+    evidenceLinks: [
+      {
+        label: "View the Productivity Task Manager on GitHub",
+        href: "https://github.com/YashRoushan/To-Do-App",
+        kind: "repository",
+        validationStatus: "validated",
+        publicationStatus: "publish",
+        note: "Repository inspected on September 8, 2026. Its API JavaScript bundle succeeds, but declaration generation currently reports missing CORS types and a port typing error; dependency updates are also required.",
+      },
+    ],
+    teamAttribution:
+      "Personal project; the public repository is owned by Yash Roushan and attributes its commit to Yash Roushan.",
+    relatedSkills: [
+      "React",
+      "TypeScript",
+      "Node.js",
+      "Express.js",
+      "MongoDB",
+      "REST APIs",
+      "Testing and debugging",
+    ],
+    relatedExperience: ["worsship-backend-developer"],
+    displayOrder: 3,
+    featured: false,
+  },
+  {
+    slug: "stock-portfolio-tracker",
+    title: "Stock Portfolio Tracker",
+    role: "Full-Stack Developer",
+    startDate: "2026-01",
+    endDate: "2026-01",
+    dateLabel: "January 2026",
+    shortSummary:
+      "A full-stack TypeScript application for recording portfolio transactions, calculating holdings, retrieving market prices, and visualizing allocation and performance data.",
+    problemStatement:
+      "Individual investors needed a structured way to separate portfolios, record buys, sells, and dividends, and review position-level and portfolio-level calculations.",
+    capabilityCategories: ["software-engineering", "data-automation"],
+    technologies: [
+      "React",
+      "TypeScript",
+      "Node.js",
+      "Express.js",
+      "PostgreSQL",
+      "Prisma",
+      "Recharts",
+      "Docker Compose",
+    ],
+    contribution: [
+      "Built separate React and Express applications backed by a PostgreSQL and Prisma data model.",
+      "Implemented authenticated portfolio, transaction, dividend, price, and summary endpoints.",
+      "Calculated quantities, average cost, cost basis, realized and unrealized changes, dividends, and allocation from transaction data.",
+      "Added interchangeable market-data providers with a configurable server-side quote cache.",
+      "Created protected dashboard and portfolio interfaces with trend and allocation charts.",
+    ],
+    keyFeatures: [
+      "Multiple portfolios with user-scoped access",
+      "Buy, sell, and dividend records",
+      "Holding and portfolio summaries",
+      "Cached market-price retrieval",
+      "Trend and allocation visualizations",
+    ],
+    engineeringDecisions: [
+      "Stored monetary values as integer cents and share quantities as database decimals to make calculation choices explicit.",
+      "Separated market-data access behind a provider interface so Alpha Vantage and Financial Modeling Prep can be configured independently.",
+      "Used Docker Compose to describe the frontend, API, and PostgreSQL development environment.",
+    ],
+    testingAndDebugging: [
+      "Added Jest and Supertest scenarios for account access and the create-portfolio, add-transaction, and summary workflow.",
+      "Documented that the current trend series uses cost basis when historical market-price data is unavailable.",
+    ],
+    outcomes: [
+      "Produced a modular portfolio-tracking codebase covering account access, persistence, market-data integration, financial calculations, and visualization.",
+      "Kept provider limitations and the simplified historical series explicit in the repository documentation.",
+    ],
+    evidenceLinks: [
+      {
+        label: "View the Stock Portfolio Tracker on GitHub",
+        href: "https://github.com/YashRoushan/Stock-Portfolio-Tracker",
+        kind: "repository",
+        validationStatus: "validated",
+        publicationStatus: "publish",
+        note: "Repository inspected on September 8, 2026. It contains placeholder screenshot files, and its current backend TypeScript and frontend PostCSS configurations require fixes before a clean production build.",
+      },
+    ],
+    teamAttribution:
+      "Personal project; the public repository is owned by Yash Roushan and attributes its commit to Yash Roushan.",
+    relatedSkills: [
+      "React",
+      "TypeScript",
+      "Node.js",
+      "Express.js",
+      "PostgreSQL",
+      "REST APIs",
+      "Docker Compose",
+    ],
+    relatedExperience: ["worsship-backend-developer"],
+    displayOrder: 4,
+    featured: false,
+  },
+  {
+    slug: "multi-node-process-simulator",
+    title: "Multi-Node Process Simulator",
+    role: "Systems Programming Developer",
+    startDate: "2024-07",
+    endDate: "2024-07",
+    dateLabel: "July 2024",
+    shortSummary:
+      "A C-based operating-system simulator for running process workloads across multiple nodes with priorities, time quanta, blocking, preemption, and execution statistics.",
+    problemStatement:
+      "The simulator needed to coordinate independent node schedules while preserving ready, blocked, running, and finished process state and reporting consistent timing results.",
+    capabilityCategories: ["software-engineering"],
+    technologies: [
+      "C",
+      "POSIX threads",
+      "Mutexes",
+      "Priority queues",
+      "Make",
+      "Shell testing",
+    ],
+    contribution: [
+      "Extended the coursework simulator with thread-based execution for configurable processing nodes.",
+      "Maintained per-node ready and blocked queues, clock state, process identifiers, and CPU quantum settings.",
+      "Used mutexes around shared queues and finished-process results to reduce destructive concurrent access.",
+      "Worked with priority, shortest-job-first, blocking, preemption, and process-timing behaviour.",
+    ],
+    keyFeatures: [
+      "Configurable node and process counts",
+      "Ready, running, blocked, and finished states",
+      "Priority and shortest-job-first scheduling",
+      "CPU quantum and preemption handling",
+      "Run, block, and wait-time reporting",
+    ],
+    engineeringDecisions: [
+      "Kept queue and clock state per node while protecting the shared finished queue separately.",
+      "Used priority queues for ready work, wake-up ordering, and deterministic final statistics.",
+      "Separated program-context parsing, queue operations, process simulation, and orchestration into focused C modules.",
+    ],
+    testingAndDebugging: [
+      "Included ten input and expected-output fixtures covering one to sixteen threads and as many as sixty-four processes.",
+      "Compiled the repository with GCC and matched all ten expected outputs during the portfolio review.",
+    ],
+    outcomes: [
+      "Produced consistent process-state and timing output across the repository's single-node and multi-node fixtures.",
+      "Demonstrated systems-programming work with scheduling, shared state, synchronization, and deterministic verification.",
+    ],
+    evidenceLinks: [
+      {
+        label: "View the Multi-Node Process Simulator on GitHub",
+        href: "https://github.com/YashRoushan/Operating_System_Simulator",
+        kind: "repository",
+        validationStatus: "validated",
+        publicationStatus: "publish",
+        note: "Compiled and checked against all ten repository fixtures on September 8, 2026. Several files explicitly credit Dr. Alex Brodsky as the author of supplied course code, so the case study limits Yash's attribution to the multi-node, locking, and process-model changes identified in the repository.",
+      },
+    ],
+    teamAttribution:
+      "Coursework project built from supplied code credited in the repository to Dr. Alex Brodsky. Yash's documented work focuses on multi-node execution, synchronization, and adapting the process model.",
+    relatedSkills: [
+      "C",
+      "POSIX threads",
+      "Concurrency",
+      "Priority queues",
+      "Testing and debugging",
+    ],
+    relatedExperience: [],
+    displayOrder: 5,
+    featured: false,
+  },
+  {
     slug: "quick-cash-marketplace",
     title: "Quick Cash",
     role: "Mobile App Developer",
@@ -201,7 +418,7 @@ export const projects = [
       "Testing and debugging",
     ],
     relatedExperience: [],
-    displayOrder: 3,
+    displayOrder: 6,
     featured: true,
   },
   {
@@ -254,12 +471,16 @@ export const projects = [
       "Team collaboration",
     ],
     relatedExperience: [],
-    displayOrder: 4,
+    displayOrder: 7,
     featured: false,
   },
 ] as const satisfies readonly ProjectEntry[];
 
 export const featuredProjects = projects.filter((project) => project.featured);
+
+export const homepageProjects = projects.filter(
+  (project) => project.slug !== "dalhousie-combat-robotics",
+);
 
 export const projectSlugs = projects.map((project) => project.slug);
 

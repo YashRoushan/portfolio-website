@@ -17,7 +17,7 @@ import { SectionHeading } from "@/components/section-heading";
 import { credentials, credentialsSectionTitle } from "@/data/credentials";
 import { featuredExperiences } from "@/data/experience";
 import { capabilityPillars, profile } from "@/data/profile";
-import { featuredProjects } from "@/data/projects";
+import { homepageProjects } from "@/data/projects";
 import { emailHref } from "@/lib/site";
 import { createPageMetadata } from "@/lib/metadata";
 
@@ -172,7 +172,7 @@ export default function HomePage() {
           }
         />
         <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-          {featuredProjects.map((project) => (
+          {homepageProjects.map((project) => (
             <ProjectCard key={project.slug} project={project} />
           ))}
         </div>

@@ -8,7 +8,7 @@ import { createPageMetadata } from "@/lib/metadata";
 export const metadata = createPageMetadata({
   title: "Projects",
   description:
-    "Selected software projects by Yash Roushan spanning full-stack web applications, REST APIs, data persistence, Android development, and team web work.",
+    "Selected software projects by Yash Roushan spanning full-stack TypeScript applications, REST APIs, data persistence, systems programming, Android development, and team web work.",
   path: "/projects",
 });
 
@@ -53,8 +53,9 @@ export default function ProjectsPage() {
             Software, data, and interface work
           </h2>
           <p className="mt-4 text-muted">
-            These projects span full-stack web development, Android development,
-            REST APIs, databases, testing, and team collaboration.
+            These projects are ordered by technical depth, completeness,
+            contribution clarity, and relevance to software and enterprise IT
+            roles.
           </p>
         </div>
         <div className="grid gap-5 md:grid-cols-2">

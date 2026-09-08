@@ -35,6 +35,9 @@ export type ExperienceSlug =
 export type ProjectSlug =
   | "dalchess-code"
   | "jobify-job-tracker"
+  | "productivity-task-manager"
+  | "stock-portfolio-tracker"
+  | "multi-node-process-simulator"
   | "quick-cash-marketplace"
   | "dalhousie-combat-robotics";
 
