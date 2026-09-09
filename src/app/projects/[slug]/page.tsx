@@ -134,6 +134,7 @@ export default async function ProjectDetailPage(
                 image={screenshot?.src}
                 imageAlt={screenshot?.alt}
                 imageFit={screenshot?.fit}
+                imagePosition={screenshot?.position}
               />
               <dl className="grid gap-3 border-t border-border p-4 text-sm sm:grid-cols-3">
                 <div>

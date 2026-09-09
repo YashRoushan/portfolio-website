@@ -7,6 +7,7 @@ type ProjectPreviewProps = {
   image?: StaticImageData;
   imageAlt?: string;
   imageFit?: "cover" | "contain";
+  imagePosition?: "center" | "top";
 };
 
 const gradients = {
@@ -23,6 +24,7 @@ export function ProjectPreview({
   image,
   imageAlt = "",
   imageFit = "cover",
+  imagePosition = "center",
 }: ProjectPreviewProps) {
   if (image) {
     return (
@@ -34,7 +36,7 @@ export function ProjectPreview({
           alt={imageAlt}
           placeholder="blur"
           sizes="(max-width: 767px) calc(100vw - 2rem), (max-width: 1199px) 50vw, 25rem"
-          className={`h-full w-full ${imageFit === "contain" ? "object-contain" : "object-cover"}`}
+          className={`h-full w-full ${imageFit === "contain" ? "object-contain" : "object-cover"} ${imagePosition === "top" ? "object-top" : "object-center"}`}
         />
       </div>
     );

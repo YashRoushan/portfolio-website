@@ -1,5 +1,6 @@
 import type { StaticImageData } from "next/image";
 
+import dalhousieCombatRobotics from "@/assets/dalhousie-combat-robotics.png";
 import dalchessHomepage from "@/assets/dalchess-homepage.png";
 import jobifyHomepage from "@/assets/jobify-homepage.png";
 import multiNodeProcessSimulator from "@/assets/multi-node-process-simulator.png";
@@ -12,12 +13,13 @@ type ProjectScreenshot = {
   readonly src: StaticImageData;
   readonly alt: string;
   readonly fit: "cover" | "contain";
+  readonly position?: "center" | "top";
 };
 
 const projectScreenshots: Partial<Record<ProjectSlug, ProjectScreenshot>> = {
   "dalchess-code": {
     src: dalchessHomepage,
-    alt: "Dalhousie Chess Club homepage with yellow navigation and the club name",
+    alt: "Dalhousie Chess Club tournament page with search filters and three tournament cards",
     fit: "cover",
   },
   "jobify-job-tracker": {
@@ -27,12 +29,12 @@ const projectScreenshots: Partial<Record<ProjectSlug, ProjectScreenshot>> = {
   },
   "productivity-task-manager": {
     src: productivityTaskManager,
-    alt: "Productivity Task Manager sign-in screen with email and password fields",
+    alt: "Productivity Task Manager dashboard with completion metrics and charts",
     fit: "cover",
   },
   "stock-portfolio-tracker": {
     src: stockPortfolioTracker,
-    alt: "Stock Atlas sign-in screen with portfolio tracking feature summary",
+    alt: "Stock Atlas portfolio dashboard showing NVIDIA as the leading NVDA holding, performance metrics, a trend chart, and allocation",
     fit: "cover",
   },
   "multi-node-process-simulator": {
@@ -42,7 +44,13 @@ const projectScreenshots: Partial<Record<ProjectSlug, ProjectScreenshot>> = {
   },
   "quick-cash-marketplace": {
     src: quickCashHomepage,
-    alt: "Quick Cash Android launch screen with login and registration options",
+    alt: "Quick Cash Android user dashboard with job, preference, payment, and statistics actions",
+    fit: "cover",
+    position: "top",
+  },
+  "dalhousie-combat-robotics": {
+    src: dalhousieCombatRobotics,
+    alt: "Dalhousie Combat Robotics Team public profile with the DCRT banner and team description",
     fit: "cover",
   },
 };

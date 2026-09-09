@@ -25,6 +25,7 @@ export function ProjectCard({ project }: { project: ProjectEntry }) {
         image={screenshot?.src}
         imageAlt={screenshot?.alt}
         imageFit={screenshot?.fit}
+        imagePosition={screenshot?.position}
       />
       <div className="flex flex-1 flex-col p-5 sm:p-6">
         <div className="flex flex-wrap items-center justify-between gap-2">
