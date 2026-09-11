@@ -36,14 +36,25 @@ Run `npm run build` before an individual Playwright command. The Playwright conf
 
 ## Architecture
 
-- `src/app/` contains static App Router pages, route metadata, sitemap, robots, manifest, and generated social/icon images.
+- `src/app/` contains App Router pages, the contact-form route handler, route metadata, sitemap, robots, manifest, and generated social/icon images.
 - `src/data/` is the strongly typed content source for the profile, experience, projects, skills, and credentials.
-- `src/components/` contains reusable server components plus the two small client components used for navigation and theme state.
+- `src/components/` contains reusable server components plus small client components used for navigation, theme state, and contact-form feedback.
 - `src/lib/` contains content/link helpers, metadata construction, and public-origin handling.
 - `public/Yash-Roushan-Resume.pdf` is the stable resume download.
 - `CONTENT_REVIEW.md` separates publishable facts from items that still need confirmation or evidence.
 
-The detail routes derive from the data arrays and use `generateStaticParams`; no CMS, database, analytics, or contact-form backend is required.
+The detail routes derive from the data arrays and use `generateStaticParams`; no CMS, database, or analytics service is required. Contact-form delivery uses a server-side Resend API call and does not expose its API key to the browser.
+
+## Contact form delivery
+
+The form at `/contact` posts to `/api/contact`, validates the submission on the server, applies a honeypot and basic rate limit, and sends a plain-text email with the visitor's address set as the reply-to address.
+
+1. Create a Resend API key and save it as `RESEND_API_KEY` in `.env.local` for local development and in the deployment environment for production.
+2. Keep `CONTACT_TO_EMAIL=yashroushan@dal.ca`, or change it to the inbox that should receive submissions.
+3. During initial testing, omit `CONTACT_FROM_EMAIL` to use `onboarding@resend.dev`; this can deliver only to the email address associated with the Resend account.
+4. For production sending, verify a domain in Resend and set `CONTACT_FROM_EMAIL` to a sender at that domain, such as `Yash Roushan Portfolio <contact@yourdomain.com>`.
+
+Do not prefix the API key with `NEXT_PUBLIC_` or commit it to the repository.
 
 ## Editing content
 
@@ -93,8 +104,9 @@ No Vercel project or credentials are committed. To deploy:
 1. Push the repository to the intended Git provider and import it at <https://vercel.com/new>.
 2. Keep the detected Next.js framework and npm build defaults.
 3. Add `NEXT_PUBLIC_SITE_URL` with the final production origin in Production, Preview, and Development as appropriate.
-4. Deploy, assign the production domain, update the environment value if the domain changed, and redeploy.
-5. Verify `/sitemap.xml`, `/robots.txt`, `/opengraph-image`, every case-study route, and `/Yash-Roushan-Resume.pdf` on the public URL.
-6. Run the browser suite against the deployment or repeat Lighthouse checks under representative production conditions.
+4. Add `RESEND_API_KEY`, `CONTACT_TO_EMAIL`, and the verified `CONTACT_FROM_EMAIL` sender described above.
+5. Deploy, assign the production domain, update the environment value if the domain changed, and redeploy.
+6. Verify the contact form, `/sitemap.xml`, `/robots.txt`, `/opengraph-image`, every case-study route, and `/Yash-Roushan-Resume.pdf` on the public URL.
+7. Run the browser suite against the deployment or repeat Lighthouse checks under representative production conditions.
 
 Do not deploy until the security and factual-review items in `CONTENT_REVIEW.md` have been resolved or consciously accepted.

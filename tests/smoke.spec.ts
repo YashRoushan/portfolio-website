@@ -50,6 +50,50 @@ test("resume is a stable PDF download", async ({ request }) => {
   expect((await response.body()).byteLength).toBeGreaterThan(50_000);
 });
 
+test("contact form submits on the page and confirms delivery", async ({
+  page,
+}) => {
+  await page.route("**/api/contact", async (route) => {
+    await route.fulfill({
+      status: 200,
+      contentType: "application/json",
+      body: JSON.stringify({ message: "Message sent." }),
+    });
+  });
+
+  await page.goto("/contact");
+  await page.getByLabel("Your name").fill("Jane Recruiter");
+  await page.getByLabel("Email address").fill("jane@company.com");
+  await page.getByLabel("Subject").fill("Software developer opportunity");
+  await page
+    .getByRole("textbox", { name: "Message", exact: true })
+    .fill("I would like to discuss a role with our software team.");
+  await page.getByRole("button", { name: "Send message" }).click();
+
+  await expect(
+    page.getByText("Message sent. Thank you—I’ll reply as soon as I can."),
+  ).toBeVisible();
+  await expect(page.getByLabel("Your name")).toHaveValue("");
+});
+
+test("contact endpoint rejects invalid submissions before delivery", async ({
+  request,
+}) => {
+  const response = await request.post("/api/contact", {
+    data: {
+      name: "A",
+      email: "not-an-email",
+      subject: "Hi",
+      message: "Short",
+    },
+  });
+
+  expect(response.status()).toBe(400);
+  expect(await response.json()).toEqual({
+    message: "Check each field and enter a valid email address before sending.",
+  });
+});
+
 test("OBT case study presents the team collaboration photo", async ({
   page,
 }) => {
