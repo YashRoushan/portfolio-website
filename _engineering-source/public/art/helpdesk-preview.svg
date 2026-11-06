@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="372" viewBox="0 0 720 372" role="img" aria-labelledby="helpdesk-title helpdesk-desc">
+  <title id="helpdesk-title">Illustrated sample conversation with the Local IT Help Desk Chatbot</title>
+  <desc id="helpdesk-desc">On a muted lavender stage, a help-desk interface answers the example request Forgot password with a link to Dalhousie's CSID portal. A small layered processor illustration represents local execution.</desc>
+  <defs>
+    <linearGradient id="chat-stage" x1="0" y1="0" x2="1" y2="1" gradientUnits="objectBoundingBox">
+      <stop stop-color="#424357"/><stop offset=".55" stop-color="#35354a"/><stop offset="1" stop-color="#282a3f"/>
+    </linearGradient>
+    <radialGradient id="chat-light" cx=".59" cy=".3" r=".7">
+      <stop stop-color="#aba9d9" stop-opacity=".38"/><stop offset="1" stop-color="#8b8aa9" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="chat-panel" x1="0" y1="0" x2="1" y2="1" gradientUnits="objectBoundingBox">
+      <stop stop-color="#e3e2f2"/><stop offset=".65" stop-color="#d9d8eb"/><stop offset="1" stop-color="#c9c8df"/>
+    </linearGradient>
+    <linearGradient id="chat-rim">
+      <stop stop-color="#e9e8ff"/><stop offset=".3" stop-color="#f1eeff"/><stop offset="1" stop-color="#9190ac"/>
+    </linearGradient>
+    <linearGradient id="question">
+      <stop stop-color="#53526e"/><stop offset="1" stop-color="#42425b"/>
+    </linearGradient>
+    <linearGradient id="answer" x1="0" y1="0" x2="1" y2="1" gradientUnits="objectBoundingBox">
+      <stop stop-color="#fcfbff"/><stop offset="1" stop-color="#f2f1fd"/>
+    </linearGradient>
+    <linearGradient id="chip-top" x1="0" y1="0" x2="1" y2="1" gradientUnits="objectBoundingBox">
+      <stop stop-color="#d4d1f8"/><stop offset=".48" stop-color="#b5b1e2"/><stop offset="1" stop-color="#8b89bf"/>
+    </linearGradient>
+    <linearGradient id="chip-left">
+      <stop stop-color="#74749f"/><stop offset="1" stop-color="#57587c"/>
+    </linearGradient>
+    <linearGradient id="chip-right">
+      <stop stop-color="#53547d"/><stop offset="1" stop-color="#74749e"/>
+    </linearGradient>
+    <pattern id="chat-dots" width="13" height="13" patternUnits="userSpaceOnUse">
+      <circle cx="1" cy="1" r=".7" fill="#d1ccef" opacity=".24"/>
+    </pattern>
+    <filter id="chat-shadow" x="-40%" y="-40%" width="185%" height="205%">
+      <feGaussianBlur stdDeviation="12"/>
+    </filter>
+    <filter id="reply-shadow" x="-20%" y="-40%" width="145%" height="210%">
+      <feGaussianBlur stdDeviation="4"/>
+    </filter>
+  </defs>
+
+  <rect width="720" height="372" fill="url(#chat-stage)"/>
+  <rect width="720" height="372" fill="url(#chat-light)"/>
+  <rect width="720" height="372" fill="url(#chat-dots)"/>
+  <g fill="none" stroke="#b2afd8" stroke-width=".85" opacity=".24">
+    <path d="M-12 313h82l47-27h91l61 35h99l43 25h117l78-45h126"/>
+    <path d="M-12 322h87l46-27h83l62 35h100l42 25h122l79-45h123"/>
+    <path d="M-12 331h91l46-27h76l62 35h101l42 25h126l79-45h121"/>
+  </g>
+  <g fill="#b2afd8" opacity=".4">
+    <circle cx="70" cy="313" r="2"/><circle cx="75" cy="322" r="2"/><circle cx="79" cy="331" r="2"/>
+  </g>
+
+  <g transform="rotate(3 379 176)" font-family="Arial, Helvetica, sans-serif">
+    <rect x="145" y="76" width="465" height="237" rx="13" fill="#101022" opacity=".62" filter="url(#chat-shadow)"/>
+    <rect x="144" y="59" width="464" height="244" rx="12" fill="#8989a5" stroke="#9b9bb4"/>
+    <rect x="144" y="54" width="464" height="244" rx="12" fill="url(#chat-panel)" stroke="url(#chat-rim)" stroke-width="1.4"/>
+    <path d="M145 101h462" stroke="#aaa9c0" opacity=".7"/>
+
+    <g transform="translate(167 68)" fill="none" stroke="#585770" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M0 3.5A3.5 3.5 0 0 1 3.5 0h13A3.5 3.5 0 0 1 20 3.5V13a3.5 3.5 0 0 1-3.5 3.5H8L2 20v-5A3.5 3.5 0 0 1 0 12Z"/>
+      <path d="m5 6 3 3-3 3m6 0h4"/>
+    </g>
+    <text x="200" y="84" fill="#313246" font-size="18" font-weight="600" letter-spacing="-.5">IT Help Desk</text>
+    <text x="580" y="83" fill="#5d5d75" font-size="11.5" font-family="ui-monospace, Consolas, monospace" text-anchor="end" letter-spacing=".15">EXAMPLE</text>
+
+    <path d="M382 120h188a10 10 0 0 1 10 10v33l-9-5H382a10 10 0 0 1-10-10v-18a10 10 0 0 1 10-10Z" fill="url(#question)" stroke="#42425a" stroke-width=".8"/>
+    <text x="390" y="145" fill="#f6f4ff" font-size="17" letter-spacing="-.3">Forgot password</text>
+
+    <rect x="176" y="183" width="352" height="92" rx="9" fill="#6b668c" opacity=".2" filter="url(#reply-shadow)"/>
+    <path d="M183 177h335a10 10 0 0 1 10 10v73a10 10 0 0 1-10 10H183l-11 6v-89a10 10 0 0 1 11-10Z" fill="url(#answer)" stroke="#fbfaff" stroke-width="1.2"/>
+    <text x="190" y="203" fill="#363648" font-size="17.5" letter-spacing="-.2">Reset your CSID password</text>
+    <text x="190" y="227" fill="#363648" font-size="17.5" letter-spacing="-.2">through the CSID portal.</text>
+    <text x="190" y="252" fill="#60578d" font-size="14.5" font-family="ui-monospace, Consolas, monospace">csid.cs.dal.ca</text>
+    <g stroke="#60578d" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <path d="m320 252 7-7m-6 0h6v6"/>
+    </g>
+  </g>
+
+  <g stroke-linejoin="round">
+    <ellipse cx="131" cy="301" rx="55" ry="14" fill="#121329" opacity=".48" filter="url(#reply-shadow)"/>
+    <g fill="none" stroke="#9f9ac9" stroke-width="1.8" opacity=".7">
+      <path d="m78 256-10 6m19-1-10 6m19-1-10 6m19-1-10 6m19-1-10 6"/>
+      <path d="m142 284 10 6m-1-11 10 6m-1-11 10 6m-1-11 10 6m-1-11 10 6"/>
+    </g>
+    <path d="m74 260 55-32 56 32v12l-56 32-55-32Z" fill="#64648d" stroke="#aaa6d0"/>
+    <path d="m74 260 55 32v12l-55-32Z" fill="url(#chip-left)"/>
+    <path d="m129 292 56-32v12l-56 32Z" fill="url(#chip-right)"/>
+    <path d="m74 254 55-32 56 32-56 32Z" fill="url(#chip-top)" stroke="#dedaff" stroke-width="1.1"/>
+    <path d="m88 254 41-24 42 24-42 24Z" fill="none" stroke="#e6e2ff" stroke-width=".8" opacity=".72"/>
+    <path d="m98 254 31-18 32 18-32 18Z" fill="#7978a9" stroke="#a6a1d0"/>
+    <path d="m98 251 31-18 32 18-32 18Z" fill="#c6c1eb" stroke="#ede8ff" stroke-width="1"/>
+    <g fill="none" stroke="#68628e" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="m116 250 6-3 6 3-6 4m9 3 8-5"/>
+    </g>
+    <path d="m79 256 50 29 51-29" fill="none" stroke="#e0dbff" stroke-width="1.4" opacity=".8"/>
+  </g>
+</svg>

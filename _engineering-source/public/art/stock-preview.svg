@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="372" viewBox="0 0 720 372" role="img" aria-labelledby="stock-title stock-desc">
+  <title id="stock-title">Illustrated sample portfolio in the Stock Portfolio Tracker</title>
+  <desc id="stock-desc">A forest-green dashboard shows a sample portfolio value of 24,680 dollars, a stepped cost-basis chart and an allocation of Apple and Microsoft shares.</desc>
+  <defs>
+    <linearGradient id="stage" x1="0" y1="0" x2="1" y2="1" gradientUnits="objectBoundingBox">
+      <stop stop-color="#213e38"/><stop offset=".51" stop-color="#15372f"/><stop offset="1" stop-color="#112b24"/>
+    </linearGradient>
+    <radialGradient id="light" cx=".5" cy=".32" r=".68">
+      <stop stop-color="#77b194" stop-opacity=".29"/><stop offset="1" stop-color="#39755f" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="dots" width="13" height="13" patternUnits="userSpaceOnUse">
+      <circle cx="1" cy="1" r=".7" fill="#a3c6af" opacity=".29"/>
+    </pattern>
+    <linearGradient id="panel" x1="0" y1="0" x2="1" y2="1" gradientUnits="objectBoundingBox">
+      <stop stop-color="#192b25"/><stop offset=".52" stop-color="#101f1b"/><stop offset="1" stop-color="#12231e"/>
+    </linearGradient>
+    <linearGradient id="rim">
+      <stop stop-color="#708e79"/><stop offset=".32" stop-color="#90a897"/><stop offset=".72" stop-color="#3c5a4e"/><stop offset="1" stop-color="#203e32"/>
+    </linearGradient>
+    <linearGradient id="float" x1="0" y1="0" x2="1" y2="1" gradientUnits="objectBoundingBox">
+      <stop stop-color="#294337"/><stop offset=".5" stop-color="#1d3229"/><stop offset="1" stop-color="#192a24"/>
+    </linearGradient>
+    <linearGradient id="chart-fill" x1="0" y1="0" x2="0" y2="1" gradientUnits="objectBoundingBox">
+      <stop stop-color="#a9e9ac" stop-opacity=".19"/><stop offset="1" stop-color="#7ddb9d" stop-opacity=".025"/>
+    </linearGradient>
+    <linearGradient id="area-line">
+      <stop stop-color="#75b899"/><stop offset="1" stop-color="#c3f2ae"/>
+    </linearGradient>
+    <filter id="shadow" x="-30%" y="-40%" width="165%" height="200%">
+      <feGaussianBlur stdDeviation="12"/>
+    </filter>
+    <filter id="small-shadow" x="-35%" y="-35%" width="175%" height="190%">
+      <feGaussianBlur stdDeviation="7"/>
+    </filter>
+    <path id="basis" d="M113 272H144V262H181V250H212V258H239V239H273V226H308V237H339V216H379V205H415V198H446"/>
+  </defs>
+
+  <rect width="720" height="372" fill="url(#stage)"/>
+  <rect width="720" height="372" fill="url(#light)"/>
+  <rect width="720" height="372" fill="url(#dots)"/>
+  <g fill="none" stroke="#94c8a6" stroke-width=".8" opacity=".18">
+    <path d="M-30 349 52 300h136l104-60h145L731 70"/>
+    <path d="M-26 357 56 308h135l104-60h147L735 79"/>
+    <path d="M-22 365 60 316h135l104-60h148L740 87"/>
+    <path d="M-18 373 64 324h135l104-60h149L745 95"/>
+  </g>
+
+  <g transform="rotate(-3 355 187)" font-family="Arial, Helvetica, sans-serif">
+    <rect x="85" y="76" width="509" height="249" rx="13" fill="#04100b" opacity=".68" filter="url(#shadow)"/>
+    <rect x="79" y="56" width="516" height="254" rx="12" fill="#081710" stroke="#263e32"/>
+    <rect x="78" y="51" width="516" height="255" rx="12" fill="url(#panel)" stroke="url(#rim)" stroke-width="1.4"/>
+    <path d="M79 93h514" stroke="#496454" opacity=".57"/>
+    <g fill="none" stroke="#b8edb7" stroke-width="1.8" stroke-linejoin="round">
+      <path d="M104 79V65.5m5 13.5v-9.5m5 9.5V61"/>
+    </g>
+    <text x="128" y="78" fill="#e3ebe4" font-size="17" font-weight="600" letter-spacing="-.55">Portfolio overview</text>
+    <text x="564" y="76" fill="#aabfb0" font-size="11.5" font-family="ui-monospace, Consolas, monospace" text-anchor="end">SAMPLE DATA</text>
+
+    <text x="110" y="124" fill="#becdc1" font-size="15.5">Portfolio value</text>
+    <text x="107" y="164" fill="#f0f4e9" font-size="42" font-weight="600" letter-spacing="-2.6">$24,680<tspan dx="1" fill="#adc1b0" font-size="31" letter-spacing="-1.4">.00</tspan></text>
+    <text x="111" y="187" fill="#bdecb3" font-size="14.5" font-weight="600">+$1,680.00<tspan dx="8" fill="#a7bfad" font-size="13" font-weight="400">unrealised P/L</tspan></text>
+    <g stroke="#79a88b" opacity=".19" stroke-dasharray="2 4" stroke-width=".9">
+      <path d="M113 218h334m-334 27h334m-334 27h334"/>
+    </g>
+    <path d="M113 272H144V262H181V250H212V258H239V239H273V226H308V237H339V216H379V205H415V198H446V274H113Z" fill="url(#chart-fill)"/>
+    <use href="#basis" fill="none" stroke="url(#area-line)" stroke-width="2.8" stroke-linejoin="round" stroke-linecap="round"/>
+    <circle cx="446" cy="198" r="3.4" fill="#c6f4b6"/>
+    <text x="111" y="289" fill="#a8bbae" font-size="11.5" font-family="ui-monospace, Consolas, monospace" letter-spacing=".1">COST BASIS BY TRANSACTION</text>
+
+    <g transform="translate(0 3) rotate(4 531 214)">
+      <rect x="456" y="147" width="181" height="141" rx="11" fill="#030d08" opacity=".7" filter="url(#small-shadow)"/>
+      <rect x="455" y="137" width="181" height="143" rx="10" fill="#101b16" stroke="#354b3f"/>
+      <rect x="454" y="134" width="181" height="143" rx="10" fill="url(#float)" stroke="url(#rim)" stroke-width="1.3"/>
+      <text x="470" y="160" fill="#e3eee1" font-size="16.5" font-weight="600" letter-spacing="-.25">Allocation</text>
+      <rect x="471" y="174" width="73" height="6" rx="1.5" fill="#c1efaf"/>
+      <rect x="547" y="174" width="70" height="6" rx="1.5" fill="#71a794"/>
+      <g font-family="ui-monospace, Consolas, monospace" font-size="14">
+        <circle cx="475" cy="206" r="3.4" fill="#c1efaf"/>
+        <text x="486" y="211" fill="#e9f1e8">AAPL</text>
+        <text x="618" y="211" text-anchor="end" fill="#c1d4c4">51.2%</text>
+        <path d="M470 223h148" stroke="#89aa94" opacity=".27"/>
+        <circle cx="475" cy="242" r="3.4" fill="#71a794"/>
+        <text x="486" y="247" fill="#e9f1e8">MSFT</text>
+        <text x="618" y="247" text-anchor="end" fill="#c1d4c4">48.8%</text>
+      </g>
+    </g>
+  </g>
+</svg>

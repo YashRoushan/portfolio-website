@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://yashroushan.github.io/portfolio-website/engineering/sitemap.xml

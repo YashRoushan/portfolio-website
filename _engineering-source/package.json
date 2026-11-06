@@ -1,0 +1,33 @@
+{
+  "name": "yash-roushan-portfolio",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22.12"
+  },
+  "scripts": {
+    "dev": "vite preview --host 0.0.0.0",
+    "check": "tsc --noEmit",
+    "build": "npm run check && node --import tsx scripts/render.tsx && vite build",
+    "preview": "vite preview --host 0.0.0.0",
+    "verify": "node scripts/verify-build.mjs",
+    "start": "node --import tsx scripts/render.tsx && vite --host 0.0.0.0"
+  },
+  "dependencies": {
+    "@fontsource-variable/geist": "5.2.8",
+    "@fontsource/ibm-plex-mono": "5.2.7",
+    "lucide-react": "1.31.0",
+    "react": "19.2.6",
+    "react-dom": "19.2.6"
+  },
+  "devDependencies": {
+    "@types/node": "22.19.19",
+    "@types/react": "19.2.14",
+    "@types/react-dom": "19.2.3",
+    "sharp": "0.35.4",
+    "tsx": "4.22.1",
+    "typescript": "5.9.3",
+    "vite": "8.0.13"
+  }
+}

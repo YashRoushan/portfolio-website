@@ -1,0 +1,162 @@
+name: Build engineering portfolio
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '_engineering-source/**'
+      - '.github/workflows/engineering-portfolio.yml'
+  workflow_dispatch:
+
+permissions: {}
+
+concurrency:
+  group: engineering-portfolio-main
+  cancel-in-progress: false
+
+jobs:
+  build:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: _engineering-source/package-lock.json
+      - name: Install locked dependencies, build, and verify
+        working-directory: _engineering-source
+        env:
+          SITE_URL: https://yashroushan.github.io/portfolio-website/engineering/
+        run: |
+          npm ci
+          npm run build
+          npm run verify
+          test -s dist/index.html
+          test -s dist/portfolio-output.txt
+      - name: Upload verified output
+        uses: actions/upload-artifact@v4
+        with:
+          name: engineering-output
+          path: _engineering-source/dist/
+          include-hidden-files: true
+          if-no-files-found: error
+          retention-days: 3
+      - name: Measure the mobile homepage with Lighthouse
+        id: audit
+        continue-on-error: true
+        shell: bash
+        env:
+          AUDIT_URL: http://127.0.0.1:4173/portfolio-website/engineering/
+        run: |
+          set -euo pipefail
+          site="$RUNNER_TEMP/audit-site"
+          mkdir -p "$site/portfolio-website"
+          ln -s "$GITHUB_WORKSPACE/_engineering-source/dist" "$site/portfolio-website/engineering"
+          python3 -m http.server 4173 --bind 127.0.0.1 --directory "$site" >"$RUNNER_TEMP/audit-http.log" 2>&1 &
+          server_pid=$!
+          trap 'kill "$server_pid" 2>/dev/null || true' EXIT
+          curl --fail --silent --show-error --retry 10 --retry-connrefused "$AUDIT_URL" >/dev/null
+          export CHROME_PATH="$(command -v google-chrome)"
+          npm exec --yes --package=lighthouse@13.6.0 -- lighthouse "$AUDIT_URL" \
+            --form-factor=mobile --only-categories=performance,accessibility,best-practices,seo \
+            --chrome-flags='--headless --no-sandbox --disable-dev-shm-usage' \
+            --output=json --output-path="$RUNNER_TEMP/mobile-lighthouse.json" --quiet
+          node --input-type=commonjs <<'NODE'
+          const fs = require('node:fs');
+          const report = JSON.parse(fs.readFileSync(`${process.env.RUNNER_TEMP}/mobile-lighthouse.json`, 'utf8'));
+          if (report.runtimeError) throw Error(report.runtimeError.message);
+          const ids = ['performance', 'accessibility', 'best-practices', 'seo'];
+          const rows = ids.map(id => {
+            const {title, score} = report.categories[id];
+            if (!Number.isFinite(score)) throw Error(`No score for ${id}`);
+            return `| ${title} | ${Math.round(score * 100)} |`;
+          });
+          const summary = ['### Mobile Lighthouse (localhost)', '', '| Category | Score / 100 |', '| --- | ---: |', ...rows, ''].join('\n');
+          console.log(summary);
+          fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY, `${summary}\n`);
+          NODE
+      - name: Record an unavailable audit
+        if: steps.audit.outcome == 'failure'
+        run: echo 'Mobile Lighthouse could not complete. No verified scores are available; see the audit log.' | tee -a "$GITHUB_STEP_SUMMARY"
+      - name: Preserve Lighthouse JSON
+        if: always() && steps.audit.outcome != 'skipped'
+        uses: actions/upload-artifact@v4
+        continue-on-error: true
+        with:
+          name: mobile-lighthouse
+          path: ${{ runner.temp }}/mobile-lighthouse.json
+          if-no-files-found: ignore
+          retention-days: 14
+
+  publish:
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: write
+    outputs:
+      changed: ${{ steps.update.outputs.changed }}
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: ${{ github.sha }}
+      - uses: actions/download-artifact@v4
+        with:
+          name: engineering-output
+          path: ${{ runner.temp }}/engineering-output
+      - name: Synchronize only the managed directory
+        id: update
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
+          test "$(git ls-remote --exit-code origin refs/heads/main | cut -f1)" = "$GITHUB_SHA" || {
+            echo 'main advanced after this build; run the workflow again for the new revision.' >&2; exit 1;
+          }
+          root="$(git rev-parse --show-toplevel)"
+          source="$RUNNER_TEMP/engineering-output"
+          destination="$root/engineering"
+          test "$(realpath -e "$destination")" = "$destination"
+          test -d "$destination"
+          test ! -L "$destination"
+          git ls-files --error-unmatch -- engineering/portfolio-output.txt >/dev/null
+          for dir in "$source" "$destination"; do
+            test -s "$dir/portfolio-output.txt"
+            test ! -L "$dir/portfolio-output.txt"
+            test -z "$(find "$dir" \( -type l -o -name .git \) -print -quit)"
+          done
+          test -s "$source/index.html"
+          rsync -r --delete -- "$source/" "$destination/"
+          git add -A -- engineering/
+          if git diff --cached --quiet; then
+            echo 'Generated files already match main.'
+            echo 'changed=false' >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          git diff --cached --quiet -- . ':(exclude)engineering/**'
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'Build engineering portfolio'
+          # A normal push refuses a non-fast-forward if main advanced after the guard above.
+          git push origin HEAD:refs/heads/main
+          echo 'changed=true' >> "$GITHUB_OUTPUT"
+
+  request-pages-build:
+    needs: publish
+    if: needs.publish.outputs.changed == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      pages: write
+    steps:
+      - name: Request a build from the configured Pages branch
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh api --method POST "repos/$GITHUB_REPOSITORY/pages/builds" --jq '.status'
