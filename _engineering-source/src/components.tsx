@@ -348,6 +348,11 @@ export function Home() {
             <div className="art-grid" aria-hidden="true" />
             <picture>
               <source
+                media="(max-width: 700px)"
+                type="image/avif"
+                srcSet="./art/compute-core-mobile.avif"
+              />
+              <source
                 srcSet="./art/compute-core-small.webp 640w, ./art/compute-core.webp 1280w"
                 sizes="(max-width: 700px) 90vw, (max-width: 1100px) 48vw, 570px"
                 type="image/webp"
@@ -358,6 +363,7 @@ export function Home() {
                 width="1280"
                 height="1080"
                 fetchPriority="high"
+                decoding="async"
                 alt="Original exploded technical sculpture with a graphite interface layer, amber logic board and copper-contact foundation"
               />
             </picture>

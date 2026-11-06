@@ -2,6 +2,10 @@ import sharp from "sharp";
 import { readFile, writeFile } from "node:fs/promises";
 
 const hero = await readFile("public/art/compute-core.webp");
+await sharp(hero)
+  .resize(768)
+  .avif({ quality: 54, effort: 7, chromaSubsampling: "4:4:4" })
+  .toFile("public/art/compute-core-mobile.avif");
 const social = `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
   <rect width="1200" height="630" fill="#111416" />
   <defs><pattern id="dots" width="22" height="22" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r="1" fill="#80908e" opacity=".16" /></pattern></defs>
@@ -31,6 +35,6 @@ await sharp(favicon)
   .toFile("public/apple-touch-icon.png");
 await writeFile(
   "artwork/README.md",
-  "# Original artwork\n\nThe exploded assembly was modelled and rendered procedurally in Blender. Regeneration instructions are in `compute-core-source.py`. The project SVG illustrations are original, editable vector artwork in `public/art`. The Open Graph image and touch icon can be regenerated with `node scripts/generate-artwork.mjs` from the project root after `npm ci`.\n",
+  "# Original artwork\n\nThe exploded assembly was modelled and rendered procedurally in Blender. Regeneration instructions are in `compute-core-source.py`. The project SVG illustrations are original, editable vector artwork in `public/art`. The mobile AVIF, Open Graph image and touch icon can be regenerated with `node scripts/generate-artwork.mjs` from the project root after `npm ci`.\n",
 );
-console.log("Generated 1200 × 630 social card and 180 × 180 touch icon.");
+console.log("Generated mobile AVIF, social card and touch icon.");

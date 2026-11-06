@@ -2152,6 +2152,15 @@ tfoot th {
   }
 }
 @media (max-width: 700px) {
+  .site-header {
+    background: var(--bg);
+    backdrop-filter: none;
+  }
+  .core-image {
+    animation: none;
+    filter: none;
+    transform: none;
+  }
   .container {
     width: calc(100% - 40px);
   }

@@ -260,7 +260,7 @@ if ("IntersectionObserver" in window) {
   );
   sections.forEach((section) => sectionObserver.observe(section));
 
-  if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+  if (window.matchMedia("(min-width: 701px) and (prefers-reduced-motion: no-preference)").matches) {
     const revealObserver = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
