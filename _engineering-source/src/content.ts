@@ -16,6 +16,7 @@ export interface Project {
   summary: string;
   stack: string[];
   repository: string;
+  demo?: string;
   art: { kind: "image"; file: string; alt: string } | { kind: "scheduler" };
   preview?: "portfolio" | "helpdesk" | "scheduler";
   tone: string;
@@ -36,6 +37,7 @@ export const projects: Project[] = [
       "A full-stack application that turns buy and sell transactions into holdings, cost basis, dividends and portfolio performance.",
     stack: ["React", "TypeScript", "Express", "PostgreSQL", "Docker"],
     repository: "https://github.com/YashRoushan/Stock-Portfolio-Tracker",
+    demo: "https://yash-stock-portfolio-tracker.yashroushan.chatgpt.site",
     art: {
       kind: "image",
       file: "stock-preview.svg",

@@ -171,6 +171,11 @@ function ProjectCard({ project }: { project: Project }) {
         <p className="project-description">{project.description}</p>
         <TagList tags={project.stack} />
         <div className="project-actions">
+          {project.demo ? (
+            <a href={project.demo} target="_blank" rel="noopener noreferrer" className="project-demo-link">
+              Try live demo <ArrowUpRight {...iconProps} />
+            </a>
+          ) : null}
           <a href={caseHref}>
             Read case study <ArrowRight {...iconProps} />
           </a>
@@ -906,10 +911,17 @@ export function CaseStudy({ project }: { project: Project }) {
             </h1>
             <p>{project.summary}</p>
             <TagList tags={project.stack} />
-            <a className="button button-primary" href={project.repository}>
-              <GitBranch {...iconProps} /> Explore the source{" "}
-              <ArrowUpRight {...iconProps} />
-            </a>
+            <div className="case-primary-actions">
+              {project.demo ? (
+                <a className="button button-primary" href={project.demo} target="_blank" rel="noopener noreferrer">
+                  Try live demo <ArrowUpRight {...iconProps} />
+                </a>
+              ) : null}
+              <a className={`button ${project.demo ? "button-secondary" : "button-primary"}`} href={project.repository}>
+                <GitBranch {...iconProps} /> Explore the source{" "}
+                <ArrowUpRight {...iconProps} />
+              </a>
+            </div>
           </header>
           <div className="case-art">
             {project.art.kind === "image" ? (

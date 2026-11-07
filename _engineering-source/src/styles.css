@@ -698,6 +698,7 @@ h2 {
 }
 .project-actions {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   gap: 15px;
@@ -1314,8 +1315,15 @@ h2 {
   font-size: 11px;
   padding: 6px 9px;
 }
-.case-heading > .button {
+.case-primary-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
   margin-top: 27px;
+}
+.project-actions .project-demo-link {
+  color: var(--accent);
+  font-weight: 600;
 }
 .case-art {
   border: 1px solid var(--border);
