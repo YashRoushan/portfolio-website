@@ -1,6 +1,7 @@
 node_modules/
 dist/
 index.html
+!public/demos/*/index.html
 404.html
 work/
 .openai/

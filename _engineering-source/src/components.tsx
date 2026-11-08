@@ -14,6 +14,12 @@ import {
   Database,
   FileDown,
   GitBranch,
+  BriefcaseBusiness,
+  CloudSun,
+  Footprints,
+  Gamepad2,
+  ListChecks,
+  MessageSquare,
   Layers3,
   Menu,
   Monitor,
@@ -29,6 +35,7 @@ import {
   expertise,
   profile,
   projects,
+  repositoryProjects,
   type Project,
 } from "./content";
 
@@ -408,17 +415,52 @@ export function Home() {
                 Selected work<span className="accent">.</span>
               </h2>
             </div>
-            <a
-              className="text-link"
-              href={`${profile.github}?tab=repositories`}
-            >
-              All repositories <ArrowUpRight {...iconProps} />
-            </a>
+            <div className="work-heading-actions">
+              <a className="text-link" href="#more-projects">
+                More projects <ArrowDown {...iconProps} />
+              </a>
+              <a className="text-link" href={`${profile.github}?tab=repositories`}>
+                All repositories <ArrowUpRight {...iconProps} />
+              </a>
+            </div>
           </div>
           <div className="projects-grid">
             {projects.map((project) => (
               <ProjectCard key={project.slug} project={project} />
             ))}
+          </div>
+          <div className="repository-collection" id="more-projects" aria-labelledby="more-projects-title">
+            <div className="repository-heading reveal">
+              <div>
+                <p className="eyebrow">Explore the repository</p>
+                <h3 id="more-projects-title">More things I’ve built.</h3>
+              </div>
+              <p>Working applications, focused experiments<br className="desktop-break" /> and the foundations underneath.</p>
+            </div>
+            <div className="repository-grid">
+              {repositoryProjects.map((project) => {
+                const Icon = { tasks: ListChecks, weather: CloudSun, game: Gamepad2, jobs: BriefcaseBusiness, walk: Footprints, chat: MessageSquare }[project.icon];
+                return (
+                  <article className="repository-card reveal" key={project.repository}>
+                    <div className="repository-card-top">
+                      <span className="repository-icon"><Icon size={23} strokeWidth={1.5} aria-hidden="true" /></span>
+                      <span className={`repository-status ${project.demo ? "is-live" : ""}`}>
+                        {project.demo ? <><span aria-hidden="true" />Live demo</> : "Source available"}
+                      </span>
+                    </div>
+                    <p className="eyebrow">{project.category}</p>
+                    <h4>{project.name}</h4>
+                    <p className="repository-description">{project.description}</p>
+                    <TagList tags={project.stack} />
+                    <p className="repository-note">{project.note}</p>
+                    <div className="repository-actions">
+                      {project.demo ? <a className="repository-demo" href={project.demo} target="_blank" rel="noopener noreferrer" aria-label={`Open ${project.name} live demo`}>Open app <ArrowUpRight {...iconProps} /></a> : null}
+                      <a href={project.repository} target="_blank" rel="noopener noreferrer" aria-label={`View ${project.name} source on GitHub`}>View source <GitBranch size={16} aria-hidden="true" /></a>
+                    </div>
+                  </article>
+                );
+              })}
+            </div>
           </div>
         </section>
 

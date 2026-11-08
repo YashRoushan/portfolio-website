@@ -16,13 +16,14 @@ const failures = [];
 let links = 0;
 
 for (const [file, html] of textByPath) {
-  assert.equal((html.match(/<h1(?:\s|>)/g) || []).length, 1, `${file} must have one h1`);
-  assert.match(html, /<html lang="en-CA"/);
-  assert.match(html, /<meta name="description" content="[^"]+"/);
+  const isDemo = file.startsWith(join(root, 'demos') + '/');
+  if (!isDemo) assert.equal((html.match(/<h1(?:\s|>)/g) || []).length, 1, `${file} must have one h1`);
+  assert.match(html, /<html[^>]+lang="en(?:-CA)?"/);
+  assert.match(html, /<meta\s+name="description"\s+content="[^"]+"/);
   assert.match(html, /<title>[^<]+<\/title>/);
   const json = html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)?.[1];
-  assert.ok(json, `${file} needs structured data`);
-  JSON.parse(json);
+  if (!isDemo) assert.ok(json, `${file} needs structured data`);
+  if (json) JSON.parse(json);
   for (const match of html.matchAll(/(?:href|src)="([^"]+)"/g)) {
     const href = match[1].replace(/&amp;/g, '&');
     if (/^(?:[a-z]+:|\/\/)/i.test(href)) continue;

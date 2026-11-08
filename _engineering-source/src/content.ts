@@ -194,6 +194,77 @@ export const projects: Project[] = [
   },
 ];
 
+export interface RepositoryProject {
+  name: string;
+  category: string;
+  description: string;
+  stack: string[];
+  repository: string;
+  demo?: string;
+  note: string;
+  icon: "tasks" | "weather" | "game" | "jobs" | "walk" | "chat";
+}
+
+export const repositoryProjects: RepositoryProject[] = [
+  {
+    name: "Task Planner",
+    category: "Full-stack productivity app",
+    description: "Organise tasks, priorities and checklists, then see the work in a calendar and completion dashboard.",
+    stack: ["React", "TypeScript", "REST API", "D1"],
+    repository: "https://github.com/YashRoushan/To-Do-App",
+    demo: "https://yash-task-planner.yashroushan.chatgpt.site/",
+    note: "Hosted edition of To-Do App. Isolated guest workspace with saved changes; no sign-up required.",
+    icon: "tasks",
+  },
+  {
+    name: "Weather Explorer",
+    category: "Live data & API integration",
+    description: "Search supported US cities for current conditions and a forecast, with clear loading and error states.",
+    stack: ["React", "JavaScript", "NOAA API"],
+    repository: "https://github.com/YashRoushan/weather-app",
+    demo: "./demos/weather/",
+    note: "The hosted edition uses public US weather data, with source and observation times shown.",
+    icon: "weather",
+  },
+  {
+    name: "Snake",
+    category: "Interactive browser game",
+    description: "A grid-based game built around a timed update loop, collision detection and a saved best score.",
+    stack: ["JavaScript", "CSS Grid", "Browser storage"],
+    repository: "https://github.com/YashRoushan/Snake_Game",
+    demo: "./demos/snake/",
+    note: "Playable with keyboard or touch controls. Pause and restart without reloading the page.",
+    icon: "game",
+  },
+  {
+    name: "Jobify",
+    category: "MERN stack · Tutorial project",
+    description: "A job-application tracker with authenticated CRUD, search, filters, pagination and application statistics.",
+    stack: ["React", "Node.js", "Express", "MongoDB"],
+    repository: "https://github.com/YashRoushan/Jobify-Project",
+    note: "Course-based implementation. Requires a configured server and database to run locally.",
+    icon: "jobs",
+  },
+  {
+    name: "Walk Simulator",
+    category: "Java · University coursework",
+    description: "Explore random, spiral and breadcrumb walks through a desktop simulation with matrix and Markov-chain models.",
+    stack: ["Java", "AWT", "Markov chains"],
+    repository: "https://github.com/YashRoushan/Walk-Simulator",
+    note: "Coursework extending supplied scaffolding, including an AWT view credited to Alex Brandt. Runs locally with Java.",
+    icon: "walk",
+  },
+  {
+    name: "Messaging UI Study",
+    category: "Front-end interface exercise",
+    description: "A React and Material UI layout exploring contact lists and the structure of a conversation screen.",
+    stack: ["React", "Material UI", "CSS"],
+    repository: "https://github.com/YashRoushan/WhatsApp-Demo-App",
+    note: "A static interface study; messaging and search are not connected to a backend.",
+    icon: "chat",
+  },
+];
+
 export const experience = [
   {
     company: "Irving Oil",
