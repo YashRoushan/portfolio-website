@@ -1,0 +1,119 @@
+{
+  "pdfSha256": "517a317a02dc2b575bc4b8c53e9ce4c60ea3772ea7bcfff1218c596a419dcad3",
+  "name": "Yash Roushan",
+  "contact": {
+    "location": "Halifax, NS",
+    "phone": "+1 (902) 412-8887",
+    "email": "YashRoushan@dal.ca",
+    "linkedin": "LinkedIn/Yash",
+    "github": "GitHub/Yash"
+  },
+  "education": [
+    {
+      "title": "Dalhousie University",
+      "context": "Bachelor of Computer Science, Halifax, NS",
+      "period": "Sep 2022 – Sep 2026",
+      "points": []
+    }
+  ],
+  "skills": [
+    {
+      "label": "Languages",
+      "value": "Java, JavaScript, TypeScript, Python, C#, SQL, HTML5, CSS3"
+    },
+    {
+      "label": "Web & Mobile",
+      "value": "React, Node.js, Express, REST APIs, Android SDK, Android Studio, HTTP, DOM, SSL/TLS"
+    },
+    {
+      "label": "Databases & Cloud",
+      "value": "PostgreSQL, MySQL, MongoDB, Prisma, Firebase Authentication, Realtime Database, Docker"
+    },
+    {
+      "label": "Testing & Tools",
+      "value": "Jest, Supertest, JUnit, Mockito, Espresso, Git, GitHub, Code Review, Agile"
+    },
+    {
+      "label": "Computer Science",
+      "value": "Data Structures, Algorithms, OOP, Database Design, SQL Querying, Debugging"
+    },
+    {
+      "label": "Certifications",
+      "value": "Azure AZ-900, Web Development, Python"
+    }
+  ],
+  "experience": [
+    {
+      "title": "Solutions Analyst Co-op",
+      "context": "Irving Oil | Saint John, NB",
+      "period": "Jan 2026 – Apr 2026",
+      "points": [
+        "Mapped Azure migration dependencies and network data flows; documented requirements with cloud teams.",
+        "Translated Paperless Pilot user feedback into workflow changes with technical and business stakeholders.",
+        "Researched Adobe-to-Tungsten migration tools and integration dependencies; shared findings with IT teams.",
+        "Analysed GE Meridium sensor-data ingestion and application dependencies for operational integration planning."
+      ]
+    },
+    {
+      "title": "Network Analyst Co-op",
+      "context": "Irving Oil | Saint John, NB",
+      "period": "Sep 2025 – Jan 2026",
+      "points": [
+        "Developed 3 new SolarWinds dashboards using SWQL in collaboration with Cloud, Network, and Service Desk teams for service monitoring.",
+        "Updated 37 network maps and audited 319 Cisco ISE nodes to enhance application reliability and planning.",
+        "Diagnosed 29 network systems using CDP/LLDP and monitoring data to ensure application performance."
+      ]
+    },
+    {
+      "title": "Backend Developer",
+      "context": "Empovation | Nigeria (Remote)",
+      "period": "Jun 2025 – Dec 2025",
+      "points": [
+        "Engineered Node.js/Express REST APIs for member data, scheduling, and organisational resources.",
+        "Applied SQL schema design and querying to relational data; connected React interfaces to server-side operations.",
+        "Participated in code reviews, Git collaboration, Agile delivery, and technical discussions with remote developers."
+      ]
+    },
+    {
+      "title": "IT Technical Assistant Co-op",
+      "context": "Dalhousie University | Halifax, NS",
+      "period": "Jan 2025 – Apr 2025",
+      "points": [
+        "Automated IT support workflows with SQL and Power Automate; documented repeatable processes.",
+        "Diagnosed application, account, and network issues; communicated reproducible fixes to students and faculty."
+      ]
+    },
+    {
+      "title": "Data Analyst Intern",
+      "context": "Dresma | Delhi, India",
+      "period": "Dec 2021 – Sep 2022",
+      "points": [
+        "Analysed product datasets, documented ETL workflows, and built Excel/Power BI reports for stakeholder decisions."
+      ]
+    }
+  ],
+  "projects": [
+    {
+      "title": "Stock Portfolio Tracker",
+      "context": "TypeScript, React, Node.js, PostgreSQL, Docker",
+      "period": "2026",
+      "points": [
+        "Built an end-to-end React/TypeScript web app with live HTTP price feeds, transaction-based holdings, and dashboards for cost basis, dividends, and profit/loss.",
+        "Modelled PostgreSQL/Prisma schemas for users, portfolios, and trades; secured REST APIs with JWT.",
+        "Wrote 2 Jest/Supertest API test suites; added request validation and Docker Compose.",
+        "Stored transactions as integer cents and cached market prices to prevent rounding errors and redundant API calls."
+      ]
+    },
+    {
+      "title": "Quick Cash – Android Mobile App",
+      "context": "Java, Android SDK, Firebase, Gradle",
+      "period": "2025",
+      "points": [
+        "Co-developed a Java/Android SDK app for short-term jobs with employer postings, applicant search, and filters.",
+        "Integrated Firebase Authentication and Realtime Database for user accounts and job listings.",
+        "Built location-aware job discovery with Google Maps and PayPal sandbox payment validation.",
+        "Tested login, job creation, search, and payments with JUnit, Mockito, and Espresso UI tests."
+      ]
+    }
+  ]
+}

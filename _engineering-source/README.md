@@ -49,7 +49,7 @@ For editing, stop the preview and run `npm start`. This renders the pages once, 
 | Home page and case-study layouts | [`src/components.tsx`](src/components.tsx) |
 | Styles and browser interactions | [`src/styles.css`](src/styles.css) and [`src/main.ts`](src/main.ts) |
 | Document titles, metadata, sitemap and page generation | [`scripts/render.tsx`](scripts/render.tsx) |
-| Downloadable résumé | Replace [`public/Yash_Roushan_Resume.pdf`](public/Yash_Roushan_Resume.pdf) using the same filename. |
+| Résumé page and PDF | Replace [`public/Yash_Roushan_Resume.pdf`](public/Yash_Roushan_Resume.pdf) using the same filename, then update the full transcript and `pdfSha256` in [`src/resume.json`](src/resume.json). The build checks that the transcript identifies the matching PDF. |
 | Illustrations and preview images | [`public/art/`](public/art/) and the [artwork notes](artwork/README.md) |
 
 When adding a project, give it a unique slug, its verified repository URL, implementation details and descriptive artwork in `src/content.ts`. Keep the optional interactive preview unset unless it illustrates that specific project. The build renders a static case-study URL for each entry.

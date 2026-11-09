@@ -1,8 +1,16 @@
-import { mkdir, writeFile } from "node:fs/promises";
+import { mkdir, readFile, writeFile } from "node:fs/promises";
+import { createHash } from "node:crypto";
 import { renderToStaticMarkup } from "react-dom/server";
 import type { ReactNode } from "react";
 import { Home, CaseStudy, NotFound } from "../src/components";
 import { profile, projects, type Project } from "../src/content";
+import { ResumePage } from "../src/ResumePage";
+import resume from "../src/resume.json";
+
+const resumePdf = await readFile(`public/${profile.resume}`);
+if (createHash("sha256").update(resumePdf).digest("hex") !== resume.pdfSha256) {
+  throw new Error("The résumé PDF has changed. Update src/resume.json to match before publishing.");
+}
 
 const siteUrl = new URL(
   process.env.SITE_URL || "https://yashroushan.github.io/portfolio-website/engineering/",
@@ -80,8 +88,7 @@ async function page(
 <html lang="en-CA" data-theme="dark">
 <head>
   <meta charset="utf-8" />
-  ${noIndex ? `<base href="${escape(siteUrl.pathname)}" />` : ""}
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+${noIndex ? `  <base href="${escape(siteUrl.pathname)}" />\n` : ""}  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#111416" />
   <meta name="color-scheme" content="dark light" />
   <title>${escape(title)}</title>
@@ -126,6 +133,13 @@ await page(
   <Home />,
   "./",
 );
+await page(
+  "resume/index.html",
+  "Résumé — Yash Roushan",
+  "Read Yash Roushan’s software engineering résumé online, or download the original PDF.",
+  <ResumePage shareUrl={new URL("resume/", siteUrl).href} />,
+  "../",
+);
 for (const project of projects) {
   await page(
     `work/${project.slug}/index.html`,
@@ -152,7 +166,7 @@ await writeFile(
 );
 await writeFile(
   "public/sitemap.xml",
-  `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${["", ...projects.map((project) => `work/${project.slug}/`)].map((path) => `<url><loc>${escape(new URL(path, siteUrl).href)}</loc></url>`).join("")}</urlset>\n`,
+  `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${["", "resume/", ...projects.map((project) => `work/${project.slug}/`)].map((path) => `<url><loc>${escape(new URL(path, siteUrl).href)}</loc></url>`).join("")}</urlset>\n`,
 );
 await writeFile("public/.nojekyll", "");
 console.log(

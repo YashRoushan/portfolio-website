@@ -1,4 +1,5 @@
 import "./styles.css";
+import "./resume.css";
 
 const root = document.documentElement;
 const themeButton = document.querySelector<HTMLButtonElement>(
@@ -86,6 +87,35 @@ copyButton?.addEventListener("click", async () => {
   } catch {
     if (copyStatus)
       copyStatus.textContent = "Select the email address to copy it.";
+  }
+});
+
+const shareResume = document.querySelector<HTMLButtonElement>("[data-share-resume]");
+const resumeShareField = document.querySelector<HTMLElement>("[data-resume-share-field]");
+const resumeShareUrl = document.querySelector<HTMLInputElement>("#resume-share-url");
+const resumeShareStatus = document.querySelector<HTMLElement>("[data-resume-share-status]");
+
+shareResume?.addEventListener("click", async () => {
+  if (!resumeShareUrl || !resumeShareField || !resumeShareStatus) return;
+  const url = resumeShareUrl.value;
+  resumeShareStatus.textContent = "";
+  resumeShareField.hidden = true;
+  if (typeof navigator.share === "function") {
+    try {
+      await navigator.share({ title: "Yash Roushan — Résumé", url });
+      return;
+    } catch (error) {
+      if (error instanceof DOMException && error.name === "AbortError") return;
+    }
+  }
+  try {
+    await navigator.clipboard.writeText(url);
+    resumeShareStatus.textContent = "Résumé link copied.";
+  } catch {
+    resumeShareStatus.textContent = "Copy the link below to share the résumé.";
+    resumeShareField.hidden = false;
+    resumeShareUrl.focus();
+    resumeShareUrl.select();
   }
 });
 

@@ -12,7 +12,7 @@ import {
   Copy,
   Cpu,
   Database,
-  FileDown,
+  FileText,
   GitBranch,
   BriefcaseBusiness,
   CloudSun,
@@ -61,7 +61,7 @@ function Mark() {
   );
 }
 
-export function SiteHeader({ prefix = "./" }: { prefix?: string }) {
+export function SiteHeader({ prefix = "./", resumeCurrent = false }: { prefix?: string; resumeCurrent?: boolean }) {
   return (
     <header className="site-header">
       <div className="container header-inner">
@@ -100,8 +100,8 @@ export function SiteHeader({ prefix = "./" }: { prefix?: string }) {
           </button>
           <a
             className="resume-button"
-            href={`${prefix}${profile.resume}`}
-            download
+            href={`${prefix}resume/`}
+            aria-current={resumeCurrent ? "page" : undefined}
           >
             <span>Résumé</span>
             <ArrowUpRight {...iconProps} />
@@ -307,8 +307,8 @@ function Contact({ prefix = "./" }: { prefix?: string }) {
         <a href={profile.linkedin}>
           LinkedIn <ArrowUpRight size={14} aria-hidden="true" />
         </a>
-        <a href={`${prefix}${profile.resume}`} download>
-          <FileDown {...iconProps} /> Download résumé
+        <a href={`${prefix}resume/`}>
+          <FileText {...iconProps} /> View résumé
         </a>
       </div>
     </section>

@@ -9,6 +9,7 @@ export default defineConfig({
     rollupOptions: {
       input: {
         home: resolve("index.html"),
+        resume: resolve("resume/index.html"),
         notFound: resolve("404.html"),
         ...Object.fromEntries(
           projects.map((project) => [
