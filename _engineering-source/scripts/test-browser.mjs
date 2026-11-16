@@ -51,7 +51,7 @@ async function portfolio(page, mobile) {
   await heading(page, /Yash\s*Roushan/);
   await expect(page.getByText("Software Engineer · Full-Stack Development · AI & Automation", { exact: true })).toBeVisible();
   if (mobile) {
-    const menu = page.getByRole("button", { name: "Open navigation" });
+    const menu = page.getByRole("button", { name: /^(Open|Close) navigation$/ });
     await menu.click();
     await expect(menu).toHaveAttribute("aria-expanded", "true");
     await page.getByRole("navigation", { name: "Main navigation" }).getByRole("link", { name: "Work" }).click();
@@ -59,6 +59,8 @@ async function portfolio(page, mobile) {
   }
   await expect(page.getByRole("heading", { name: "Quick Cash" })).toBeVisible();
   await fitsViewport(page);
+  const image = page.locator(".core-image");
+  await expect.poll(() => image.evaluate((node) => node.currentSrc)).toMatch(mobile ? /compute-core-mobile\.avif$/ : /compute-core(?:-small)?\.webp$/);
   await a11y(page);
   await visit(page, site + "resume/");
   await heading(page, /Résumé/);
@@ -229,11 +231,22 @@ try {
     for (const failure of failures) console.error(failure.reason);
     if (failures.length) process.exitCode = 1;
   } else {
-    await pageTest("Desktop portfolio and résumé accessibility at 1440px", (page) => portfolio(page, false));
-    await pageTest("Mobile navigation, layout and accessibility at 375px", (page) => portfolio(page, true), { width: 375, height: 812 });
-    await pageTest("Snake start, keyboard steering, pause and restart", snake);
-    await pageTest("Weather search, keyboard selection and units", weather, { width: 375, height: 812 });
-    await pageTest("Help-desk link lookup, simulated model, reset and safe text rendering", helpdesk, { width: 375, height: 812 });
+    const mobile = { width: 375, height: 812 };
+    const checks = [
+      ["Desktop portfolio and résumé accessibility at 1440px", (page) => portfolio(page, false)],
+      ["Mobile navigation, layout and accessibility at 375px", (page) => portfolio(page, true), mobile],
+      ["Snake start, keyboard steering, pause and restart", snake],
+      ["Weather search, keyboard selection and units", weather, mobile],
+      ["Help-desk link lookup, simulated model, reset and safe text rendering", helpdesk, mobile],
+    ];
+    for (const [name, verify, viewport] of checks) {
+      try {
+        await pageTest(name, verify, viewport);
+      } catch (error) {
+        console.error("FAIL " + name, error);
+        process.exitCode = 1;
+      }
+    }
   }
 } finally {
   await browser.close();

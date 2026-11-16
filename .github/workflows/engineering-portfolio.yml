@@ -35,6 +35,7 @@ jobs:
           sudo apt-get update -qq
           sudo apt-get install -y --no-install-recommends texlive-latex-extra texlive-fonts-recommended lmodern poppler-utils
       - name: Install locked dependencies, build, and verify
+        id: static-build
         working-directory: _engineering-source
         env:
           SITE_URL: https://yashroushan.github.io/portfolio-website/engineering/
@@ -61,6 +62,7 @@ jobs:
           curl --fail --silent --show-error --retry 10 --retry-connrefused "$PORTFOLIO_QA_URL" >/dev/null
           node scripts/test-browser.mjs | tee -a "$GITHUB_STEP_SUMMARY"
       - name: Check live app and external model services
+        if: ${{ !cancelled() && steps.static-build.outcome == 'success' }}
         continue-on-error: true
         working-directory: _engineering-source
         env:
