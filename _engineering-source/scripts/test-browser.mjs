@@ -183,7 +183,7 @@ async function tasks(page) {
   const headers = { Authorization: "Bearer " + accessToken };
   const name = "Portfolio QA task";
   try {
-    await page.getByRole("link", { name: "Tasks", exact: true }).click();
+    await page.waitForURL("**/app/tasks");
     await heading(page, "Tasks");
     await page.getByRole("button", { name: "New Task" }).click();
     await page.getByLabel("Title", { exact: true }).fill(name);
@@ -201,12 +201,26 @@ async function tasks(page) {
 }
 
 async function liveWeather(page) {
+  const network = [];
+  const domain = (request) => new URL(request.url()).hostname.endsWith(".open-meteo.com");
+  page.on("requestfailed", (request) => {
+    if (domain(request)) network.push(new URL(request.url()).hostname + " " + request.failure()?.errorText);
+  });
+  page.on("response", (response) => {
+    if (domain(response)) network.push(new URL(response.url()).hostname + " HTTP " + response.status());
+  });
   await visit(page, site + "demos/weather/");
-  await expect(page.getByText("Halifax, NS", { exact: true })).toBeVisible({ timeout: 20000 });
-  const search = page.getByRole("combobox", { name: "Search cities worldwide" });
-  await search.fill("London");
-  await page.getByRole("option", { name: /London.*United Kingdom/ }).first().click({ timeout: 18000 });
-  await expect(page.getByText("London, United Kingdom", { exact: true })).toBeVisible({ timeout: 20000 });
+  try {
+    await expect(page.getByText("Halifax, NS", { exact: true })).toBeVisible({ timeout: 20000 });
+    const search = page.getByRole("combobox", { name: "Search cities worldwide" });
+    await search.fill("London");
+    await page.getByRole("option", { name: /London.*United Kingdom/ }).first().click({ timeout: 18000 });
+    await expect(page.getByText("London, United Kingdom", { exact: true })).toBeVisible({ timeout: 20000 });
+  } catch (error) {
+    console.error("Open-Meteo requests:", network);
+    console.error("Weather UI status:", await page.locator(".status").allTextContents());
+    throw error;
+  }
 }
 
 async function liveModel(page) {
