@@ -29,7 +29,7 @@ export function ResumePage({ shareUrl }: { shareUrl: string }) {
           <div>
             <p className="eyebrow">Software engineering</p>
             <h1>Résumé<span className="accent">.</span></h1>
-            <p>Read the full résumé below, or download the original PDF.</p>
+            <p>Read the full résumé below, or download the PDF.</p>
           </div>
           <div className="resume-actions">
             <a href={`../${profile.resume}`} download className="button button-primary">
@@ -55,6 +55,7 @@ export function ResumePage({ shareUrl }: { shareUrl: string }) {
               <a href={`mailto:${profile.email}`}>{contact.email}</a>
               <a href={profile.linkedin}>{contact.linkedin}</a>
               <a href={profile.github}>{contact.github}</a>
+              <a href="../">Portfolio</a>
             </address>
           </header>
           <section aria-labelledby="resume-education">

@@ -2,7 +2,7 @@
 
 [Open the portfolio](https://yashroushan.github.io/portfolio-website/engineering/) · [Source on `main`](https://github.com/YashRoushan/portfolio-website/tree/main/_engineering-source)
 
-The portfolio pairs Yash’s engineering experience with three project case studies and a compact collection of additional GitHub projects. Case-study previews are labelled illustrations. Separate **Open app** and **Try live demo** links lead to running applications.
+The portfolio pairs Yash’s engineering experience with four showcased applications and a collection of coursework and experiments. Case-study previews are labelled illustrations. Separate **Open app** and **Try live demo** links lead to running applications.
 
 | Case study | Source repository |
 | --- | --- |
@@ -26,7 +26,7 @@ The original Node/MongoDB task-manager source remains in its repository; the hos
 
 ## Run locally
 
-Use Node.js 22.12 or later. From a checkout of `YashRoushan/portfolio-website`:
+Use Node.js 22.12 or later, Python 3, `pdflatex` with Latin Modern, and the Poppler utilities. On Ubuntu, install `texlive-latex-extra`, `texlive-fonts-recommended`, `lmodern` and `poppler-utils`. From a checkout of `YashRoushan/portfolio-website`:
 
 ```sh
 cd _engineering-source
@@ -49,7 +49,7 @@ For editing, stop the preview and run `npm start`. This renders the pages once, 
 | Home page and case-study layouts | [`src/components.tsx`](src/components.tsx) |
 | Styles and browser interactions | [`src/styles.css`](src/styles.css) and [`src/main.ts`](src/main.ts) |
 | Document titles, metadata, sitemap and page generation | [`scripts/render.tsx`](scripts/render.tsx) |
-| Résumé page and PDF | Replace [`public/Yash_Roushan_Resume.pdf`](public/Yash_Roushan_Resume.pdf) using the same filename, then update the full transcript and `pdfSha256` in [`src/resume.json`](src/resume.json). The build checks that the transcript identifies the matching PDF. |
+| Résumé page and PDF | Edit [`resume.tex`](resume.tex) and the matching HTML transcript in [`src/resume.json`](src/resume.json). The build compiles the PDF and checks its page count, text and margins. |
 | Illustrations and preview images | [`public/art/`](public/art/) and the [artwork notes](artwork/README.md) |
 
 When adding a project, give it a unique slug, its verified repository URL, implementation details and descriptive artwork in `src/content.ts`. Keep the optional interactive preview unset unless it illustrates that specific project. The build renders a static case-study URL for each entry.

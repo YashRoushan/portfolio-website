@@ -1,15 +1,12 @@
 import { mkdir, readFile, writeFile } from "node:fs/promises";
-import { createHash } from "node:crypto";
 import { renderToStaticMarkup } from "react-dom/server";
 import type { ReactNode } from "react";
 import { Home, CaseStudy, NotFound } from "../src/components";
 import { profile, projects, type Project } from "../src/content";
 import { ResumePage } from "../src/ResumePage";
-import resume from "../src/resume.json";
-
 const resumePdf = await readFile(`public/${profile.resume}`);
-if (createHash("sha256").update(resumePdf).digest("hex") !== resume.pdfSha256) {
-  throw new Error("The résumé PDF has changed. Update src/resume.json to match before publishing.");
+if (resumePdf.subarray(0, 5).toString() !== "%PDF-") {
+  throw new Error("Generate the résumé PDF with npm run build:resume before publishing.");
 }
 
 const siteUrl = new URL(
@@ -70,6 +67,8 @@ async function page(
         "REST APIs",
         "PostgreSQL",
         "Docker",
+        "LLM evaluation",
+        "Workflow automation",
       ],
     },
   };
@@ -103,7 +102,7 @@ ${noIndex ? `  <base href="${escape(siteUrl.pathname)}" />\n` : ""}  <meta name=
   <meta property="og:image" content="${new URL("social-card.png", siteUrl).href}" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
-  <meta property="og:image:alt" content="Yash Roushan, Software Engineer and Full-Stack Developer, Halifax, Canada" />
+  <meta property="og:image:alt" content="Yash Roushan, Software Engineer, Halifax, Canada" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="${escape(title)}" />
   <meta name="twitter:description" content="${escape(description)}" />
@@ -128,15 +127,15 @@ ${noIndex ? `  <base href="${escape(siteUrl.pathname)}" />\n` : ""}  <meta name=
 
 await page(
   "index.html",
-  "Yash Roushan — Software Engineer & Full-Stack Developer",
-  "Software engineer in Halifax, Canada. Explore Yash Roushan’s React, TypeScript, Node.js and local AI projects, enterprise experience and case studies.",
+  `${profile.name} — ${profile.role}`,
+  "Yash Roushan is a Halifax software engineer working on full-stack applications, LLM evaluation, workflow automation and enterprise systems.",
   <Home />,
   "./",
 );
 await page(
   "resume/index.html",
   "Résumé — Yash Roushan",
-  "Read Yash Roushan’s software engineering résumé online, or download the original PDF.",
+  "Read Yash Roushan’s software engineering résumé online, or download the PDF.",
   <ResumePage shareUrl={new URL("resume/", siteUrl).href} />,
   "../",
 );

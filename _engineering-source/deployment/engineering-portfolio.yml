@@ -30,6 +30,10 @@ jobs:
           node-version: '24'
           cache: npm
           cache-dependency-path: _engineering-source/package-lock.json
+      - name: Install tools for the résumé PDF
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y --no-install-recommends texlive-latex-extra texlive-fonts-recommended lmodern poppler-utils
       - name: Install locked dependencies, build, and verify
         working-directory: _engineering-source
         env:

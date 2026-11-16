@@ -1,6 +1,6 @@
 export const profile = {
   name: "Yash Roushan",
-  role: "Software Engineer · Full-Stack Developer",
+  role: "Software Engineer · Full-Stack Development · AI & Automation",
   email: "yashroushan@dal.ca",
   location: "Halifax, Nova Scotia",
   github: "https://github.com/YashRoushan",
@@ -89,7 +89,7 @@ export const projects: Project[] = [
   {
     slug: "local-it-help-desk",
     name: "Local IT Help Desk Chatbot",
-    category: "Local AI application",
+    category: "Applied AI · IT support",
     description: "A FastAPI assistant that checks campus resources before calling a local language model.",
     summary:
       "A browser-based help-desk assistant that combines curated technical resources with local language-model inference.",
@@ -115,7 +115,7 @@ export const projects: Project[] = [
       },
       {
         title: "Handle the operational edges",
-        body: "The implementation includes rate limiting at six requests per minute per IP, a short in-process conversation buffer and error handling around the local model call.",
+        body: "An opaque session cookie scopes short-term context to one browser. The API expires idle sessions, supports conversation reset and serialises turns within each session while separate visitors can proceed concurrently.",
       },
     ],
     architecture: [
@@ -134,11 +134,12 @@ export const projects: Project[] = [
       "Curated technical-resource retrieval",
       "Fuzzy intent matching",
       "Local Ollama inference",
-      "Short conversation context",
-      "Rate limiting and error handling",
+      "Session-specific contextual memory and reset",
+      "Configurable Ollama model",
+      "Rate limiting, timeout handling and concurrent session tests",
     ],
     notes:
-      "The preview shows an example support flow. Run the repository locally with Ollama to use the model. The prototype stores a five-message buffer in process memory, shared across requests. Per-user conversation isolation would be a next step for multi-user deployment.",
+      "The illustration demonstrates the curated support flow. The FastAPI version uses Ollama, with up to five turns in each process-local session and a 30-minute idle expiry. The source includes a Dockerfile for deployment with a separately configured Ollama service.",
   },
   {
     slug: "process-simulator",
@@ -199,13 +200,14 @@ export interface RepositoryProject {
   category: string;
   description: string;
   stack: string[];
-  repository: string;
+  repository?: string;
   demo?: string;
+  caseStudy?: string;
   note: string;
-  icon: "tasks" | "weather" | "game" | "jobs" | "walk" | "chat";
+  icon: "tasks" | "mobile" | "weather" | "game" | "jobs" | "walk" | "chat" | "systems";
 }
 
-export const repositoryProjects: RepositoryProject[] = [
+export const additionalShowcase: RepositoryProject[] = [
   {
     name: "Task Planner",
     category: "Full-stack productivity app",
@@ -215,6 +217,27 @@ export const repositoryProjects: RepositoryProject[] = [
     demo: "https://yash-task-planner.yashroushan.chatgpt.site/",
     note: "Hosted edition of To-Do App. Isolated guest workspace with saved changes; no sign-up required.",
     icon: "tasks",
+  },
+  {
+    name: "Quick Cash",
+    category: "Android marketplace · Team project",
+    description: "Co-developed a short-term jobs app that connects employers posting work with applicants searching for listings.",
+    stack: ["Java", "Android SDK", "Firebase", "Espresso"],
+    note: "I contributed location-aware search, listing workflows, payment-form validation and Android UI tests. Built with Krutik Chaudhary and the project team.",
+    icon: "mobile",
+  },
+];
+
+export const repositoryProjects: RepositoryProject[] = [
+  {
+    name: "Multi-Node Process Simulator",
+    category: "Systems programming · University coursework",
+    description: "Simulate process scheduling across nodes with POSIX threads, priority queues and mutex-protected results.",
+    stack: ["C", "POSIX threads", "Mutexes"],
+    repository: "https://github.com/YashRoushan/Operating_System_Simulator",
+    caseStudy: "./work/process-simulator/",
+    note: "Command-line coursework with expected scheduling traces and supplied scaffolding.",
+    icon: "systems",
   },
   {
     name: "Weather Explorer",
@@ -266,6 +289,18 @@ export const repositoryProjects: RepositoryProject[] = [
 ];
 
 export const experience = [
+  {
+    company: "Outlier AI",
+    role: "AI Trainer & Coding Evaluator",
+    period: "Sep 2026 — Present",
+    location: "Remote · Freelance",
+    summary: "Evaluating LLM-generated Java code and technical reasoning.",
+    points: [
+      "Reviewed Java responses for correctness, algorithmic efficiency, reasoning and edge-case behaviour.",
+      "Applied prompt engineering and evaluation rubrics to assess instruction-following.",
+      "Compared model outputs and gave structured feedback on logical errors and unsupported claims.",
+    ],
+  },
   {
     company: "Irving Oil",
     role: "IT Analyst, Solutions",
@@ -365,17 +400,17 @@ export const expertise = [
   },
   {
     icon: "ai",
-    title: "AI applications",
-    body: "Local model integration, intent matching and resource retrieval for a focused support experience.",
-    tags: "Ollama · FastAPI · Python",
+    title: "AI engineering",
+    body: "Built a local LLM assistant with contextual memory, intent matching and resource retrieval. Evaluate model outputs using prompts, test cases and scoring rubrics.",
+    tags: "Prompt engineering · Model evaluation · Ollama",
     evidence: "Local IT Help Desk Chatbot",
     projectSlug: "local-it-help-desk",
   },
   {
     icon: "network",
-    title: "Enterprise systems",
-    body: "Infrastructure monitoring, network troubleshooting and workflow automation in working IT environments.",
-    tags: "SolarWinds · Cisco ISE · Power Platform",
+    title: "Enterprise systems & automation",
+    body: "Built infrastructure dashboards, mapped Azure application dependencies and automated IT workflows with SQL and Power Automate.",
+    tags: "SolarWinds · Azure · SQL · Power Automate",
     evidence: "Irving Oil & Dalhousie",
     projectSlug: null,
   },

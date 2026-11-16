@@ -10,3 +10,4 @@ work/
 .env
 .env.*
 !.env.example
+/public/Yash_Roushan_Resume.pdf

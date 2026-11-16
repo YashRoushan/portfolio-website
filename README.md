@@ -1,5 +1,9 @@
 # Yash Roushan — portfolio
 
+[Engineering portfolio](https://yashroushan.github.io/portfolio-website/engineering/) · [Live-site source and deployment](_engineering-source/README.md)
+
+The live engineering portfolio showcases full-stack development, AI applications, enterprise systems and workflow automation.
+
 A recruiter-focused portfolio for Yash Roushan, built as a statically generated Next.js App Router site. The content connects software engineering, enterprise systems, networking, support, data, and automation through evidence-linked role and project case studies.
 
 ## Local setup

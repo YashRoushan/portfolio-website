@@ -9,10 +9,11 @@
   "scripts": {
     "dev": "vite preview --host 0.0.0.0",
     "check": "tsc --noEmit",
-    "build": "npm run check && node --import tsx scripts/render.tsx && vite build",
+    "build": "npm run check && npm run build:resume && node --import tsx scripts/render.tsx && vite build",
     "preview": "vite preview --host 0.0.0.0",
     "verify": "node scripts/verify-build.mjs",
-    "start": "node --import tsx scripts/render.tsx && vite --host 0.0.0.0"
+    "start": "npm run build:resume && node --import tsx scripts/render.tsx && vite --host 0.0.0.0",
+    "build:resume": "python3 scripts/build-resume.py"
   },
   "dependencies": {
     "@fontsource-variable/geist": "5.2.8",

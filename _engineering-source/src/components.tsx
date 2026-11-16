@@ -26,17 +26,20 @@ import {
   Moon,
   Network,
   Sun,
+  Smartphone,
   Terminal,
   Workflow,
   X,
 } from "lucide-react";
 import {
+  additionalShowcase,
   experience,
   expertise,
   profile,
   projects,
   repositoryProjects,
   type Project,
+  type RepositoryProject,
 } from "./content";
 
 const iconProps = { size: 18, strokeWidth: 1.6, "aria-hidden": true } as const;
@@ -135,22 +138,7 @@ function TagList({ tags }: { tags: string[] }) {
 
 function ProjectCard({ project }: { project: Project }) {
   const caseHref = `./work/${project.slug}/`;
-  if (project.art.kind === "scheduler") {
-    return (
-      <article className="systems-project reveal" style={{ gridColumn: "1 / -1", marginTop: 0 }}>
-        <ProcessVisual />
-        <div className="systems-copy">
-          <p className="eyebrow">{project.category}</p>
-          <h3><a href={caseHref}>{project.name}</a></h3>
-          <p>{project.description}</p>
-          <TagList tags={project.stack} />
-        </div>
-        <a className="round-link" href={caseHref} aria-label={`Read the ${project.name} case study`}>
-          <ArrowUpRight size={24} aria-hidden="true" />
-        </a>
-      </article>
-    );
-  }
+  if (project.art.kind !== "image") return null;
   return (
     <article className={`project-card reveal ${project.tone}`}>
       <a
@@ -196,6 +184,41 @@ function ProjectCard({ project }: { project: Project }) {
           </a>
         </div>
       </div>
+    </article>
+  );
+}
+
+function RepositoryCard({ project, featured = false }: { project: RepositoryProject; featured?: boolean }) {
+  const Heading = featured ? "h3" : "h4";
+  const Icon = {
+    tasks: ListChecks,
+    mobile: Smartphone,
+    weather: CloudSun,
+    game: Gamepad2,
+    jobs: BriefcaseBusiness,
+    walk: Footprints,
+    chat: MessageSquare,
+    systems: Terminal,
+  }[project.icon];
+
+  return (
+    <article className="repository-card reveal">
+      <div className="repository-card-top">
+        <span className="repository-icon"><Icon size={23} strokeWidth={1.5} aria-hidden="true" /></span>
+        {project.demo && <span className="repository-status is-live"><span aria-hidden="true" />Live demo</span>}
+      </div>
+      <p className="eyebrow">{project.category}</p>
+      <Heading>{project.name}</Heading>
+      <p className="repository-description">{project.description}</p>
+      <TagList tags={project.stack} />
+      <p className="repository-note">{project.note}</p>
+      {(project.demo || project.caseStudy || project.repository) && (
+        <div className="repository-actions">
+          {project.demo && <a className="repository-demo" href={project.demo} target="_blank" rel="noopener noreferrer" aria-label={`Open ${project.name} live demo`}>Open app <ArrowUpRight {...iconProps} /></a>}
+          {project.caseStudy && <a href={project.caseStudy}>Read case study <ArrowRight {...iconProps} /></a>}
+          {project.repository && <a href={project.repository} target="_blank" rel="noopener noreferrer" aria-label={`View ${project.name} source on GitHub`}>View source <GitBranch size={16} aria-hidden="true" /></a>}
+        </div>
+      )}
     </article>
   );
 }
@@ -275,7 +298,7 @@ function Contact({ prefix = "./" }: { prefix?: string }) {
         <span className="muted">worth using.</span>
       </h2>
       <p className="contact-copy">
-        Front-end, back-end and full-stack roles.
+        Full-stack development, AI engineering, automation and enterprise software.
         <br />
         Based in Halifax. Open to opportunities across Canada.
       </p>
@@ -330,19 +353,14 @@ export function Home() {
       <main id="main-content">
         <section className="hero container" aria-labelledby="hero-title">
           <div className="hero-copy">
-            <p className="eyebrow hero-eyebrow">
-              <span className="accent-line" /> Software engineer · Full-stack
-              developer
-            </p>
             <h1 id="hero-title">
               Yash
               <br />
               Roushan<span className="accent">.</span>
             </h1>
-            <p className="hero-statement">From interface to infrastructure.</p>
+            <p className="hero-statement">{profile.role}</p>
             <p className="hero-description">
-              I build React interfaces, Node.js services and local AI tools that
-              make complex systems easier to use.
+              I build React and TypeScript applications, Node.js and FastAPI services, and local LLM tools. My enterprise work spans Azure migrations, infrastructure monitoring and workflow automation.
             </p>
             <div className="hero-actions">
               <a className="button button-primary" href="#work">
@@ -353,7 +371,7 @@ export function Home() {
               </a>
             </div>
             <div className="hero-location">
-              <span className="status-dot" /> Halifax, Canada · Two Irving Oil co-ops
+              <span className="status-dot" /> Halifax, Canada
             </div>
           </div>
           <figure className="hero-art">
@@ -397,10 +415,11 @@ export function Home() {
           </figure>
         </section>
         <div className="hero-foot container">
-          <p>Built 3 monitoring dashboards at Irving Oil</p>
-          <a href="#work">
-            Explore the work <ArrowDown size={14} aria-hidden="true" />
-          </a>
+          <ul aria-label="Qualifications">
+            <li><strong>3.94 / 4.30</strong> GPA at Dalhousie</li>
+            <li><strong>2</strong> Irving Oil co-ops</li>
+            <li>Applied AI and Java model evaluation</li>
+          </ul>
         </div>
 
         <section
@@ -417,7 +436,7 @@ export function Home() {
             </div>
             <div className="work-heading-actions">
               <a className="text-link" href="#more-projects">
-                More projects <ArrowDown {...iconProps} />
+                Coursework & experiments <ArrowDown {...iconProps} />
               </a>
               <a className="text-link" href={`${profile.github}?tab=repositories`}>
                 All repositories <ArrowUpRight {...iconProps} />
@@ -425,41 +444,21 @@ export function Home() {
             </div>
           </div>
           <div className="projects-grid">
-            {projects.map((project) => (
+            {projects.filter((project) => project.art.kind === "image").map((project) => (
               <ProjectCard key={project.slug} project={project} />
+            ))}
+            {additionalShowcase.map((project) => (
+              <RepositoryCard key={project.name} project={project} featured />
             ))}
           </div>
           <div className="repository-collection" id="more-projects" aria-labelledby="more-projects-title">
             <div className="repository-heading reveal">
-              <div>
-                <p className="eyebrow">Explore the repository</p>
-                <h3 id="more-projects-title">More things I’ve built.</h3>
-              </div>
-              <p>Working applications, focused experiments<br className="desktop-break" /> and the foundations underneath.</p>
+              <h3 id="more-projects-title">Coursework &amp; experiments</h3>
             </div>
             <div className="repository-grid">
-              {repositoryProjects.map((project) => {
-                const Icon = { tasks: ListChecks, weather: CloudSun, game: Gamepad2, jobs: BriefcaseBusiness, walk: Footprints, chat: MessageSquare }[project.icon];
-                return (
-                  <article className="repository-card reveal" key={project.repository}>
-                    <div className="repository-card-top">
-                      <span className="repository-icon"><Icon size={23} strokeWidth={1.5} aria-hidden="true" /></span>
-                      <span className={`repository-status ${project.demo ? "is-live" : ""}`}>
-                        {project.demo ? <><span aria-hidden="true" />Live demo</> : "Source available"}
-                      </span>
-                    </div>
-                    <p className="eyebrow">{project.category}</p>
-                    <h4>{project.name}</h4>
-                    <p className="repository-description">{project.description}</p>
-                    <TagList tags={project.stack} />
-                    <p className="repository-note">{project.note}</p>
-                    <div className="repository-actions">
-                      {project.demo ? <a className="repository-demo" href={project.demo} target="_blank" rel="noopener noreferrer" aria-label={`Open ${project.name} live demo`}>Open app <ArrowUpRight {...iconProps} /></a> : null}
-                      <a href={project.repository} target="_blank" rel="noopener noreferrer" aria-label={`View ${project.name} source on GitHub`}>View source <GitBranch size={16} aria-hidden="true" /></a>
-                    </div>
-                  </article>
-                );
-              })}
+              {repositoryProjects.map((project) => (
+                <RepositoryCard key={project.name} project={project} />
+              ))}
             </div>
           </div>
         </section>
@@ -524,8 +523,7 @@ export function Home() {
               experience<span className="accent">.</span>
             </h2>
             <p>
-              At Irving Oil, I mapped cloud networks and built monitoring dashboards.
-              At Dalhousie, I helped students and staff get back to work.
+              I evaluate model-generated Java code at Outlier AI. At Irving Oil, I mapped Azure dependencies and built SolarWinds dashboards. At Dalhousie, I automated IT support workflows.
             </p>
             <div className="experience-metrics">
               <div>
@@ -596,9 +594,7 @@ export function Home() {
               database.
             </p>
             <p>
-              I’m looking for a software engineering role where I can build
-              useful things, collaborate with people who care about their craft
-              and keep getting better at mine.
+              I’m interested in full-stack development, AI engineering, workflow automation and enterprise software.
             </p>
             <div className="education">
               <div className="education-top">
@@ -607,7 +603,8 @@ export function Home() {
                 </span>
                 <div>
                   <h3>Dalhousie University</h3>
-                  <p>Bachelor of Computer Science · Graduated October 2026</p>
+                  <p>Bachelor of Computer Science · Completed September 2026</p>
+                  <p>Convocation October 2026</p>
                 </div>
               </div>
               <ul>

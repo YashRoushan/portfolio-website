@@ -65,7 +65,7 @@
 .repository-status.is-live { color: var(--green); }
 .repository-status > span { width: 5px; height: 5px; border-radius: 50%; background: currentColor; }
 .repository-card .eyebrow { font-size: 10px; letter-spacing: .06em; line-height: 1.6; }
-.repository-card h4 { margin: 10px 0 14px; font-size: 24px; font-weight: 550; line-height: 1.2; letter-spacing: -.035em; }
+.repository-card :is(h3, h4) { margin: 10px 0 14px; font-size: 24px; font-weight: 550; line-height: 1.2; letter-spacing: -.035em; }
 .repository-description { color: var(--muted); font-size: 15px; line-height: 1.65; margin-bottom: 22px; }
 .repository-card .tags { margin-top: auto; gap: 6px; }
 .repository-card .tags li { font-size: 10px; }
@@ -585,6 +585,15 @@ section[id] {
   padding-block: 18px;
   color: var(--subtle);
   font-size: 11px;
+}
+.hero-foot ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px clamp(16px, 4vw, 48px);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  color: var(--muted);
 }
 .hero-foot a {
   display: flex;

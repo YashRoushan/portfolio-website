@@ -1,0 +1,223 @@
+%-------------------------
+% Resume in LaTeX
+% Author: Yash Roushan
+% License: MIT
+%-------------------------
+
+\documentclass[letterpaper,11pt]{article}
+
+\usepackage{latexsym}
+\usepackage[empty]{fullpage}
+\usepackage{titlesec}
+\usepackage{marvosym}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{verbatim}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{fancyhdr}
+\usepackage[english]{babel}
+\usepackage{tabularx}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\input{glyphtounicode}
+
+%----------PAGE STYLE----------
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot{}
+\setlength{\footskip}{5pt}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+%----------PAGE MARGINS----------
+% Optimised to preserve a readable single-page layout
+\addtolength{\oddsidemargin}{-0.45in}
+\addtolength{\evensidemargin}{-0.45in}
+\addtolength{\textwidth}{0.90in}
+\addtolength{\topmargin}{-0.60in}
+\addtolength{\textheight}{1.32in}
+
+%----------GENERAL FORMATTING----------
+\urlstyle{same}
+\raggedbottom
+\raggedright
+\hyphenpenalty=10000
+\exhyphenpenalty=10000
+\setlength{\tabcolsep}{0in}
+
+% Original body font size preserved
+\newcommand{\resumeBodyFont}{
+  \fontsize{10.2pt}{11.2pt}\selectfont
+}
+
+% Original metadata font size preserved
+\newcommand{\resumeMetaFont}{
+  \fontsize{9.7pt}{10.8pt}\selectfont
+}
+
+%----------SECTION FORMATTING----------
+\definecolor{sectionblue}{RGB}{30,64,150}
+
+\titleformat{\section}
+  {\color{sectionblue}\bfseries\scshape\raggedright\large}
+  {}{0em}{}
+  [\color{sectionblue}\titlerule]
+
+% Balanced section spacing
+\titlespacing*{\section}{0pt}{6pt}{2pt}
+
+% Machine-readable PDF
+\pdfgentounicode=1
+
+%-------------------------
+% CUSTOM COMMANDS
+%-------------------------
+
+\newcommand{\resumeItem}[1]{
+  \item{\resumeBodyFont #1}
+}
+
+% Work heading:
+% Blue Job Title | Company | Location             Date
+\newcommand{\resumeSubheading}[4]{
+  \item
+    \begin{tabularx}{\textwidth}[t]
+      {@{}>{\raggedright\arraybackslash}Xr@{}}
+      \textbf{\textcolor{sectionblue}{#1}} $|$ #3 $|$ #4 & #2 \\
+    \end{tabularx}
+    \vspace{-10pt}
+}
+
+% Education heading
+\newcommand{\resumeEducationHeading}[2]{
+  \item
+    \begin{tabularx}{\textwidth}[t]
+      {@{}>{\raggedright\arraybackslash}Xr@{}}
+      \resumeBodyFont #1 & \resumeBodyFont #2 \\
+    \end{tabularx}
+    \vspace{-5pt}
+}
+
+% Project heading
+\newcommand{\resumeProjectHeading}[2]{
+  \item
+    \begin{tabularx}{\textwidth}[t]
+      {@{}>{\raggedright\arraybackslash}Xr@{}}
+      \resumeBodyFont #1 & \resumeBodyFont #2 \\
+    \end{tabularx}
+    \vspace{-9pt}
+}
+
+% Main heading list
+% Increased spacing between positions and projects
+\newcommand{\resumeSubHeadingListStart}{
+  \begin{itemize}[
+    leftmargin=0in,
+    label={},
+    itemsep=7pt,
+    topsep=1pt,
+    parsep=0pt,
+    partopsep=0pt
+  ]
+}
+
+\newcommand{\resumeSubHeadingListEnd}{
+  \end{itemize}
+  \vspace{-3pt}
+}
+
+% Bullet list
+% Increased bullet spacing for readability
+\newcommand{\resumeItemListStart}{
+  \vspace{-2pt}
+  \begin{itemize}[
+    leftmargin=0.25in,
+    itemsep=4pt,
+    topsep=0pt,
+    parsep=0pt,
+    partopsep=0pt
+  ]
+}
+
+\newcommand{\resumeItemListEnd}{
+  \end{itemize}
+  \vspace{-3pt}
+}
+
+\renewcommand\labelitemii{
+  $\vcenter{\hbox{\tiny$\bullet$}}$
+}
+
+%-------------------------------------------
+%%%%%% RESUME STARTS HERE %%%%%%%%%%%%%%%%%%%
+%-------------------------------------------
+
+\hypersetup{pdftitle={Yash Roushan - Engineering Resume},pdfauthor={Yash Roushan},pdfsubject={Software engineering, AI and automation}}
+\begin{document}
+\begin{center}
+  {\fontsize{23pt}{25pt}\selectfont\textbf{Yash Roushan}} \\[-1pt]
+  {\resumeMetaFont
+    Halifax, NS $|$ +1 (902) 412-8887 $|$
+    \href{mailto:yashroushan@dal.ca}{\underline{YashRoushan@dal.ca}} $|$
+    \href{https://www.linkedin.com/in/yash-roushan-8636a1242/}{\underline{LinkedIn}} $|$
+    \href{https://github.com/YashRoushan}{\underline{GitHub}} $|$
+    \href{https://yashroushan.github.io/portfolio-website/engineering/}{\underline{Portfolio}}
+  }
+\end{center}
+\vspace{-7pt}
+\section{Education}
+\resumeSubHeadingListStart
+  \resumeEducationHeading
+    {\textbf{Dalhousie University} $|$ Bachelor of Computer Science, Halifax, NS}{Sep 2022 -- Sep 2026}
+  \resumeItemListStart
+  \resumeItem{GPA 3.94/4.30 $|$ Dean's List $|$ Sexton Scholar $|$ Convocation October 2026}
+  \resumeItemListEnd
+\resumeSubHeadingListEnd
+\section{Technical Skills}
+{\resumeBodyFont
+\noindent
+\textbf{Languages \& Frameworks:} Java, Python, JavaScript, TypeScript, SQL, React, Node.js, Express, FastAPI\\
+\textbf{AI \& Automation:} LLM evaluation, prompt engineering, evaluation rubrics, Ollama, Power Automate\\
+\textbf{Data, Cloud \& Testing:} REST APIs, PostgreSQL, Prisma, Azure, Docker, Git, Jest, Supertest, ServiceNow
+}
+\section{Experience}
+\resumeSubHeadingListStart
+\resumeSubheading{AI Trainer \& Coding Evaluator}{Sep 2026 -- Present}{Outlier AI (Freelance)}{Remote}
+\resumeItemListStart
+  \resumeItem{Evaluated \textbf{LLM-generated Java solutions} for correctness, reasoning, algorithmic efficiency and edge-case behaviour.}
+  \resumeItem{Applied \textbf{prompt engineering and evaluation rubrics} to assess instruction-following and provide structured feedback.}
+\resumeItemListEnd
+\resumeSubheading{Solutions Analyst Co-op}{Jan 2026 -- Apr 2026}{Irving Oil}{Saint John, NB}
+\resumeItemListStart
+  \resumeItem{Mapped \textbf{Azure migration dependencies} and network data flows with cloud and infrastructure teams.}
+  \resumeItem{Translated Paperless Pilot feedback into workflow issues and assessed application dependencies for the Adobe-to-Tungsten migration.}
+\resumeItemListEnd
+\resumeSubheading{Network Analyst Co-op}{Sep 2025 -- Jan 2026}{Irving Oil}{Saint John, NB}
+\resumeItemListStart
+  \resumeItem{Built \textbf{3 SolarWinds dashboards} using SWQL for Cloud, Network and Service Desk teams.}
+  \resumeItem{Audited \textbf{319 Cisco ISE nodes}, investigated 29 systems and updated 37 network maps to support troubleshooting and planning.}
+\resumeItemListEnd
+\resumeSubheading{Backend Developer}{Jun 2025 -- Dec 2025}{Empovation}{Nigeria (Remote)}
+\resumeItemListStart
+  \resumeItem{Developed \textbf{Node.js/Express REST APIs} and relational SQL schemas for member records, scheduling and organisational resources.}
+  \resumeItem{Integrated React interfaces with SQL-backed services and collaborated on Git code reviews in a distributed Agile team.}
+\resumeItemListEnd
+\resumeSubheading{IT Technical Assistant Co-op}{Jan 2025 -- Apr 2025}{Dalhousie University}{Halifax, NS}
+\resumeItemListStart
+  \resumeItem{Automated IT support workflows with \textbf{SQL and Power Automate} and resolved account, application and network incidents.}
+\resumeItemListEnd
+\resumeSubHeadingListEnd
+\section{Projects}
+\resumeSubHeadingListStart
+\resumeProjectHeading{\href{https://github.com/YashRoushan/localchatbot}{\textbf{\underline{Local IT Help Desk Chatbot}}} $|$ \emph{Python, FastAPI, Ollama}}{2025--2026}
+\resumeItemListStart
+  \resumeItem{Built a local LLM assistant that retrieves curated IT resources through intent matching before falling back to Ollama.}
+  \resumeItem{Isolated \textbf{contextual memory} by session, added reset and expiration, and tested concurrent requests and model failures.}
+\resumeItemListEnd
+\resumeProjectHeading{\href{https://github.com/YashRoushan/Stock-Portfolio-Tracker}{\textbf{\underline{Stock Portfolio Tracker}}} $|$ \emph{TypeScript, React, Node.js, PostgreSQL, Docker}}{2026}
+\resumeItemListStart
+  \resumeItem{Built a React/TypeScript app that calculates holdings, average cost, realised and unrealised profit/loss, and allocation from trade records.}
+  \resumeItem{Secured REST endpoints with JWT and request validation, tested the APIs with Jest and Supertest, and packaged local services in Docker Compose.}
+\resumeItemListEnd
+\resumeSubHeadingListEnd
+\end{document}
