@@ -14,15 +14,16 @@ The portfolio pairs Yash’s engineering experience with four showcased applicat
 
 | Project | Source | Hosting |
 | --- | --- | --- |
+| Local IT Help Desk Chatbot | [localchatbot](https://github.com/YashRoushan/localchatbot) | [Browser demo](https://yashroushan.github.io/portfolio-website/engineering/demos/helpdesk/) with curated links and optional on-device inference |
 | Stock Portfolio Tracker | [Stock-Portfolio-Tracker](https://github.com/YashRoushan/Stock-Portfolio-Tracker) | [Cloudflare Workers/D1 demo](https://yash-stock-portfolio-tracker.yashroushan.chatgpt.site/) with clearly labelled sample prices |
 | Task Planner | [To-Do-App](https://github.com/YashRoushan/To-Do-App) | [Cloudflare Workers/D1 guest app](https://yash-task-planner.yashroushan.chatgpt.site/) |
-| Weather Explorer | [weather-app](https://github.com/YashRoushan/weather-app) | [Static React demo](https://yashroushan.github.io/portfolio-website/engineering/demos/weather/) using public NOAA weather for supported US cities |
+| Weather Explorer | [weather-app](https://github.com/YashRoushan/weather-app) | [Static React demo](https://yashroushan.github.io/portfolio-website/engineering/demos/weather/) using NOAA and Open-Meteo for global coverage |
 | Snake | [Snake_Game](https://github.com/YashRoushan/Snake_Game) | [Static browser game](https://yashroushan.github.io/portfolio-website/engineering/demos/snake/) |
 | Jobify | [Jobify-Project](https://github.com/YashRoushan/Jobify-Project) | Tutorial-based MERN application; source and local setup |
 | Walk Simulator | [Walk-Simulator](https://github.com/YashRoushan/Walk-Simulator) | Java/AWT coursework; source and desktop execution |
 | Messaging UI Study | [WhatsApp-Demo-App](https://github.com/YashRoushan/WhatsApp-Demo-App) | Static interface exercise; no messaging backend |
 
-The original Node/MongoDB task-manager source remains in its repository; the hosted edition uses a documented Worker/D1 adapter. The weather edition replaces client-side API keys with a public provider and explicitly states its US coverage. Local Ollama inference and desktop applications are not presented as hosted services.
+The original Node/MongoDB task-manager source remains in its repository; the hosted edition uses a documented Worker/D1 adapter. Weather Explorer uses public providers with visible attribution. The help-desk browser demo optionally downloads a model for local inference. The separate FastAPI and Ollama implementation can run from its repository.
 
 ## Run locally
 
@@ -56,7 +57,7 @@ When adding a project, give it a unique slug, its verified repository URL, imple
 
 The smaller cards use `repositoryProjects` in that same file. Add a `demo` URL only after the application is published and tested; omit it for source-only entries. Preserve coursework and tutorial attribution.
 
-The static Snake and weather builds are checked into `public/demos/`, so the ordinary portfolio build and deployment retain them. To update a demo, build the corresponding repository and replace only its matching `public/demos/<name>/` directory. See each demo’s source README for build commands and provider details. Do not place credentials or local environment files in these public folders.
+Snake is vendored in `public/demos/snake/`. Weather Explorer is compiled by Vite from `demos/weather/`, based on the weather-app hosted edition. The buildless help-desk browser demo lives in `public/demos/helpdesk/`.
 
 ## Publish on GitHub Pages
 

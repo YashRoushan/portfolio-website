@@ -89,6 +89,7 @@ export const projects: Project[] = [
   {
     slug: "local-it-help-desk",
     name: "Local IT Help Desk Chatbot",
+    demo: "./demos/helpdesk/",
     category: "Applied AI · IT support",
     description: "A FastAPI assistant that checks campus resources before calling a local language model.",
     summary:
@@ -139,7 +140,7 @@ export const projects: Project[] = [
       "Rate limiting, timeout handling and concurrent session tests",
     ],
     notes:
-      "The illustration demonstrates the curated support flow. The FastAPI version uses Ollama, with up to five turns in each process-local session and a 30-minute idle expiry. The source includes a Dockerfile for deployment with a separately configured Ollama service.",
+      "The public demo offers curated links and optional on-device language-model replies. The FastAPI source uses Ollama, with up to five turns in each process-local session and a 30-minute idle expiry. A Dockerfile packages the FastAPI version for an Ollama-backed host.",
   },
   {
     slug: "process-simulator",
@@ -242,11 +243,11 @@ export const repositoryProjects: RepositoryProject[] = [
   {
     name: "Weather Explorer",
     category: "Live data & API integration",
-    description: "Search supported US cities for current conditions and a forecast, with clear loading and error states.",
-    stack: ["React", "JavaScript", "NOAA API"],
+    description: "Search cities worldwide for current conditions and a forecast, with Celsius and Fahrenheit views.",
+    stack: ["React", "JavaScript", "NOAA", "Open-Meteo"],
     repository: "https://github.com/YashRoushan/weather-app",
     demo: "./demos/weather/",
-    note: "The hosted edition uses public US weather data, with source and observation times shown.",
+    note: "Open-Meteo adds global coverage. Selected US cities retain NOAA station observations and forecasts.",
     icon: "weather",
   },
   {

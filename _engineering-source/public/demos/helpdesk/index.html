@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en-CA">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Try curated IT support resources and optional on-device AI in Yash Roushan’s help-desk chatbot demo." />
+  <title>IT Help Desk Chatbot — Yash Roushan</title>
+  <link rel="icon" href="../../favicon.svg" />
+  <link rel="stylesheet" href="./chat.css" />
+  <script type="module" src="./chat.js"></script>
+</head>
+<body>
+  <main>
+    <a class="back" href="../../work/local-it-help-desk/">← Project case study</a>
+    <h1>IT Help Desk Chatbot</h1>
+    <p>Try “reset my CSID password” or “eduroam.” Leave out passwords or other private information.</p>
+    <div class="model">
+      <button type="button" id="enable-model">Enable on-device AI</button>
+      <p>Optional. Downloads the model and runtime on first use. Replies are generated in your browser.</p>
+    </div>
+    <div id="conversation" role="log" aria-label="Conversation"></div>
+    <p id="status" role="status"></p>
+    <form id="chat-form">
+      <div>
+        <label for="question">IT question</label>
+        <input id="question" maxlength="600" autocomplete="off" required />
+      </div>
+      <button type="submit" id="send">Send</button>
+      <button type="button" id="reset">Reset conversation</button>
+    </form>
+    <noscript>This demo requires JavaScript.</noscript>
+    <footer>
+      Independent portfolio demo · <a href="https://huggingface.co/onnx-community/SmolLM2-135M-Instruct-ONNX-MHA">SmolLM2 model</a>
+    </footer>
+  </main>
+</body>
+</html>

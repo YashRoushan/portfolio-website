@@ -44,6 +44,36 @@ jobs:
           npm run verify
           test -s dist/index.html
           test -s dist/portfolio-output.txt
+      - name: Check desktop, mobile and demo interactions in Chrome
+        working-directory: _engineering-source
+        env:
+          PORTFOLIO_QA_DEPS: ${{ runner.temp }}/portfolio-qa
+          PORTFOLIO_QA_URL: http://127.0.0.1:4174/portfolio-website/engineering/
+        run: |
+          set -euo pipefail
+          npm install --prefix "$PORTFOLIO_QA_DEPS" --no-save --no-package-lock @playwright/test@1.56.1 @axe-core/playwright@4.10.2
+          root="$RUNNER_TEMP/portfolio-qa-site"
+          mkdir -p "$root/portfolio-website"
+          ln -s "$PWD/dist" "$root/portfolio-website/engineering"
+          python3 -m http.server 4174 --bind 127.0.0.1 --directory "$root" >"$RUNNER_TEMP/qa-http.log" 2>&1 &
+          server_pid=$!
+          trap 'kill "$server_pid" 2>/dev/null || true' EXIT
+          curl --fail --silent --show-error --retry 10 --retry-connrefused "$PORTFOLIO_QA_URL" >/dev/null
+          node scripts/test-browser.mjs | tee -a "$GITHUB_STEP_SUMMARY"
+      - name: Check live app and external model services
+        continue-on-error: true
+        working-directory: _engineering-source
+        env:
+          PORTFOLIO_QA_DEPS: ${{ runner.temp }}/portfolio-qa
+          PORTFOLIO_QA_URL: http://127.0.0.1:4174/portfolio-website/engineering/
+        run: |
+          set -euo pipefail
+          root="$RUNNER_TEMP/portfolio-qa-site"
+          python3 -m http.server 4174 --bind 127.0.0.1 --directory "$root" >"$RUNNER_TEMP/qa-http.log" 2>&1 &
+          server_pid=$!
+          trap 'kill "$server_pid" 2>/dev/null || true' EXIT
+          curl --fail --silent --show-error --retry 10 --retry-connrefused "$PORTFOLIO_QA_URL" >/dev/null
+          node scripts/test-browser.mjs --live 2>&1 | tee -a "$GITHUB_STEP_SUMMARY"
       - name: Upload verified output
         uses: actions/upload-artifact@v4
         with:

@@ -952,7 +952,7 @@ export function CaseStudy({ project }: { project: Project }) {
             <TagList tags={project.stack} />
             <div className="case-primary-actions">
               {project.demo ? (
-                <a className="button button-primary" href={project.demo} target="_blank" rel="noopener noreferrer">
+                <a className="button button-primary" href={project.demo.startsWith("./") ? "../../" + project.demo.slice(2) : project.demo} target="_blank" rel="noopener noreferrer">
                   Try live demo <ArrowUpRight {...iconProps} />
                 </a>
               ) : null}

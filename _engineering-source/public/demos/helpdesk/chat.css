@@ -1,0 +1,28 @@
+* { box-sizing: border-box; }
+:root {
+  color-scheme: dark;
+  font-family: system-ui, sans-serif;
+  color: #f4f2ee;
+  background: #111416;
+}
+body { margin: 0; }
+main { max-width: 46rem; margin: auto; padding: clamp(1.25rem, 6vw, 4rem) 1.25rem; }
+h1 { font-size: clamp(2rem, 7vw, 3.5rem); line-height: 1.1; margin: 1rem 0; }
+p, footer { color: #d0d6da; line-height: 1.6; }
+a { color: #ffd495; text-underline-offset: .18em; }
+.model, .turn { padding: .75rem 1rem; background: #1c2227; border: 1px solid #38434b; border-radius: .65rem; }
+.model p, .turn p { margin: .4rem 0; }
+.turn { margin-top: .6rem; white-space: pre-wrap; overflow-wrap: anywhere; }
+.turn.visitor { background: #293544; }
+.turn small { color: #d0d6da; }
+#status { min-height: 1.6em; }
+form { display: flex; flex-wrap: wrap; align-items: end; gap: .65rem; }
+form > div { flex: 1 1 15rem; }
+label { display: block; margin-bottom: .2rem; }
+input, button { font: inherit; border: 1px solid #667681; border-radius: .45rem; padding: .55rem .7rem; min-height: 44px; }
+input { width: 100%; color: #f4f2ee; background: #1c2227; }
+button { color: #111416; background: #ffd495; cursor: pointer; }
+button:disabled { opacity: .65; cursor: default; }
+button#reset { color: #f4f2ee; background: #1c2227; }
+:focus-visible { outline: 2px solid #ffd495; outline-offset: 3px; }
+footer { margin-top: 2.25rem; font-size: .9rem; }
