@@ -1,5 +1,9 @@
 export const cities = [
   { id: 'halifax', name: 'Halifax', region: 'Nova Scotia', code: 'NS', country: 'Canada', lat: 44.6476, lon: -63.5728 },
+  { id: 'toronto', name: 'Toronto', region: 'Ontario', code: 'ON', country: 'Canada', lat: 43.6532, lon: -79.3832 },
+  { id: 'vancouver', name: 'Vancouver', region: 'British Columbia', code: 'BC', country: 'Canada', lat: 49.2827, lon: -123.1207 },
+  { id: 'tokyo', name: 'Tokyo', country: 'Japan', lat: 35.6762, lon: 139.6503 },
+  { id: 'sydney', name: 'Sydney', region: 'New South Wales', country: 'Australia', lat: -33.8688, lon: 151.2093 },
   { id: 'boston', name: 'Boston', region: 'Massachusetts', code: 'MA', lat: 42.3601, lon: -71.0589, station: 'KBOS' },
   { id: 'new-york', name: 'New York', region: 'New York', code: 'NY', lat: 40.7128, lon: -74.0060, station: 'KJFK' },
   { id: 'seattle', name: 'Seattle', region: 'Washington', code: 'WA', lat: 47.6062, lon: -122.3321, station: 'KSEA' },

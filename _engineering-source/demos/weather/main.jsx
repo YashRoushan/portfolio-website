@@ -36,7 +36,7 @@ function CitySearch({ onSelect }) {
   const listId = useId();
   const term = query.trim();
   const [remote, setRemote] = useState(null);
-  const local = cities.filter(city => `${city.name} ${city.region} ${city.code}`.toLowerCase().includes(term.toLowerCase()));
+  const local = cities.filter(city => [city.name, city.region, city.code, city.country].filter(Boolean).join(' ').toLowerCase().includes(term.toLowerCase()));
   const options = [...local, ...(remote?.term === term ? remote.cities.filter(
     city => !local.some(item => item.name === city.name && Math.abs(item.lat - city.lat) < 0.15 && Math.abs(item.lon - city.lon) < 0.15)
   ) : [])];
@@ -128,7 +128,7 @@ function App() {
     loadWeather(city, controller.signal, { force: refresh > 0 }).then(data => {
       if (!controller.signal.aborted) setResult({ city, refresh, data });
     }).catch(error => {
-      if (!controller.signal.aborted) setResult({ city, refresh, error: error.name === 'AbortError' || error instanceof TypeError ? 'Could not reach the weather service. Check your connection and try again.' : error.message });
+      if (!controller.signal.aborted) setResult({ city, refresh, error: ['AbortError', 'TimeoutError'].includes(error.name) || error instanceof TypeError ? 'Could not reach the weather service. Check your connection and try again.' : error.message });
     });
     return () => controller.abort();
   }, [city, refresh]);
