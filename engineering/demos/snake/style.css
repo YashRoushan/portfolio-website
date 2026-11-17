@@ -40,6 +40,7 @@ button:disabled {
 }
 button:focus-visible,
 a:focus-visible,
+select:focus-visible,
 #board:focus-visible {
   outline: 3px solid var(--accent);
   outline-offset: 5px;
@@ -177,18 +178,29 @@ h1 em {
   overflow: hidden;
 }
 .segment {
-  background: #7eac86;
+  background: linear-gradient(145deg, #a4c9a2, #70a77e);
   border: 1px solid #18231b;
-  border-radius: 3px;
-  position: relative;
+  border-radius: 22%;
 }
 .head {
-  background: #b5dcb9;
+  --eyes: 68% 32%, 68% 68%;
+  background:
+    radial-gradient(circle closest-side, #1b3929 0 15%, transparent 17%),
+    radial-gradient(circle closest-side, #1b3929 0 15%, transparent 17%),
+    #c7e6bd;
+  background-size: 56% 56%, 56% 56%, auto;
+  background-position: var(--eyes);
+  background-repeat: no-repeat;
+  border-radius: 32%;
 }
+.head[data-direction="left"] { --eyes: 32% 32%, 32% 68%; }
+.head[data-direction="up"] { --eyes: 32% 32%, 68% 32%; }
+.head[data-direction="down"] { --eyes: 32% 68%, 68% 68%; }
 .food {
-  background: var(--accent);
-  border: 4px solid #18231b;
-  border-radius: 6px;
+  margin: 24%;
+  background: #edba86;
+  border-radius: 50%;
+  box-shadow: 0 0 7px #d5a87a85;
 }
 .overlay {
   position: absolute;
@@ -433,3 +445,40 @@ footer {
     font-size: 23px;
   }
 }
+
+.embed-heading { display: none; }
+[data-embedded] .topbar,
+[data-embedded] .intro,
+[data-embedded] footer { display: none; }
+[data-embedded] main { display: block; padding: clamp(14px, 4vw, 30px); }
+[data-embedded] .game-panel { width: 100%; max-width: 480px; margin-inline: auto; }
+[data-embedded] .embed-heading {
+  display: block;
+  font-size: 27px;
+  letter-spacing: -.03em;
+  margin: 0 0 12px;
+}
+.game-settings {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 15px;
+  font-size: 13px;
+}
+.game-settings select,
+.game-settings button {
+  min-height: 42px;
+  padding: 7px 10px;
+  border: 1px solid #425246;
+  border-radius: 4px;
+  background: #1c2820;
+  color: inherit;
+  font: inherit;
+}
+.game-settings button:hover,
+.game-settings select:hover { background: #2d3e31; }
+.game-settings button[aria-pressed="true"] { border-color: var(--green); }
+.game-settings button span { margin-left: 5px; color: var(--green); }
+.game-settings small { flex-basis: 100%; color: var(--muted); }
+.game-settings small:empty { display: none; }

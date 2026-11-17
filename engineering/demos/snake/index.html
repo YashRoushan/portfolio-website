@@ -6,10 +6,11 @@
     <meta name="theme-color" content="#101412" />
     <meta
       name="description"
-      content="Play Yash Roushan's JavaScript Snake game. An 18 by 18 grid, keyboard and touch controls, and a high score saved on your device."
+      content="Play Yash Roushan's JavaScript Snake game. An 18 by 18 grid, three speeds, optional music, and keyboard and touch controls."
     />
     <title>Snake — Yash Roushan</title>
     <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <script>if (window.self !== window.top) document.documentElement.dataset.embedded = "";</script>
     <link rel="stylesheet" href="style.css" />
     <script type="module" src="game.js"></script>
   </head>
@@ -20,7 +21,7 @@
         class="brand"
         >YR<span> / PLAYGROUND</span></a
       ><a
-        href="https://github.com/YashRoushan/Snake_Game"
+        href="https://github.com/YashRoushan/portfolio-website/tree/main/_engineering-source/public/demos/snake"
         target="_blank"
         rel="noopener noreferrer"
         >View source <span aria-hidden="true">↗</span></a
@@ -45,6 +46,18 @@
         </p>
       </section>
       <section class="game-panel" aria-label="Snake game">
+        <h1 class="embed-heading">Snake</h1>
+        <div class="game-settings">
+          <label for="speed">Speed</label>
+          <select id="speed">
+            <option value="slow">Slow</option>
+            <option value="classic" selected>Classic</option>
+            <option value="fast">Fast</option>
+          </select>
+          <button id="music-toggle" type="button" aria-pressed="false">Music <span aria-hidden="true" id="music-state">Off</span></button>
+          <small id="music-message" aria-live="polite"></small>
+        </div>
+        <audio id="music" preload="none" loop data-track="https://raw.githubusercontent.com/YashRoushan/Snake_Game/8a597badf60a91bb27b31ba13c59c2bd806b3d10/music.mp3"></audio>
         <div class="scoreboard">
           <div><span>SCORE</span><strong id="score">00</strong></div>
           <div><span>PERSONAL BEST</span><strong id="best">00</strong></div>

@@ -1,5 +1,41 @@
-import { SIZE, newGame, changeDirection, tick } from "./engine.js";
+import { newGame, changeDirection, tick } from "./engine.js";
 const $ = (id) => document.getElementById(id);
+const speed = $("speed");
+const speedIntervals = { slow: 260, classic: 180, fast: 115 };
+const music = $("music");
+const musicToggle = $("music-toggle");
+let musicEnabled = false;
+let musicRequest = 0;
+
+function setMusic(enabled) {
+  musicEnabled = enabled;
+  musicToggle.setAttribute("aria-pressed", String(enabled));
+  $("music-state").textContent = enabled ? "On" : "Off";
+}
+
+function syncMusic() {
+  const request = ++musicRequest;
+  if (!musicEnabled || state.status !== "playing") {
+    music.pause();
+    return;
+  }
+  if (!music.hasAttribute("src")) music.src = music.dataset.track;
+  music.play().catch(() => {
+    if (request !== musicRequest) return;
+    setMusic(false);
+    $("music-message").textContent = "Music is unavailable. Try again.";
+  });
+}
+
+speed.addEventListener("change", () => {
+  lastStep = performance.now();
+});
+musicToggle.addEventListener("click", () => {
+  setMusic(!musicEnabled);
+  $("music-message").textContent = "";
+  syncMusic();
+});
+
 let state = newGame(),
   lastStep = 0,
   best = 0;
@@ -26,6 +62,7 @@ function renderBoard() {
   const segments = state.snake.map((segment, index) => {
     const cell = document.createElement("span");
     cell.className = index === 0 ? "segment head" : "segment";
+    if (index === 0) cell.dataset.direction = state.direction;
     cell.style.gridColumnStart = segment.x + 1;
     cell.style.gridRowStart = segment.y + 1;
     cell.setAttribute("aria-hidden", "true");
@@ -79,6 +116,7 @@ function renderState() {
   $("overlay-copy").textContent = copy;
   $("start").textContent = action;
   $("status").textContent = status;
+  syncMusic();
 }
 function play() {
   if (state.status !== "paused") state = newGame();
@@ -153,7 +191,8 @@ $("board").addEventListener("pointerup", (event) => {
   swipe = null;
 });
 function frame(now) {
-  const interval = Math.max(90, 180 - Math.floor(state.score / 3) * 12);
+  const base = speedIntervals[speed.value];
+  const interval = Math.max(base / 2, base - Math.floor(state.score / 3) * base / 15);
   if (state.status === "playing" && now - lastStep >= interval) {
     lastStep = now;
     const previous = state;
