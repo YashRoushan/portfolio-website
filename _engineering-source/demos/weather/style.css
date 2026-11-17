@@ -2,3 +2,13 @@
 @media(max-width:820px){.page{width:min(100% - 40px,650px)}.weather-grid{grid-template-columns:minmax(0,1fr)}.intro{padding-top:36px}.current-content{padding-top:19px}.footer{margin-top:24px}}
 @media(max-width:475px){.page{width:calc(100% - 28px)}.masthead-inner{min-height:55px}.brand,.back-link{font-size:.75rem;gap:4px}.brand-icon{width:25px;height:25px}.brand-icon svg{width:17px;height:17px}.intro{padding-top:32px}.toolbar{gap:7px;margin-top:21px}.unit-toggle button{min-width:33px}.search{gap:7px}.search>svg{width:16px}.search button{width:32px}.panel{padding:13px}.quick{margin-bottom:18px}.big-temp{font-size:4rem}.hero-icon{width:83px}.hero-icon svg{width:65px;height:65px}.metric{padding:6px}.metric p{font-size:.63rem}.metric p svg{width:13px;height:13px}.period summary{grid-template-columns:23px minmax(70px,1fr) minmax(0,1fr) 35px 28px 8px;gap:4px}.period-icon svg{width:20px;height:20px}.period-name strong{font-size:.76rem}.period-rain,.period-description{font-size:.64rem}.period-rain svg{width:11px}.period-temp{font-size:.93rem}.period-detail{padding-left:27px}}
 @media(prefers-reduced-motion:reduce){.spinner{animation:none}}
+
+.refresh-status { margin: 10px 0; font-size: .875rem; }
+.weather-grid:not(:first-child) { margin-top: 14px; }
+.masthead .back-link, .quick button { min-height: 44px; }
+.icon-button:disabled { opacity: .65; cursor: wait; }
+@media (max-width: 550px) {
+  .intro { margin-block: 24px 17px; }
+  .quick { gap: 6px; }
+  .quick > span { flex-basis: 100%; }
+}

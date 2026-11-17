@@ -72,7 +72,7 @@ function CitySearch({ onSelect }) {
     <form className="search" onSubmit={event => { event.preventDefault(); if (options.length && (open || term)) choose(active || options[0]); else { setOpen(true); input.current?.focus(); } }}>
       <Icon name="search" />
       <label className="sr-only" htmlFor="city-input">Search cities worldwide</label>
-      <input id="city-input" ref={input} role="combobox" autoComplete="off" placeholder="Search a city" value={query} aria-autocomplete="list" aria-expanded={open} aria-controls={listId} aria-activedescendant={open && active ? `${listId}-${index}` : undefined} onFocus={() => setOpen(true)} onChange={event => { setQuery(event.target.value); setOpen(true); setIndex(-1); }} onKeyDown={keyDown} />
+      <input id="city-input" ref={input} role="combobox" autoComplete="off" placeholder="Search by city name" value={query} aria-autocomplete="list" aria-expanded={open} aria-controls={listId} aria-activedescendant={open && active ? `${listId}-${index}` : undefined} onFocus={() => setOpen(true)} onChange={event => { setQuery(event.target.value); setOpen(true); setIndex(-1); }} onKeyDown={keyDown} />
       <button type="submit" aria-label="Select city"><Icon name="arrow" size={18} /></button>
     </form>
     <div className="options" hidden={!open}>
@@ -85,7 +85,7 @@ function Temp({ value, from = 'C', unit, compact = false }) {
   const reading = temperature(value, from, unit);
   return reading === null ? <span className="missing">—</span> : <>{Math.round(reading)}°{!compact && <span className="temp-unit">{unit}</span>}</>;
 }
-function Current({ city, data, unit, onRefresh }) {
+function Current({ city, data, unit, refreshing, onRefresh }) {
   const observation = data.observation;
   const wind = observation?.wind;
   const metrics = [
@@ -94,7 +94,7 @@ function Current({ city, data, unit, onRefresh }) {
     { name: 'Pressure', icon: 'gauge', value: observation?.pressure == null ? '—' : `${Math.round(observation.pressure)} hPa` },
   ];
   return <section className="current panel" aria-labelledby="current-heading">
-    <div className="panel-top"><h2 id="current-heading"><span className={observation ? 'dot' : 'dot muted'}></span>Current conditions</h2><button className="icon-button" type="button" onClick={onRefresh} aria-label="Refresh weather" title="Refresh weather"><Icon name="refresh" size={17}/></button></div>
+    <div className="panel-top"><h2 id="current-heading"><span className={observation ? 'dot' : 'dot muted'}></span>Current conditions</h2><button className="icon-button" type="button" onClick={onRefresh} disabled={refreshing} aria-label="Refresh weather" title="Refresh weather"><Icon name="refresh" size={17}/></button></div>
     <div className="current-content">
       <div><p className="location"><Icon name="pin" size={15}/>{[city.name, city.id === 'washington' ? '' : city.code || city.country].filter(Boolean).join(', ')}</p>
       {observation ? <><div className="big-temp"><Temp value={observation.temperature} unit={unit}/></div><p className="conditions">{observation.description}</p></> : <p className="conditions unavailable">Current readings are unavailable. The forecast is still available below.</p>}</div>
@@ -128,24 +128,30 @@ function App() {
     loadWeather(city, controller.signal, { force: refresh > 0 }).then(data => {
       if (!controller.signal.aborted) setResult({ city, refresh, data });
     }).catch(error => {
-      if (!controller.signal.aborted) setResult({ city, refresh, error: ['AbortError', 'TimeoutError'].includes(error.name) || error instanceof TypeError ? 'Could not reach the weather service. Check your connection and try again.' : error.message });
+      if (!controller.signal.aborted) setResult(previous => ({
+        city,
+        refresh,
+        data: previous?.city === city ? previous.data : null,
+        error: ['AbortError', 'TimeoutError'].includes(error.name) || error instanceof TypeError ? 'Could not reach the weather service. Check your connection and try again.' : error.message,
+      }));
     });
     return () => controller.abort();
   }, [city, refresh]);
   const pending = result?.city !== city || result?.refresh !== refresh;
-  const data = pending ? null : result.data;
+  const data = result?.city === city ? result.data : null;
   const error = pending ? null : result.error;
   function chooseCity(nextCity) { if (nextCity !== city) { setRefresh(0); setCity(nextCity); } }
   function reload() { setRefresh(value => value + 1); }
   return <div className="site">
     <header className="masthead"><div className="page masthead-inner"><a className="brand" href="./" aria-label="Weather Explorer home"><span className="brand-icon"><Icon name="sun" size={21}/></span><span>Weather Explorer</span></a><a className="back-link" href="../../">← <span>Engineering portfolio</span></a></div></header>
     <main className="page">
-      <div className="intro"><p className="eyebrow"><span></span>Weather dashboard</p><h1>Weather Explorer</h1><p>Current conditions and forecasts for cities worldwide.</p></div>
+      <div className="intro"><h1>Weather Explorer</h1><p>Current conditions and forecasts for cities worldwide.</p></div>
       <div className="toolbar"><CitySearch onSelect={chooseCity}/><div className="unit-toggle" role="group" aria-label="Temperature unit"><button type="button" aria-pressed={unit === 'F'} onClick={() => setUnit('F')}>°F</button><button type="button" aria-pressed={unit === 'C'} onClick={() => setUnit('C')}>°C</button></div></div>
-      <div className="quick" aria-label="Popular cities"><span>Quick pick</span>{cities.slice(0, 5).map(item => <button key={item.id} type="button" aria-pressed={item === city} onClick={() => chooseCity(item)}>{item.name}</button>)}</div>
-      {pending && <section className="panel status" role="status"><span className="spinner" aria-hidden="true"/><div><h2>Loading {city.name}</h2><p>Getting the latest conditions and forecast.</p></div></section>}
-      {error && <section className="panel status" role="status"><span className="status-icon"><Icon name="cloud" size={27}/></span><div><h2>Weather unavailable for {city.name}</h2><p>{error}</p><button type="button" className="retry" onClick={reload}>Try again <Icon name="refresh" size={15}/></button></div></section>}
-      {data && <div className="weather-grid"><Current city={city} data={data} unit={unit} onRefresh={reload}/><Forecast data={data} unit={unit}/></div>}
+      <div className="quick" role="group" aria-label="Popular cities"><span>Popular cities</span>{cities.slice(0, 5).map(item => <button key={item.id} type="button" aria-pressed={item.id === city.id} onClick={() => chooseCity(item)}>{item.name}</button>)}</div>
+      {pending && !data && <section className="panel status" role="status"><span className="spinner" aria-hidden="true"/><div><h2>Loading {city.name}</h2><p>Getting the latest conditions and forecast.</p></div></section>}
+      {pending && data && <p className="refresh-status" role="status">Updating weather for {city.name}…</p>}
+      {error && <section className="panel status" role="status"><span className="status-icon"><Icon name="cloud" size={27}/></span><div><h2>{data ? `Showing the last forecast for ${city.name}` : `Weather unavailable for ${city.name}`}</h2><p>{error}</p><button type="button" className="retry" onClick={reload}>Try again <Icon name="refresh" size={15}/></button></div></section>}
+      {data && <div className="weather-grid"><Current city={city} data={data} unit={unit} refreshing={pending} onRefresh={reload}/><Forecast data={data} unit={unit}/></div>}
     </main>
     <footer className="page footer"><span>Weather data from the <a href="https://www.weather.gov/documentation/services-web-api" target="_blank" rel="noreferrer">US National Weather Service <Icon name="external" size={13}/></a> and <a href="https://open-meteo.com/" target="_blank" rel="noreferrer">Open-Meteo <Icon name="external" size={13}/></a></span><span>Built by Yash Roushan</span></footer>
   </div>;

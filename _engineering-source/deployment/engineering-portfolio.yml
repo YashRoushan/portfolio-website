@@ -169,7 +169,8 @@ jobs:
             test -z "$(find "$dir" \( -type l -o -name .git \) -print -quit)"
           done
           test -s "$source/index.html"
-          rsync -r --delete -- "$source/" "$destination/"
+          # Cached HTML can still load the fingerprinted bundles from older releases.
+          rsync -r --delete --filter="P /assets/*" -- "$source/" "$destination/"
           git add -A -- engineering/
           if git diff --cached --quiet; then
             echo 'Generated files already match main.'

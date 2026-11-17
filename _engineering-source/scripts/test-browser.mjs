@@ -6,7 +6,9 @@ const require = createRequire(resolve(process.env.PORTFOLIO_QA_DEPS, "package.js
 const { chromium, expect } = require("@playwright/test");
 const { AxeBuilder } = require("@axe-core/playwright");
 const site = process.env.PORTFOLIO_QA_URL;
-const browser = await chromium.launch({ channel: "chrome" });
+const browser = await chromium.launch(process.env.PORTFOLIO_QA_CHROME
+  ? { executablePath: process.env.PORTFOLIO_QA_CHROME }
+  : { channel: "chrome" });
 
 async function heading(page, name) {
   await expect(page.getByRole("heading", { level: 1, name })).toBeVisible();
@@ -46,8 +48,15 @@ async function fitsViewport(page) {
   assert.ok(overflow <= 1, "Horizontal overflow: " + overflow + "px");
 }
 
+async function checkStyles(page) {
+  await expect.poll(() => page.evaluate(() =>
+    [...document.querySelectorAll('link[rel="stylesheet"]')].some(link => link.sheet !== null)
+  )).toBe(true);
+}
+
 async function portfolio(page, mobile) {
   await visit(page, site);
+  await checkStyles(page);
   await heading(page, /Yash\s*Roushan/);
   await expect(page.getByText("Software Engineer · Full-Stack Development · AI & Automation", { exact: true })).toBeVisible();
   if (mobile) {
@@ -63,6 +72,7 @@ async function portfolio(page, mobile) {
   await expect.poll(() => image.evaluate((node) => node.currentSrc)).toMatch(mobile ? /compute-core-mobile\.avif$/ : /compute-core(?:-small)?\.webp$/);
   await a11y(page);
   await visit(page, site + "resume/");
+  await checkStyles(page);
   await heading(page, /Résumé/);
   await expect(page.getByRole("heading", { name: "AI Trainer & Coding Evaluator" })).toBeVisible();
   const download = page.getByRole("link", { name: "Download PDF" });
@@ -70,6 +80,33 @@ async function portfolio(page, mobile) {
   assert.ok(pdf.ok() && (await pdf.body()).subarray(0, 5).toString() === "%PDF-");
   await fitsViewport(page);
   await a11y(page);
+}
+
+async function caseStudies(page) {
+  const previews = {
+    "stock-portfolio-tracker": async () => {
+      await page.getByRole("tab", { name: "Holdings" }).press("ArrowRight");
+      await expect(page.getByRole("tabpanel", { name: "Transactions" })).toBeVisible();
+    },
+    "local-it-help-desk": async () => {
+      await page.getByRole("button", { name: "Printer setup" }).click();
+      await expect(page.getByRole("link", { name: "Open Computer Science printing" })).toBeVisible();
+    },
+    "process-simulator": async () => {
+      await page.getByRole("button", { name: "Next state" }).click();
+      await expect(page.locator("[data-process-state]")).toHaveText("Blocked");
+    },
+  };
+  for (const [slug, testPreview] of Object.entries(previews)) {
+    await visit(page, site + "work/" + slug + "/");
+    await checkStyles(page);
+    await page.getByRole("navigation", { name: "In this case study" })
+      .getByRole("link", { name: "Interactive preview" }).click();
+    await expect(page).toHaveURL(/#preview$/);
+    await testPreview();
+    await fitsViewport(page);
+    await a11y(page);
+  }
 }
 
 async function snake(page) {
@@ -304,6 +341,8 @@ try {
     const checks = [
       ["Desktop portfolio and résumé accessibility at 1440px", (page) => portfolio(page, false)],
       ["Mobile navigation, layout and accessibility at 375px", (page) => portfolio(page, true), mobile],
+      ["Case study navigation, previews and accessibility at 1440px", caseStudies],
+      ["Case study navigation, previews and accessibility at 375px", caseStudies, mobile],
       ["Snake start, keyboard steering, pause and restart", snake],
       ["Embedded résumé Snake, speed intervals and close", resumeSnake, mobile],
       ["Weather search, keyboard selection and units", weather, mobile],

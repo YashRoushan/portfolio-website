@@ -12,22 +12,37 @@
 <body>
   <main>
     <a class="back" href="../../work/local-it-help-desk/">← Project case study</a>
-    <h1>IT Help Desk Chatbot</h1>
-    <p>Try “reset my CSID password” or “eduroam.” Leave out passwords or other private information.</p>
-    <div class="model">
-      <button type="button" id="enable-model">Enable on-device AI</button>
-      <p>Optional. Downloads about 140 MB of model data plus the runtime on first use. Replies are generated in your browser.</p>
+    <header class="demo-header">
+      <h1>IT Help Desk Chatbot</h1>
+      <p>Find Dalhousie IT resources. Leave out passwords and other private information.</p>
+    </header>
+    <div class="layout">
+      <section class="chat" aria-labelledby="chat-title">
+        <div class="chat-heading">
+          <h2 id="chat-title">Ask the help desk</h2>
+          <button type="button" id="reset">Reset conversation</button>
+        </div>
+        <div class="prompts" role="group" aria-label="Example questions">
+          <button class="prompt" type="button" data-question="How do I reset my CSID password?">Reset CSID password</button>
+          <button class="prompt" type="button" data-question="How do I connect to eduroam?">Connect to eduroam</button>
+          <button class="prompt" type="button" data-question="How do I use the Dalhousie VPN?">Set up VPN</button>
+        </div>
+        <div id="conversation" role="log" aria-label="Conversation"></div>
+        <p id="status" role="status"></p>
+        <form id="chat-form">
+          <div>
+            <label for="question">IT question</label>
+            <input id="question" maxlength="600" autocomplete="off" required />
+          </div>
+          <button type="submit" id="send">Send</button>
+        </form>
+      </section>
+      <aside class="model" aria-labelledby="model-title">
+        <h2 id="model-title">On-device AI</h2>
+        <p>Optional for open-ended questions. First use downloads about 140 MB of model data plus the runtime. Replies are generated in your browser.</p>
+        <button type="button" id="enable-model">Enable on-device AI</button>
+      </aside>
     </div>
-    <div id="conversation" role="log" aria-label="Conversation"></div>
-    <p id="status" role="status"></p>
-    <form id="chat-form">
-      <div>
-        <label for="question">IT question</label>
-        <input id="question" maxlength="600" autocomplete="off" required />
-      </div>
-      <button type="submit" id="send">Send</button>
-      <button type="button" id="reset">Reset conversation</button>
-    </form>
     <noscript>This demo requires JavaScript.</noscript>
     <footer>
       Independent portfolio demo · <a href="https://huggingface.co/onnx-community/SmolLM2-135M-Instruct-ONNX-MHA">SmolLM2 model</a>

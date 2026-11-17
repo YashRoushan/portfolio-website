@@ -26,7 +26,7 @@ const escape = (value: string) =>
         char
       ]!,
   );
-const themeBootstrap = `(function(){document.documentElement.classList.add('has-js');try{var t=localStorage.getItem('yash-theme');document.documentElement.dataset.theme=(t==='dark'||t==='light')?t:(matchMedia('(prefers-color-scheme: light)').matches?'light':'dark')}catch(e){}})()`;
+const themeBootstrap = `(function(){try{var t=localStorage.getItem('yash-theme');document.documentElement.dataset.theme=(t==='dark'||t==='light')?t:(matchMedia('(prefers-color-scheme: light)').matches?'light':'dark')}catch(e){}})()`;
 
 async function page(
   path: string,
