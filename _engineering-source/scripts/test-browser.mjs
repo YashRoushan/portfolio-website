@@ -86,6 +86,60 @@ async function snake(page) {
   await expect(page.getByRole("status")).toHaveText("Game in progress.");
 }
 
+async function resumeSnake(page) {
+  const startTime = new Date("2026-11-17T00:00:00Z");
+  await page.clock.install({ time: startTime });
+  await page.clock.pauseAt(new Date(startTime.getTime() + 5000));
+  await visit(page, site + "resume/");
+  const resumeGame = page.getByText("Play Snake", { exact: true });
+  const frameSelector = 'iframe[title="Snake game"]';
+  await expect(page.locator(frameSelector)).toHaveCount(0);
+  await resumeGame.click();
+
+  const frame = page.frameLocator(frameSelector);
+  const speed = frame.getByLabel("Speed");
+  const board = frame.getByRole("application");
+  await expect(speed).toHaveValue("classic");
+  await expect(frame.getByRole("button", { name: "Music" })).toHaveAttribute("aria-pressed", "false");
+  const column = () => board.locator(".head").evaluate((cell) => Number(cell.style.gridColumnStart));
+  await speed.selectOption("slow");
+  await frame.getByRole("button", { name: "Start game" }).click();
+  const startColumn = await column();
+  await page.clock.runFor(180);
+  assert.equal(await column(), startColumn, "Slow should wait longer than 180 ms");
+  await page.clock.runFor(110);
+  assert.equal(await column(), startColumn + 1, "Slow should take one step after 290 ms");
+
+  await speed.selectOption("fast");
+  await page.clock.runFor(150);
+  assert.equal(await column(), startColumn + 2, "Fast should take a step within 150 ms");
+  await fitsViewport(page);
+  await resumeGame.click();
+  await expect(page.locator(frameSelector)).toHaveCount(0);
+}
+
+async function snakeMusic(page) {
+  const startTime = new Date("2026-11-17T00:00:00Z");
+  await page.clock.install({ time: startTime });
+  await page.clock.pauseAt(new Date(startTime.getTime() + 5000));
+  await visit(page, site + "demos/snake/");
+  const music = page.locator("#music");
+  const toggle = page.getByRole("button", { name: "Music" });
+  await expect(toggle).toHaveAttribute("aria-pressed", "false");
+  assert.equal(await music.getAttribute("src"), null, "Music should load only after opt-in");
+  await toggle.click();
+  await expect(toggle).toHaveAttribute("aria-pressed", "true");
+  await page.getByRole("button", { name: "Start game" }).click();
+  await expect.poll(() => music.evaluate((track) => track.currentTime), { timeout: 15000 }).toBeGreaterThan(0);
+  await page.getByRole("application").press("Space");
+  await expect.poll(() => music.evaluate((track) => track.paused)).toBe(true);
+  await page.getByRole("application").press("Space");
+  await expect.poll(() => music.evaluate((track) => track.paused)).toBe(false);
+  await toggle.click();
+  await expect(toggle).toHaveAttribute("aria-pressed", "false");
+  await expect.poll(() => music.evaluate((track) => track.paused)).toBe(true);
+}
+
 async function weather(page) {
   await page.route("https://geocoding-api.open-meteo.com/**", (route) => route.fulfill({
     json: { results: [{ id: 2643743, name: "London", country: "United Kingdom", admin1: "England", latitude: 51.51, longitude: -0.13 }] },
@@ -240,6 +294,7 @@ try {
       pageTest("Live Task Planner guest, task creation, saved reload and edit", tasks),
       pageTest("Live weather geocoding and forecasts", liveWeather),
       pageTest("Real browser model download and inference", liveModel),
+      pageTest("Original Snake soundtrack playback, pause and mute", snakeMusic),
     ]);
     const failures = results.filter((result) => result.status === "rejected");
     for (const failure of failures) console.error(failure.reason);
@@ -250,6 +305,7 @@ try {
       ["Desktop portfolio and résumé accessibility at 1440px", (page) => portfolio(page, false)],
       ["Mobile navigation, layout and accessibility at 375px", (page) => portfolio(page, true), mobile],
       ["Snake start, keyboard steering, pause and restart", snake],
+      ["Embedded résumé Snake, speed intervals and close", resumeSnake, mobile],
       ["Weather search, keyboard selection and units", weather, mobile],
       ["Help-desk link lookup, simulated model, reset and safe text rendering", helpdesk, mobile],
     ];

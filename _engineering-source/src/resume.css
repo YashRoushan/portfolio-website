@@ -79,3 +79,42 @@
   .resume-skills > div { grid-template-columns: minmax(0, 1fr); gap: 1px; }
   .resume-skills { gap: 11px; }
 }
+
+.resume-snake {
+  margin-top: 24px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  border-radius: var(--radius);
+}
+.resume-snake summary {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 13px 17px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  list-style: none;
+}
+.resume-snake summary::-webkit-details-marker { display: none; }
+.resume-snake summary svg { color: var(--accent); }
+.resume-snake summary::after {
+  content: "";
+  margin-left: auto;
+  width: 7px;
+  height: 7px;
+  border-right: 1px solid currentColor;
+  border-bottom: 1px solid currentColor;
+  transform: rotate(45deg);
+}
+.resume-snake[open] summary::after { transform: rotate(225deg); }
+.resume-snake[open] summary { border-bottom: 1px solid var(--border); }
+.resume-snake iframe {
+  display: block;
+  width: 100%;
+  height: 650px;
+  border: 0;
+  background: #101412;
+}
+.resume-snake > .text-link { margin: 12px 17px; }
+@media print { .resume-snake { display: none; } }

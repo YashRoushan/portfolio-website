@@ -119,6 +119,39 @@ shareResume?.addEventListener("click", async () => {
   }
 });
 
+const snakeDetails = document.querySelector<HTMLDetailsElement>("[data-resume-snake]");
+const snakeContainer = snakeDetails?.querySelector<HTMLElement>("[data-snake-container]");
+const snakeLink = snakeDetails?.querySelector<HTMLAnchorElement>("[data-snake-link]");
+if (snakeDetails && snakeContainer && snakeLink) {
+  let frame: HTMLIFrameElement | undefined;
+  let observer: ResizeObserver | undefined;
+  snakeDetails.addEventListener("toggle", () => {
+    if (!snakeDetails.open) {
+      observer?.disconnect();
+      frame?.remove();
+      frame = undefined;
+      return;
+    }
+    if (frame) return;
+    const game = document.createElement("iframe");
+    game.title = "Snake game";
+    game.src = snakeLink.href;
+    game.addEventListener("load", () => {
+      const body = game.contentDocument?.body;
+      if (!body || frame !== game) return;
+      const resize = () => {
+        game.style.height = Math.ceil(body.getBoundingClientRect().height) + "px";
+      };
+      observer?.disconnect();
+      observer = new ResizeObserver(resize);
+      observer.observe(body);
+      resize();
+    });
+    frame = game;
+    snakeContainer.append(game);
+  });
+}
+
 const tabs = [...document.querySelectorAll<HTMLButtonElement>("[data-tab]")];
 function activateTab(tab: HTMLButtonElement) {
   for (const item of tabs) {

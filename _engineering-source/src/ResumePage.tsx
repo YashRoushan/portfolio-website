@@ -1,4 +1,4 @@
-import { ArrowLeft, FileDown, Share2 } from "lucide-react";
+import { ArrowLeft, ArrowUpRight, FileDown, Gamepad2, Share2 } from "lucide-react";
 import { SiteFooter, SiteHeader } from "./components";
 import { profile } from "./content";
 import resume from "./resume.json";
@@ -79,6 +79,14 @@ export function ResumePage({ shareUrl }: { shareUrl: string }) {
             <ResumeEntries entries={resume.projects} />
           </section>
         </article>
+
+        <details className="resume-snake" data-resume-snake>
+          <summary><Gamepad2 size={19} aria-hidden="true" /> Play Snake</summary>
+          <div data-snake-container />
+          <a className="text-link" href="../demos/snake/" target="_blank" rel="noopener noreferrer" data-snake-link>
+            Open Snake in a new tab <ArrowUpRight size={15} aria-hidden="true" />
+          </a>
+        </details>
       </main>
       <SiteFooter prefix="../" />
     </>
