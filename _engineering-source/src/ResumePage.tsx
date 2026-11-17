@@ -22,14 +22,12 @@ export function ResumePage({ shareUrl }: { shareUrl: string }) {
   const { contact } = resume;
   return (
     <>
-      <SiteHeader prefix="../" resumeCurrent />
+      <SiteHeader prefix="../" current="resume" />
       <main id="main-content" className="resume-page container">
         <a href="../" className="text-link"><ArrowLeft size={17} aria-hidden="true" /> Back to portfolio</a>
         <header className="resume-page-header">
           <div>
-            <p className="eyebrow">Software engineering</p>
             <h1>Résumé<span className="accent">.</span></h1>
-            <p>Read the full résumé below, or download the PDF.</p>
           </div>
           <div className="resume-actions">
             <a href={`../${profile.resume}`} download className="button button-primary">
@@ -46,6 +44,12 @@ export function ResumePage({ shareUrl }: { shareUrl: string }) {
           <input id="resume-share-url" value={shareUrl} readOnly />
         </div>
 
+        <nav className="resume-index" aria-label="Résumé sections">
+          <a href="#resume-education">Education</a>
+          <a href="#resume-skills">Technical skills</a>
+          <a href="#resume-experience">Experience</a>
+          <a href="#resume-projects">Projects</a>
+        </nav>
         <article className="resume-document" aria-labelledby="resume-name">
           <header className="resume-document-header">
             <h2 id="resume-name">{resume.name}</h2>

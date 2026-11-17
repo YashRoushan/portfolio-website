@@ -5,6 +5,7 @@ const status = document.querySelector("#status");
 const enable = document.querySelector("#enable-model");
 const send = document.querySelector("#send");
 const reset = document.querySelector("#reset");
+const prompts = document.querySelectorAll("[data-question]");
 
 const resources = [
   { pattern: /\b(password|csid)\b/i, title: "CSID account and password self-service", url: "https://csid.cs.dal.ca" },
@@ -101,10 +102,16 @@ form.addEventListener("submit", (event) => {
     status.textContent = "Generating a reply…";
     worker.postMessage({ kind: "ask", messages: [...history, { role: "user", content: question }] });
   } else {
-    showTurn("Curated resource", "For open-ended questions, enable on-device AI or contact the help desk.", helpDesk);
+    showTurn("Curated resource", "Try on-device AI for an open-ended question, or contact the Computer Science Help Desk.", helpDesk);
   }
   input.focus();
 });
+
+prompts.forEach(prompt => prompt.addEventListener("click", () => {
+  if (send.disabled) return;
+  input.value = prompt.dataset.question;
+  form.requestSubmit();
+}));
 
 reset.addEventListener("click", () => {
   history = [];

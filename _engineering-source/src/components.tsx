@@ -49,6 +49,8 @@ function Mark() {
     <svg
       className="brand-mark"
       viewBox="0 0 36 36"
+      width="36"
+      height="36"
       fill="none"
       aria-hidden="true"
     >
@@ -64,7 +66,7 @@ function Mark() {
   );
 }
 
-export function SiteHeader({ prefix = "./", resumeCurrent = false }: { prefix?: string; resumeCurrent?: boolean }) {
+export function SiteHeader({ prefix = "./", current = "" }: { prefix?: string; current?: "work" | "resume" | "" }) {
   return (
     <header className="site-header">
       <div className="container header-inner">
@@ -82,11 +84,12 @@ export function SiteHeader({ prefix = "./", resumeCurrent = false }: { prefix?: 
               key={item}
               href={`${prefix}#${item.toLowerCase()}`}
               data-section={item.toLowerCase()}
+              aria-current={current === "work" && item === "Work" ? "location" : undefined}
             >
               {item}
             </a>
           ))}
-          <a className="mobile-contact" href={`${prefix}#contact`}>
+          <a href={`${prefix}#contact`} data-section="contact">
             Contact
           </a>
         </nav>
@@ -104,7 +107,7 @@ export function SiteHeader({ prefix = "./", resumeCurrent = false }: { prefix?: 
           <a
             className="resume-button"
             href={`${prefix}resume/`}
-            aria-current={resumeCurrent ? "page" : undefined}
+            aria-current={current === "resume" ? "page" : undefined}
           >
             <span>Résumé</span>
             <ArrowUpRight {...iconProps} />
@@ -166,14 +169,14 @@ function ProjectCard({ project }: { project: Project }) {
         <p className="project-description">{project.description}</p>
         <TagList tags={project.stack} />
         <div className="project-actions">
-          {project.demo ? (
-            <a href={project.demo} target="_blank" rel="noopener noreferrer" className="project-demo-link">
-              Try live demo <ArrowUpRight {...iconProps} />
-            </a>
-          ) : null}
-          <a href={caseHref}>
+          <a className="case-study-link" href={caseHref}>
             Read case study <ArrowRight {...iconProps} />
           </a>
+          {project.demo && (
+            <a href={project.demo} target={project.demo.startsWith("./") ? undefined : "_blank"} rel="noopener noreferrer" className="project-demo-link">
+              Try live demo <ArrowUpRight {...iconProps} />
+            </a>
+          )}
           <a
             href={project.repository}
             className="subtle-link"
@@ -205,7 +208,6 @@ function RepositoryCard({ project, featured = false }: { project: RepositoryProj
     <article className="repository-card reveal">
       <div className="repository-card-top">
         <span className="repository-icon"><Icon size={23} strokeWidth={1.5} aria-hidden="true" /></span>
-        {project.demo && <span className="repository-status is-live"><span aria-hidden="true" />Live demo</span>}
       </div>
       <p className="eyebrow">{project.category}</p>
       <Heading>{project.name}</Heading>
@@ -214,7 +216,7 @@ function RepositoryCard({ project, featured = false }: { project: RepositoryProj
       <p className="repository-note">{project.note}</p>
       {(project.demo || project.caseStudy || project.repository) && (
         <div className="repository-actions">
-          {project.demo && <a className="repository-demo" href={project.demo} target="_blank" rel="noopener noreferrer" aria-label={`Open ${project.name} live demo`}>Open app <ArrowUpRight {...iconProps} /></a>}
+          {project.demo && <a className="repository-demo" href={project.demo} target={project.demo.startsWith("./") ? undefined : "_blank"} rel="noopener noreferrer" aria-label={`Open ${project.name} live demo`}>Open demo <ArrowUpRight {...iconProps} /></a>}
           {project.caseStudy && <a href={project.caseStudy}>Read case study <ArrowRight {...iconProps} /></a>}
           {project.repository && <a href={project.repository} target="_blank" rel="noopener noreferrer" aria-label={`View ${project.name} source on GitHub`}>View source <GitBranch size={16} aria-hidden="true" /></a>}
         </div>
@@ -265,8 +267,8 @@ export function SiteFooter({ prefix = "./" }: { prefix?: string }) {
         <Mark />
         <span>Yash Roushan</span>
       </a>
-      <p>Built with care. Halifax, Canada.</p>
-      <a href={`${prefix}#top`}>
+      <p>{profile.location}</p>
+      <a href="#top">
         Back to top <ArrowUpRight {...iconProps} />
       </a>
     </footer>
@@ -353,11 +355,8 @@ export function Home() {
       <main id="main-content">
         <section className="hero container" aria-labelledby="hero-title">
           <div className="hero-copy">
-            <h1 id="hero-title">
-              Yash
-              <br />
-              Roushan<span className="accent">.</span>
-            </h1>
+            <p className="hero-eyebrow eyebrow"><span className="status-dot" /> Halifax, Nova Scotia</p>
+            <h1 id="hero-title">Yash Roushan<span className="accent">.</span></h1>
             <p className="hero-statement">{profile.role}</p>
             <p className="hero-description">
               I build React and TypeScript applications, Node.js and FastAPI services, and local LLM tools. My enterprise work spans Azure migrations, infrastructure monitoring and workflow automation.
@@ -366,12 +365,9 @@ export function Home() {
               <a className="button button-primary" href="#work">
                 View my work <ArrowDownRight size={19} aria-hidden="true" />
               </a>
-              <a className="button button-quiet" href="#contact">
-                Contact me <ArrowUpRight {...iconProps} />
+              <a className="button button-secondary" href="./resume/">
+                View résumé <ArrowRight {...iconProps} />
               </a>
-            </div>
-            <div className="hero-location">
-              <span className="status-dot" /> Halifax, Canada
             </div>
           </div>
           <figure className="hero-art">
@@ -429,7 +425,6 @@ export function Home() {
         >
           <div className="section-heading reveal">
             <div>
-              <p className="eyebrow">Applications &amp; systems</p>
               <h2 id="work-title">
                 Selected work<span className="accent">.</span>
               </h2>
@@ -470,16 +465,10 @@ export function Home() {
         >
           <div className="section-heading reveal">
             <div>
-              <p className="eyebrow">Technical expertise</p>
               <h2 id="expertise-title">
-                Across the stack<span className="accent">.</span>
+                Technical expertise<span className="accent">.</span>
               </h2>
             </div>
-            <p className="section-intro">
-              The interface, the services behind it,{" "}
-              <br />
-              and the environment it runs in.
-            </p>
           </div>
           <div className="expertise-grid">
             {expertise.map((item, index) => (
@@ -516,12 +505,7 @@ export function Home() {
           aria-labelledby="experience-title"
         >
           <div className="experience-intro reveal">
-            <p className="eyebrow">Career timeline</p>
-            <h2 id="experience-title">
-              Professional{" "}
-              <br />
-              experience<span className="accent">.</span>
-            </h2>
+            <h2 id="experience-title">Professional experience<span className="accent">.</span></h2>
             <p>
               I evaluate model-generated Java code at Outlier AI. At Irving Oil, I mapped Azure dependencies and built SolarWinds dashboards. At Dalhousie, I automated IT support workflows.
             </p>
@@ -574,12 +558,7 @@ export function Home() {
           aria-labelledby="about-title"
         >
           <div className="about-title reveal">
-            <p className="eyebrow">About me</p>
-            <h2 id="about-title">
-              Curious about{" "}
-              <br />
-              how it all works<span className="accent">.</span>
-            </h2>
+            <h2 id="about-title">About me<span className="accent">.</span></h2>
           </div>
           <div className="about-copy reveal">
             <p className="large-copy">
@@ -934,130 +913,147 @@ export function CaseStudy({ project }: { project: Project }) {
   const preview = project.preview ? casePreviews[project.preview] : undefined;
   const index = projects.findIndex((entry) => entry.slug === project.slug);
   const next = index >= 0 && projects.length > 1 ? projects[(index + 1) % projects.length] : undefined;
+  const sections = [
+    { id: "challenge", title: "The challenge" },
+    { id: "architecture", title: "Architecture" },
+    { id: "decisions", title: "Implementation" },
+    ...(preview ? [{ id: "preview", title: "Interactive preview" }] : []),
+    { id: "features", title: "Features & notes" },
+  ];
   return (
     <>
-      <SiteHeader prefix="../../" />
+      <SiteHeader prefix="../../" current="work" />
       <main id="main-content" className={`case-study ${project.tone}`}>
         <div className="container">
           <a className="back-link" href="../../#work">
             <ArrowLeft {...iconProps} /> Selected work
           </a>
-          <header className="case-heading">
-            <p className="eyebrow">{project.category}</p>
-            <h1>
-              {project.name}
-              <span className="accent">.</span>
-            </h1>
-            <p>{project.summary}</p>
-            <TagList tags={project.stack} />
-            <div className="case-primary-actions">
-              {project.demo ? (
-                <a className="button button-primary" href={project.demo.startsWith("./") ? "../../" + project.demo.slice(2) : project.demo} target="_blank" rel="noopener noreferrer">
-                  Try live demo <ArrowUpRight {...iconProps} />
+          <div className="case-summary">
+            <header className="case-heading">
+              <p className="eyebrow">{project.category}</p>
+              <h1>
+                {project.name}
+                <span className="accent">.</span>
+              </h1>
+              <p>{project.summary}</p>
+              <TagList tags={project.stack} />
+              <div className="case-primary-actions">
+                {project.demo ? (
+                  <a className="button button-primary" href={project.demo.startsWith("./") ? "../../" + project.demo.slice(2) : project.demo} target={project.demo.startsWith("./") ? undefined : "_blank"} rel="noopener noreferrer">
+                    Try live demo <ArrowUpRight {...iconProps} />
+                  </a>
+                ) : null}
+                <a className={`button ${project.demo ? "button-secondary" : "button-primary"}`} href={project.repository}>
+                  <GitBranch {...iconProps} /> Explore the source{" "}
+                  <ArrowUpRight {...iconProps} />
                 </a>
-              ) : null}
-              <a className={`button ${project.demo ? "button-secondary" : "button-primary"}`} href={project.repository}>
-                <GitBranch {...iconProps} /> Explore the source{" "}
-                <ArrowUpRight {...iconProps} />
-              </a>
-            </div>
-          </header>
-          <div className="case-art">
-            {project.art.kind === "image" ? (
-              <img
-                src={`../../art/${project.art.file}`}
-                width="720"
-                height="372"
-                alt={project.art.alt}
-                fetchPriority="high"
-              />
-            ) : (
-              <ProcessVisual />
-            )}
-          </div>
-          <div className="case-content">
-            <section className="case-section">
-              <h2>The challenge</h2>
-              <p className="large-copy">{project.challenge}</p>
-            </section>
-            <section className="case-section">
-              <h2>System architecture</h2>
-              <ol className="architecture-flow">
-                {project.architecture.map((layer, i) => (
-                  <li key={layer.title}>
-                    <span className="architecture-icon" aria-hidden="true">
-                      {i === 0 ? (
-                        <Monitor />
-                      ) : i === 1 ? (
-                        <Code2 />
-                      ) : (
-                        <Database />
-                      )}
-                    </span>
-                    <h3>{layer.title}</h3>
-                    <p>{layer.detail}</p>
-                    {i < project.architecture.length - 1 && (
-                      <ArrowRight
-                        className="flow-arrow"
-                        size={20}
-                        aria-hidden="true"
-                      />
-                    )}
-                  </li>
-                ))}
-              </ol>
-            </section>
-            <section className="case-section">
-              <h2>Implementation decisions</h2>
-              <div className="decisions">
-                {project.decisions.map((decision) => (
-                  <article key={decision.title}>
-                    <h3>{decision.title}</h3>
-                    <p>{decision.body}</p>
-                  </article>
-                ))}
               </div>
-            </section>
-            {preview && (
-              <section className="case-section preview-section">
-                <div>
-                  <p className="eyebrow">An interactive illustration</p>
-                  <h2>Explore the flow</h2>
-                  <p>{preview.description}</p>
-                </div>
-                <preview.Example />
+            </header>
+            <figure className="case-art">
+              {project.art.kind === "image" ? (
+                <img
+                  src={`../../art/${project.art.file}`}
+                  width="720"
+                  height="372"
+                  alt={project.art.alt}
+                  fetchPriority="high"
+                />
+              ) : (
+                <ProcessVisual />
+              )}
+            </figure>
+          </div>
+          <div className="case-reading">
+            <nav className="case-index" aria-label="In this case study">
+              <p>In this case study</p>
+              <ul>
+                {sections.map(({ id, title }) => <li key={id}><a href={`#${id}`}>{title}</a></li>)}
+              </ul>
+            </nav>
+            <div className="case-content">
+              <section className="case-section" id="challenge">
+                <h2>The challenge</h2>
+                <p className="large-copy">{project.challenge}</p>
               </section>
-            )}
-            <section className="case-section feature-section">
-              <div>
-                <h2>Implemented in the source</h2>
-                <ul className="feature-list">
-                  {project.features.map((feature) => (
-                    <li key={feature}>
-                      <Check {...iconProps} />
-                      {feature}
+              <section className="case-section" id="architecture">
+                <h2>System architecture</h2>
+                <ol className="architecture-flow">
+                  {project.architecture.map((layer, i) => (
+                    <li key={layer.title}>
+                      <span className="architecture-icon" aria-hidden="true">
+                        {i === 0 ? (
+                          <Monitor />
+                        ) : i === 1 ? (
+                          <Code2 />
+                        ) : (
+                          <Database />
+                        )}
+                      </span>
+                      <h3>{layer.title}</h3>
+                      <p>{layer.detail}</p>
+                      {i < project.architecture.length - 1 && (
+                        <ArrowRight
+                          className="flow-arrow"
+                          size={20}
+                          aria-hidden="true"
+                        />
+                      )}
                     </li>
                   ))}
-                </ul>
-              </div>
-              <aside className="engineering-note">
-                <h3>Engineering notes</h3>
-                <p>{project.notes}</p>
-              </aside>
-            </section>
-            <div className="case-end">
-              <a className="button button-primary" href={project.repository}>
-                <GitBranch {...iconProps} /> View repository{" "}
-                <ArrowUpRight {...iconProps} />
-              </a>
-              {next && (
-                <a className="next-project" href={`../${next.slug}/`}>
-                  <span>Next case study</span>
-                  <strong>
-                    {next.name} <ArrowRight {...iconProps} />
-                  </strong>
-                </a>
+                </ol>
+              </section>
+              <section className="case-section" id="decisions">
+                <h2>Implementation decisions</h2>
+                <div className="decisions">
+                  {project.decisions.map((decision) => (
+                    <article key={decision.title}>
+                      <h3>{decision.title}</h3>
+                      <p>{decision.body}</p>
+                    </article>
+                  ))}
+                </div>
+              </section>
+              {preview && (
+                <section className="case-section preview-section" id="preview">
+                  <div>
+                    <p className="eyebrow">An interactive illustration</p>
+                    <h2>Explore the flow</h2>
+                    <p>{preview.description}</p>
+                  </div>
+                  <preview.Example />
+                </section>
               )}
+              <section className="case-section feature-section" id="features">
+                <div>
+                  <h2>Implemented in the source</h2>
+                  <ul className="feature-list">
+                    {project.features.map((feature) => (
+                      <li key={feature}>
+                        <Check {...iconProps} />
+                        {feature}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <aside className="engineering-note">
+                  <h3>Engineering notes</h3>
+                  <p>{project.notes}</p>
+                </aside>
+              </section>
+              <div className="case-end">
+                <a className="button button-primary" href={project.repository}>
+                  <GitBranch {...iconProps} /> View repository{" "}
+                  <ArrowUpRight {...iconProps} />
+                </a>
+                {next && (
+                  <a className="next-project" href={`../${next.slug}/`}>
+                    <span>Next case study</span>
+                    <strong>
+                      {next.name} <ArrowRight {...iconProps} />
+                    </strong>
+                  </a>
+                )}
+              </div>
             </div>
           </div>
         </div>
@@ -1073,19 +1069,15 @@ export function NotFound({ home = "/" }: { home?: string }) {
     <>
       <SiteHeader prefix={home} />
       <main id="main-content" className="not-found container">
-        <p className="eyebrow">404 · Page unavailable</p>
-        <h1>
-          A different
-          <br />
-          starting point<span className="accent">.</span>
-        </h1>
-        <p>
-          The page you’re looking for may have moved. Explore my selected work
-          from the portfolio.
-        </p>
-        <a className="button button-primary" href={home}>
-          Back to the portfolio <ArrowRight {...iconProps} />
-        </a>
+        <p className="eyebrow">404</p>
+        <h1>Page not found<span className="accent">.</span></h1>
+        <p>The address may have changed. Continue to the portfolio or open my résumé.</p>
+        <div className="page-actions">
+          <a className="button button-primary" href={home}>
+            Back to the portfolio <ArrowRight {...iconProps} />
+          </a>
+          <a className="button button-secondary" href={`${home}resume/`}>View résumé</a>
+        </div>
       </main>
       <SiteFooter prefix={home} />
     </>

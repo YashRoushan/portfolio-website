@@ -86,14 +86,14 @@ function renderState() {
   $("overlay").hidden = state.status === "playing";
   const messages = {
     ready: [
-      "Find your rhythm.",
+      "Ready to play",
       "Arrow keys, WASD or touch controls.",
       "Start game",
       "Ready to play.",
     ],
     paused: [
-      "Take a breath.",
-      "Your game is waiting right here.",
+      "Game paused",
+      "Continue from your current position.",
       "Resume game",
       "Game paused.",
     ],

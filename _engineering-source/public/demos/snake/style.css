@@ -482,3 +482,12 @@ footer {
 .game-settings button span { margin-left: 5px; color: var(--green); }
 .game-settings small { flex-basis: 100%; color: var(--muted); }
 .game-settings small:empty { display: none; }
+
+@media (max-width: 800px) {
+  .topbar { min-height: 57px; padding-block: 10px; }
+  .topbar > a { display: inline-flex; align-items: center; min-height: 44px; }
+  main { gap: 17px; padding-block: 18px; }
+  .intro { display: block; }
+  .intro .lede { margin-top: 5px; }
+  .touch-controls button { height: 44px; }
+}

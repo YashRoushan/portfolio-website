@@ -2,6 +2,7 @@ import "./styles.css";
 import "./resume.css";
 
 const root = document.documentElement;
+root.classList.add("has-js");
 const themeButton = document.querySelector<HTMLButtonElement>(
   "[data-theme-toggle]",
 );
@@ -54,7 +55,15 @@ menuButton?.addEventListener("click", () => {
 });
 navigation
   ?.querySelectorAll("a")
-  .forEach((link) => link.addEventListener("click", closeMenu));
+  .forEach((link) => link.addEventListener("click", () => {
+    if (!root.classList.contains("menu-open")) return;
+    closeMenu();
+    if (link.pathname !== window.location.pathname || !link.hash) return;
+    const section = document.getElementById(link.hash.slice(1));
+    if (!section) return;
+    section.tabIndex = -1;
+    section.focus({ preventScroll: true });
+  }));
 document.addEventListener("keydown", (event) => {
   if (event.key === "Escape" && root.classList.contains("menu-open")) {
     closeMenu();
@@ -301,6 +310,16 @@ document
     showProcessState();
   });
 
+const caseIndex = document.querySelector(".case-index");
+caseIndex?.addEventListener("click", (event) => {
+  if (!(event.target instanceof HTMLAnchorElement)) return;
+  const section = document.getElementById(event.target.hash.slice(1));
+  const heading = section?.querySelector("h2");
+  if (!heading) return;
+  heading.tabIndex = -1;
+  heading.focus({ preventScroll: true });
+});
+
 if ("IntersectionObserver" in window) {
   const sections = [
     ...document.querySelectorAll<HTMLElement>("main > section[id]"),
@@ -321,7 +340,8 @@ if ("IntersectionObserver" in window) {
     },
     { rootMargin: "-15% 0px -60% 0px", threshold: 0 },
   );
-  sections.forEach((section) => sectionObserver.observe(section));
+  if (document.getElementById("work"))
+    sections.forEach((section) => sectionObserver.observe(section));
 
   if (window.matchMedia("(min-width: 701px) and (prefers-reduced-motion: no-preference)").matches) {
     const revealObserver = new IntersectionObserver(

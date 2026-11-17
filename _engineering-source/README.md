@@ -61,7 +61,7 @@ Snake is vendored in `public/demos/snake/`. Weather Explorer is compiled by Vite
 
 ## Publish on GitHub Pages
 
-On the host repository’s `main` branch, `_engineering-source/` contains the editable project and `engineering/` contains its generated output. The existing GitHub Pages configuration publishes the root of `main` through its built-in Pages workflow; the original portfolio remains at `/portfolio-website/`.
+On the host repository’s `main` branch, `_engineering-source/` contains the editable project and `engineering/` contains its generated output. The existing GitHub Pages configuration publishes the root of `main` through its built-in Pages workflow; the repository’s Pages root directs visitors to the engineering portfolio.
 
 The host workflow template is [`deployment/engineering-portfolio.yml`](deployment/engineering-portfolio.yml). Its active copy lives at `.github/workflows/engineering-portfolio.yml` in the host repository root. It builds and verifies the source, then synchronises only the marked `engineering/` directory. Leave the existing Pages publishing source in place.
 
@@ -69,9 +69,9 @@ For a manual release, run the production build and verification above. From `_en
 
 ```sh
 cmp public/portfolio-output.txt ../engineering/portfolio-output.txt &&
-  rsync -a --delete dist/ ../engineering/
+  rsync -a --delete --filter='P /assets/*' dist/ ../engineering/
 ```
 
-From the repository root, review the diff, commit the intended source and `engineering/` changes, then push to `main` so Pages can publish them. Never copy `dist/` over the host repository root.
+The filter keeps fingerprinted bundles available for visitors who receive cached HTML from a prior release. From the repository root, review the diff, commit the intended source and `engineering/` changes, then push to `main` so Pages can publish them. Never copy `dist/` over the host repository root.
 
 The source directory’s [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml) is a separate recipe for using this project as the root of its **own** repository. It deploys the entire Pages artifact and must not replace the host workflow.

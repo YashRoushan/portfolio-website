@@ -6,17 +6,22 @@ on:
     paths:
       - '_engineering-source/**'
       - '.github/workflows/engineering-portfolio.yml'
+  pull_request:
+    branches: [main]
+    paths:
+      - '_engineering-source/**'
+      - '.github/workflows/engineering-portfolio.yml'
   workflow_dispatch:
 
 permissions: {}
 
 concurrency:
-  group: engineering-portfolio-main
+  group: engineering-portfolio-${{ github.event.pull_request.number || 'main' }}
   cancel-in-progress: false
 
 jobs:
   build:
-    if: github.ref == 'refs/heads/main'
+    if: github.event_name == 'pull_request' || github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     timeout-minutes: 15
     permissions:
@@ -62,7 +67,7 @@ jobs:
           curl --fail --silent --show-error --retry 10 --retry-connrefused "$PORTFOLIO_QA_URL" >/dev/null
           node scripts/test-browser.mjs | tee -a "$GITHUB_STEP_SUMMARY"
       - name: Check live app and external model services
-        if: ${{ !cancelled() && steps.static-build.outcome == 'success' }}
+        if: ${{ github.ref == 'refs/heads/main' && !cancelled() && steps.static-build.outcome == 'success' }}
         continue-on-error: true
         working-directory: _engineering-source
         env:
@@ -132,6 +137,7 @@ jobs:
           retention-days: 14
 
   publish:
+    if: github.ref == 'refs/heads/main'
     needs: build
     runs-on: ubuntu-latest
     timeout-minutes: 5
@@ -169,7 +175,8 @@ jobs:
             test -z "$(find "$dir" \( -type l -o -name .git \) -print -quit)"
           done
           test -s "$source/index.html"
-          rsync -r --delete -- "$source/" "$destination/"
+          # Cached HTML can still load the fingerprinted bundles from older releases.
+          rsync -r --delete --filter="P /assets/*" -- "$source/" "$destination/"
           git add -A -- engineering/
           if git diff --cached --quiet; then
             echo 'Generated files already match main.'

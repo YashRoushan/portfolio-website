@@ -30,6 +30,23 @@
   border: 1px solid var(--border);
   border-radius: 8px;
 }
+.resume-index {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 22px;
+  margin-bottom: 12px;
+  padding-inline: 2px;
+}
+.resume-index a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  color: var(--muted);
+  font-size: 14px;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.resume-index a:hover { color: var(--accent); }
 .resume-document {
   background: var(--surface);
   border: 1px solid var(--border);
@@ -76,6 +93,7 @@
 .resume-skills dd { margin: 0; }
 @media (max-width: 560px) {
   .resume-page-header { align-items: start; }
+  .resume-index { gap: 0 13px; }
   .resume-skills > div { grid-template-columns: minmax(0, 1fr); gap: 1px; }
   .resume-skills { gap: 11px; }
 }
