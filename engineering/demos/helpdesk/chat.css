@@ -1,28 +1,66 @@
-* { box-sizing: border-box; }
+@font-face {
+  font-family: Geist;
+  src: url("../../fonts/geist-latin.woff2") format("woff2");
+  font-display: swap;
+  font-weight: 100 900;
+}
 :root {
   color-scheme: dark;
-  font-family: system-ui, sans-serif;
-  color: #f4f2ee;
+  font-family: Geist, system-ui, sans-serif;
+  color: #f3f1ec;
   background: #111416;
+  --panel: #181d21;
+  --edge: #394148;
+  --muted: #b7c0c7;
+  --accent: #f3b487;
 }
+* { box-sizing: border-box; }
 body { margin: 0; }
-main { max-width: 46rem; margin: auto; padding: clamp(1.25rem, 6vw, 4rem) 1.25rem; }
-h1 { font-size: clamp(2rem, 7vw, 3.5rem); line-height: 1.1; margin: 1rem 0; }
-p, footer { color: #d0d6da; line-height: 1.6; }
-a { color: #ffd495; text-underline-offset: .18em; }
-.model, .turn { padding: .75rem 1rem; background: #1c2227; border: 1px solid #38434b; border-radius: .65rem; }
-.model p, .turn p { margin: .4rem 0; }
-.turn { margin-top: .6rem; white-space: pre-wrap; overflow-wrap: anywhere; }
-.turn.visitor { background: #293544; }
-.turn small { color: #d0d6da; }
-#status { min-height: 1.6em; }
-form { display: flex; flex-wrap: wrap; align-items: end; gap: .65rem; }
-form > div { flex: 1 1 15rem; }
-label { display: block; margin-bottom: .2rem; }
-input, button { font: inherit; border: 1px solid #667681; border-radius: .45rem; padding: .55rem .7rem; min-height: 44px; }
-input { width: 100%; color: #f4f2ee; background: #1c2227; }
-button { color: #111416; background: #ffd495; cursor: pointer; }
+main { width: min(100% - 32px, 61rem); margin: auto; padding-block: clamp(22px, 5vw, 64px); }
+h1, h2, p { margin: 0; }
+h1 { font-size: clamp(2.25rem, 7vw, 4.5rem); line-height: 1.02; letter-spacing: -.055em; }
+h2 { font-size: 1.125rem; letter-spacing: -.025em; }
+p, footer { color: var(--muted); line-height: 1.55; }
+a { color: var(--accent); text-underline-offset: .2em; }
+.back { display: inline-grid; align-items: center; min-height: 44px; margin-bottom: 15px; }
+.demo-header > p { margin-top: 12px; }
+.layout { display: grid; grid-template-columns: minmax(0, 1fr) minmax(215px, 31%); align-items: start; gap: 16px; margin-top: 24px; }
+.chat, .model { padding: clamp(16px, 3vw, 24px); background: var(--panel); border: 1px solid var(--edge); border-radius: 14px; }
+.chat-heading { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 5px 12px; }
+.prompts { display: flex; flex-wrap: wrap; gap: 7px; margin: 13px 0 17px; }
+button.prompt { border-radius: 999px; padding: 5px 12px; }
+button.prompt, #reset { color: #f3f1ec; background: transparent; border-color: #69757c; }
+button.prompt:hover, #reset:hover { background: #29333b; }
+#reset { padding: 6px 11px; font-size: .875rem; }
+#conversation { display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+.turn {
+  align-self: start;
+  max-width: min(100%, 52ch);
+  border: 1px solid var(--edge);
+  border-radius: 10px 10px 10px 2px;
+  padding: 10px 13px;
+  background: #20272d;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.turn.visitor { align-self: end; background: #273440; border-radius: 10px 10px 2px 10px; }
+.turn p { margin-top: 4px; color: #f3f1ec; }
+.turn a { display: inline-block; margin-block: 7px 3px; }
+.turn small { color: var(--muted); font-weight: 600; }
+#status { margin-top: 10px; font-size: .875rem; }
+#status:empty { margin: 0; }
+form { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: end; gap: 8px; border-top: 1px solid var(--edge); padding-top: 14px; margin-top: 15px; }
+label { display: block; margin-bottom: 5px; font-size: .9rem; font-weight: 550; }
+input, button { font: inherit; border: 1px solid #69757c; border-radius: 7px; padding: 8px 12px; min-height: 44px; }
+input { min-width: 0; width: 100%; color: #f3f1ec; background: #121719; }
+button { color: #21170f; border-color: transparent; background: var(--accent); font-weight: 600; cursor: pointer; }
+button:hover { background: #ffd0ae; }
 button:disabled { opacity: .65; cursor: default; }
-button#reset { color: #f4f2ee; background: #1c2227; }
-:focus-visible { outline: 2px solid #ffd495; outline-offset: 3px; }
-footer { margin-top: 2.25rem; font-size: .9rem; }
+.model p { margin-block: 9px 15px; font-size: .9rem; }
+.model button { width: 100%; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+footer { margin-top: 20px; font-size: .875rem; }
+@media (max-width: 650px) {
+  .layout { grid-template-columns: minmax(0, 1fr); }
+  .model button { width: auto; }
+}
