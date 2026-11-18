@@ -66,6 +66,26 @@ function Mark() {
   );
 }
 
+export function ProfilePortrait({ prefix = "./", prominent = false }: { prefix?: string; prominent?: boolean }) {
+  const path = prefix + "portraits/yash-";
+  return (
+    <img
+      className="profile-portrait"
+      src={path + "700.webp"}
+      srcSet={path + "360.webp 360w, " + path + "700.webp 700w"}
+      sizes={prominent
+        ? "(max-width: 620px) 37vw, (max-width: 1100px) 32vw, 370px"
+        : "(max-width: 640px) 80vw, (max-width: 1000px) 36vw, 400px"}
+      width={700}
+      height={875}
+      alt="Yash Roushan in a navy suit on stone steps"
+      loading={prominent ? "eager" : "lazy"}
+      fetchPriority={prominent ? "high" : undefined}
+      decoding="async"
+    />
+  );
+}
+
 export function SiteHeader({ prefix = "./", current = "" }: { prefix?: string; current?: "work" | "resume" | "" }) {
   return (
     <header className="site-header">
@@ -557,23 +577,20 @@ export function Home() {
           id="about"
           aria-labelledby="about-title"
         >
-          <div className="about-title reveal">
-            <h2 id="about-title">About me<span className="accent">.</span></h2>
+          <div className="about-photo reveal">
+            <ProfilePortrait />
           </div>
           <div className="about-copy reveal">
+            <h2 id="about-title">About me<span className="accent">.</span></h2>
             <p className="large-copy">
-              I’m Yash, a Computer Science graduate from Dalhousie University. I
-              like turning a complicated problem into software that feels
-              straightforward to use.
+              I’m Yash, a Computer Science graduate from Dalhousie University.
+              I like making complicated software feel straightforward to use.
             </p>
             <p>
-              My work at Irving Oil and Dalhousie put me close to the people,
-              dependencies and operational details behind real systems. My
-              projects bring that perspective into the interface, API and
-              database.
-            </p>
-            <p>
-              I’m interested in full-stack development, AI engineering, workflow automation and enterprise software.
+              At Irving Oil, I traced the network and cloud dependencies behind
+              everyday tools. At Dalhousie, I worked directly with the people who
+              needed those tools to work. Both experiences shape how I design
+              interfaces, build APIs and test what happens when something fails.
             </p>
             <div className="education">
               <div className="education-top">
@@ -597,6 +614,9 @@ export function Home() {
                 <li>Sexton Scholar</li>
               </ul>
             </div>
+            <a className="text-link about-resume-link" href="./resume/">
+              View my résumé <ArrowUpRight size={16} aria-hidden="true" />
+            </a>
           </div>
         </section>
 

@@ -70,16 +70,29 @@ async function portfolio(page, mobile) {
   await fitsViewport(page);
   const image = page.locator(".core-image");
   await expect.poll(() => image.evaluate((node) => node.currentSrc)).toMatch(mobile ? /compute-core-mobile\.avif$/ : /compute-core(?:-small)?\.webp$/);
+  const aboutPortrait = page.locator("#about .profile-portrait");
+  await aboutPortrait.scrollIntoViewIfNeeded();
+  await expect.poll(() => aboutPortrait.evaluate(node => node.naturalWidth)).toBeGreaterThan(0);
   await a11y(page);
-  await visit(page, site + "resume/");
+  const resumeLink = page.getByRole("link", { name: "View my résumé" });
+  await resumeLink.click();
+  await expect(page).toHaveURL(site + "resume/");
   await checkStyles(page);
-  await heading(page, /Résumé/);
+  await heading(page, /résumé\s*yash roushan/i);
+  const portrait = page.locator(".resume-masthead img");
+  await expect(portrait).toBeInViewport();
+  await expect.poll(() => portrait.evaluate(node => node.naturalWidth)).toBeGreaterThan(0);
   await expect(page.getByRole("heading", { name: "AI Trainer & Coding Evaluator" })).toBeVisible();
   const download = page.getByRole("link", { name: "Download PDF" });
   const pdf = await page.request.get(new URL(await download.getAttribute("href"), page.url()).href);
   assert.ok(pdf.ok() && (await pdf.body()).subarray(0, 5).toString() === "%PDF-");
   await fitsViewport(page);
   await a11y(page);
+  const index = page.getByRole("navigation", { name: "Résumé sections" });
+  await index.getByRole("link", { name: "Projects" }).click();
+  await expect(page).toHaveURL(/#resume-projects$/);
+  await page.getByRole("link", { name: "Stock Portfolio Tracker" }).click();
+  await expect(page).toHaveURL(/work\/stock-portfolio-tracker\/$/);
 }
 
 async function caseStudies(page) {
