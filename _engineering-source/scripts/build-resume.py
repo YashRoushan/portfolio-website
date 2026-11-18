@@ -32,15 +32,21 @@ with tempfile.TemporaryDirectory() as directory:
     pdf = Path(directory) / "resume.pdf"
     run(
         "pdflatex", "-interaction=nonstopmode", "-halt-on-error", "-file-line-error",
-        f"-output-directory={directory}", "resume.tex",
+        f"-output-directory={directory}", "-jobname=resume", "resume-portrait.tex",
         env={**os.environ, "SOURCE_DATE_EPOCH": "1794787200", "FORCE_SOURCE_DATE": "1"},
     )
     info = run("pdfinfo", str(pdf), capture=True)
     if not re.search(r"^Pages:\s+1\s*$", info, re.MULTILINE):
         raise SystemExit("The public résumé must have exactly one PDF page.")
 
+    images = run("pdfimages", "-list", str(pdf), capture=True)
+    if not re.search(r"^\s*1\s+\d+\s+image\s+", images, re.MULTILINE):
+        raise SystemExit("The public résumé must embed its portrait on page one.")
+
     plain = normalized(run("pdftotext", "-raw", str(pdf), "-", capture=True))
-    expected = [resume["name"], *[skill["value"] for skill in resume["skills"]]]
+    contact = resume["contact"]
+    expected = [resume["name"], contact["location"], contact["email"], contact["phone"],
+                *[skill["value"] for skill in resume["skills"]]]
     for section in ("education", "experience", "projects"):
         for entry in resume[section]:
             expected.extend([entry["title"], *entry["points"]])

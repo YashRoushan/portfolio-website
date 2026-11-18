@@ -1,0 +1,16 @@
+% Apply the portrait layout to the existing résumé's centred contact header.
+\AddToHook{class/article/after}{\RequirePackage{graphicx}}
+\AddToHookNext{env/center/before}{%
+  \noindent\begin{minipage}[c]{0.82\linewidth}
+  \let\centering\raggedright
+  \setlength{\topsep}{0pt}
+  {\resumeMetaFont\textcolor{sectionblue}{Software engineer}}\par
+  \vspace{3pt}%
+}
+\AddToHookNext{env/center/after}{%
+  \end{minipage}\hfill
+  \begin{minipage}[c]{0.16\linewidth}
+    \raggedleft\includegraphics[height=0.93in]{public/portraits/yash-print.jpg}
+  \end{minipage}\par\vspace{7pt}%
+}
+\input{resume.tex}
