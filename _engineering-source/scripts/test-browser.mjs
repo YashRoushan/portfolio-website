@@ -58,7 +58,13 @@ async function portfolio(page, mobile) {
   await visit(page, site);
   await checkStyles(page);
   await heading(page, /Yash\s*Roushan/);
-  await expect(page.getByText("Software Engineer · Full-Stack Development · AI & Automation", { exact: true })).toBeVisible();
+  await expect(page.getByText("Full-stack engineer building web apps and AI tools.", { exact: true })).toBeVisible();
+  const heroProduct = page.locator(".product-window img");
+  await expect(heroProduct).toBeInViewport();
+  await expect.poll(() => heroProduct.evaluate(node => node.naturalWidth)).toBeGreaterThan(0);
+  await expect(page.locator("#work article h3")).toHaveText(["Stock Portfolio Tracker", "Task Planner", "Local IT Help Desk Chatbot"]);
+  await expect(page.locator("#work + #experience")).toHaveCount(1);
+  await expect(page.locator("#experience summary").filter({ hasText: "319 Cisco ISE nodes" })).toContainText("3 SolarWinds dashboards");
   if (mobile) {
     const menu = page.getByRole("button", { name: /^(Open|Close) navigation$/ });
     await menu.click();
@@ -68,7 +74,8 @@ async function portfolio(page, mobile) {
   }
   await expect(page.getByRole("heading", { name: "Quick Cash" })).toBeVisible();
   await fitsViewport(page);
-  const image = page.locator(".core-image");
+  const image = page.locator("#about .core-image");
+  await image.scrollIntoViewIfNeeded();
   await expect.poll(() => image.evaluate((node) => node.currentSrc)).toMatch(mobile ? /compute-core-mobile\.avif$/ : /compute-core(?:-small)?\.webp$/);
   const aboutPortrait = page.locator("#about .profile-portrait");
   await aboutPortrait.scrollIntoViewIfNeeded();
@@ -82,8 +89,9 @@ async function portfolio(page, mobile) {
   const portrait = page.locator(".resume-masthead img");
   await expect(portrait).toBeInViewport();
   await expect.poll(() => portrait.evaluate(node => node.naturalWidth)).toBeGreaterThan(0);
-  await expect(page.getByRole("heading", { name: "AI Trainer & Coding Evaluator" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "AI Trainer & Coding Evaluator" })).toBeInViewport();
   const download = page.getByRole("link", { name: "Download PDF" });
+  await expect(download).toBeInViewport();
   const pdf = await page.request.get(new URL(await download.getAttribute("href"), page.url()).href);
   assert.ok(pdf.ok() && (await pdf.body()).subarray(0, 5).toString() === "%PDF-");
   await fitsViewport(page);
@@ -98,8 +106,26 @@ async function portfolio(page, mobile) {
 async function caseStudies(page) {
   const previews = {
     "stock-portfolio-tracker": async () => {
+      const purchase = page.getByRole("checkbox", { name: "Buy 1 more AAPL share at $180" });
+      await purchase.check();
+      await expect(page.locator("[data-apple-shares]")).toHaveText("6");
+      await expect(page.locator("[data-average-cost]")).toContainText("$163.33");
+      await expect(page.locator("[data-portfolio-value]").first()).toHaveText("$2,340.00");
       await page.getByRole("tab", { name: "Holdings" }).press("ArrowRight");
       await expect(page.getByRole("tabpanel", { name: "Transactions" })).toBeVisible();
+      await expect(page.locator("[data-extra-trade]")).toBeVisible();
+      await expect(page.locator("[data-portfolio-basis]")).toHaveText("$2,180.00");
+      await purchase.uncheck();
+      await expect(page.locator("[data-extra-trade]")).toBeHidden();
+      await expect(page.locator("[data-portfolio-basis]")).toHaveText("$2,000.00");
+      await expect(page.locator("[data-average-cost]")).toContainText("$160.00");
+    },
+    "task-planner": async () => {
+      const task = page.getByRole("checkbox", { name: "Plan the week" });
+      await task.check();
+      await expect(page.locator("#preview").getByRole("status")).toHaveText("2 of 3 tasks complete");
+      await task.uncheck();
+      await expect(page.locator("#preview").getByRole("status")).toHaveText("1 of 3 tasks complete");
     },
     "local-it-help-desk": async () => {
       await page.getByRole("button", { name: "Printer setup" }).click();
@@ -113,6 +139,7 @@ async function caseStudies(page) {
   for (const [slug, testPreview] of Object.entries(previews)) {
     await visit(page, site + "work/" + slug + "/");
     await checkStyles(page);
+    await expect(page.locator(".case-summary #preview")).toBeInViewport();
     await page.getByRole("navigation", { name: "In this case study" })
       .getByRole("link", { name: "Interactive preview" }).click();
     await expect(page).toHaveURL(/#preview$/);
