@@ -316,8 +316,14 @@ export function Home() {
       <main id="main-content">
         <section className="hero product-hero container" aria-labelledby="hero-title">
           <div className="hero-copy">
-            <p className="hero-eyebrow eyebrow"><span className="status-dot" /> Halifax, Nova Scotia</p>
-            <h1 id="hero-title">Yash Roushan<span className="accent">.</span></h1>
+            <div className="hero-identity">
+              <img className="hero-portrait" src="./portraits/yash-headshot.webp"
+                width="96" height="96" alt="Yash Roushan" loading="eager" />
+              <div>
+                <p className="hero-eyebrow eyebrow">Halifax, Nova Scotia</p>
+                <h1 id="hero-title">Yash Roushan<span className="accent">.</span></h1>
+              </div>
+            </div>
             <p className="hero-statement">Full-stack engineer building web apps and AI tools.</p>
             <div className="hero-actions">
               <a className="button button-primary" href={stockDemoUrl}>
@@ -465,17 +471,7 @@ export function Home() {
           id="about"
           aria-labelledby="about-title"
         >
-          <div className="about-media">
-            <div className="about-photo"><ProfilePortrait /></div>
-            <figure className="about-core">
-              <picture>
-                <source media="(max-width: 700px)" srcSet="./art/compute-core-mobile.avif" type="image/avif" />
-                <img className="core-image" src="./art/compute-core-small.webp" width="640" height="540"
-                  loading="lazy" decoding="async" alt="Exploded chip showing the interface, logic and foundation layers." />
-              </picture>
-              <figcaption>Anatomy of an application</figcaption>
-            </figure>
-          </div>
+          <div className="about-photo"><ProfilePortrait /></div>
           <div className="about-copy reveal">
             <h2 id="about-title">About me<span className="accent">.</span></h2>
             <p className="large-copy">

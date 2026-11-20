@@ -59,6 +59,9 @@ async function portfolio(page, mobile) {
   await checkStyles(page);
   await heading(page, /Yash\s*Roushan/);
   await expect(page.getByText("Full-stack engineer building web apps and AI tools.", { exact: true })).toBeVisible();
+  const firstPortrait = page.locator(".hero-identity").getByRole("img", { name: "Yash Roushan", exact: true });
+  await expect(firstPortrait).toBeInViewport({ ratio: 1 });
+  await expect.poll(() => firstPortrait.evaluate(node => node.naturalWidth)).toBeGreaterThan(0);
   const heroProduct = page.locator(".product-window img");
   await expect(heroProduct).toBeInViewport();
   await expect.poll(() => heroProduct.evaluate(node => node.naturalWidth)).toBeGreaterThan(0);
@@ -74,9 +77,6 @@ async function portfolio(page, mobile) {
   }
   await expect(page.getByRole("heading", { name: "Quick Cash" })).toBeVisible();
   await fitsViewport(page);
-  const image = page.locator("#about .core-image");
-  await image.scrollIntoViewIfNeeded();
-  await expect.poll(() => image.evaluate((node) => node.currentSrc)).toMatch(mobile ? /compute-core-mobile\.avif$/ : /compute-core(?:-small)?\.webp$/);
   const aboutPortrait = page.locator("#about .profile-portrait");
   await aboutPortrait.scrollIntoViewIfNeeded();
   await expect.poll(() => aboutPortrait.evaluate(node => node.naturalWidth)).toBeGreaterThan(0);

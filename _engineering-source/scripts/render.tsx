@@ -99,14 +99,14 @@ ${noIndex ? `  <base href="${escape(siteUrl.pathname)}" />\n` : ""}  <meta name=
   <meta property="og:title" content="${escape(title)}" />
   <meta property="og:description" content="${escape(description)}" />
   <meta property="og:url" content="${escape(canonical)}" />
-  <meta property="og:image" content="${new URL("social-card.png", siteUrl).href}" />
+  <meta property="og:image" content="${new URL("social-card.png?v=portrait", siteUrl).href}" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta property="og:image:alt" content="Yash Roushan, Software Engineer, Halifax, Canada" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="${escape(title)}" />
   <meta name="twitter:description" content="${escape(description)}" />
-  <meta name="twitter:image" content="${new URL("social-card.png", siteUrl).href}" />
+  <meta name="twitter:image" content="${new URL("social-card.png?v=portrait", siteUrl).href}" />
   <link rel="icon" type="image/svg+xml" href="${prefix}favicon.svg" />
   <link rel="apple-touch-icon" href="${prefix}apple-touch-icon.png" />
   <link rel="preload" as="font" href="${prefix}fonts/geist-latin.woff2" type="font/woff2" crossorigin />
