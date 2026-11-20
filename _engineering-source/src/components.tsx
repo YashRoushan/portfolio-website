@@ -32,12 +32,12 @@ import {
   X,
 } from "lucide-react";
 import {
-  additionalShowcase,
   experience,
   expertise,
   profile,
   projects,
   repositoryProjects,
+  stockDemoUrl,
   type Project,
   type RepositoryProject,
 } from "./content";
@@ -74,7 +74,7 @@ export function ProfilePortrait({ prefix = "./", prominent = false }: { prefix?:
       src={path + "700.webp"}
       srcSet={path + "360.webp 360w, " + path + "700.webp 700w"}
       sizes={prominent
-        ? "(max-width: 620px) 37vw, (max-width: 1100px) 32vw, 370px"
+        ? "(max-width: 620px) 74px, 108px"
         : "(max-width: 640px) 80vw, (max-width: 1000px) 36vw, 400px"}
       width={700}
       height={875}
@@ -99,7 +99,7 @@ export function SiteHeader({ prefix = "./", current = "" }: { prefix?: string; c
           className="navigation"
           aria-label="Main navigation"
         >
-          {["Work", "Expertise", "Experience", "About"].map((item) => (
+          {["Work", "Experience", "Expertise", "About"].map((item) => (
             <a
               key={item}
               href={`${prefix}#${item.toLowerCase()}`}
@@ -160,59 +160,35 @@ function TagList({ tags }: { tags: string[] }) {
 }
 
 function ProjectCard({ project }: { project: Project }) {
+  const screen = project.showcase;
+  if (!screen || !project.demo) return null;
   const caseHref = `./work/${project.slug}/`;
-  if (project.art.kind !== "image") return null;
   return (
-    <article className={`project-card reveal ${project.tone}`}>
-      <a
-        className="project-image"
-        href={caseHref}
-        aria-label={`Read the ${project.name} case study`}
-      >
-        <img
-          src={`./art/${project.art.file}`}
-          width="720"
-          height="372"
-          loading="lazy"
-          decoding="async"
-          alt={project.art.alt}
-        />
-        <span className="image-arrow">
-          <ArrowUpRight size={22} aria-hidden="true" />
-        </span>
-      </a>
+    <article className={`project-card featured-project ${project.tone}`}>
+      <div className={`product-still still-${project.preview}`}>
+        <img src={`./art/${screen.image}`} width={screen.width} height={screen.height}
+          alt={screen.alt} loading="lazy" decoding="async" />
+      </div>
       <div className="project-body">
         <p className="eyebrow project-category">{project.category}</p>
-        <h3>
-          <a href={caseHref}>{project.name}</a>
-        </h3>
+        <h3>{project.name}</h3>
         <p className="project-description">{project.description}</p>
         <TagList tags={project.stack} />
-        <div className="project-actions">
-          <a className="case-study-link" href={caseHref}>
-            Read case study <ArrowRight {...iconProps} />
+        <div className="featured-actions">
+          <a className="button button-primary" href={project.demo}>
+            {screen.action} <ArrowUpRight {...iconProps} />
           </a>
-          {project.demo && (
-            <a href={project.demo} target={project.demo.startsWith("./") ? undefined : "_blank"} rel="noopener noreferrer" className="project-demo-link">
-              Try live demo <ArrowUpRight {...iconProps} />
-            </a>
-          )}
-          <a
-            href={project.repository}
-            className="subtle-link"
-            aria-label={`${project.name} source on GitHub`}
-          >
-            <GitBranch {...iconProps} /> Source{" "}
-            <ArrowUpRight size={14} aria-hidden="true" />
-          </a>
+          <div className="featured-links">
+            <a href={caseHref} aria-label={`Read the ${project.name} case study`}>Case study <ArrowRight size={15} aria-hidden="true" /></a>
+            <a href={project.repository} aria-label={`${project.name} source on GitHub`}>Source <GitBranch size={15} aria-hidden="true" /></a>
+          </div>
         </div>
       </div>
     </article>
   );
 }
 
-function RepositoryCard({ project, featured = false }: { project: RepositoryProject; featured?: boolean }) {
-  const Heading = featured ? "h3" : "h4";
+function RepositoryCard({ project }: { project: RepositoryProject }) {
   const Icon = {
     tasks: ListChecks,
     mobile: Smartphone,
@@ -230,7 +206,7 @@ function RepositoryCard({ project, featured = false }: { project: RepositoryProj
         <span className="repository-icon"><Icon size={23} strokeWidth={1.5} aria-hidden="true" /></span>
       </div>
       <p className="eyebrow">{project.category}</p>
-      <Heading>{project.name}</Heading>
+      <h3>{project.name}</h3>
       <p className="repository-description">{project.description}</p>
       <TagList tags={project.stack} />
       <p className="repository-note">{project.note}</p>
@@ -242,41 +218,6 @@ function RepositoryCard({ project, featured = false }: { project: RepositoryProj
         </div>
       )}
     </article>
-  );
-}
-
-function ProcessVisual() {
-  return (
-    <div className="process-visual" aria-hidden="true">
-      <div className="process-label">
-        <Terminal size={15} /> process.scheduler
-      </div>
-      <div className="schedule-row">
-        <span>node_01</span>
-        <i className="running" />
-        <i className="running" />
-        <i className="blocked" />
-        <i className="running" />
-        <i className="running" />
-      </div>
-      <div className="schedule-row">
-        <span>node_02</span>
-        <i className="blocked" />
-        <i className="running" />
-        <i className="running" />
-        <i className="running" />
-        <i className="blocked" />
-      </div>
-      <div className="schedule-key">
-        <span>
-          <i className="running" /> Running
-        </span>
-        <span>
-          <i className="blocked" /> Blocked
-        </span>
-        <span>Illustration</span>
-      </div>
-    </div>
   );
 }
 
@@ -373,71 +314,27 @@ export function Home() {
     <>
       <SiteHeader />
       <main id="main-content">
-        <section className="hero container" aria-labelledby="hero-title">
+        <section className="hero product-hero container" aria-labelledby="hero-title">
           <div className="hero-copy">
             <p className="hero-eyebrow eyebrow"><span className="status-dot" /> Halifax, Nova Scotia</p>
             <h1 id="hero-title">Yash Roushan<span className="accent">.</span></h1>
-            <p className="hero-statement">{profile.role}</p>
-            <p className="hero-description">
-              I build React and TypeScript applications, Node.js and FastAPI services, and local LLM tools. My enterprise work spans Azure migrations, infrastructure monitoring and workflow automation.
-            </p>
+            <p className="hero-statement">Full-stack engineer building web apps and AI tools.</p>
             <div className="hero-actions">
-              <a className="button button-primary" href="#work">
-                View my work <ArrowDownRight size={19} aria-hidden="true" />
+              <a className="button button-primary" href={stockDemoUrl}>
+                Try Stock Atlas <ArrowUpRight {...iconProps} />
               </a>
-              <a className="button button-secondary" href="./resume/">
-                View résumé <ArrowRight {...iconProps} />
-              </a>
+              <a className="text-link" href="#work">Selected work <ArrowDownRight size={17} aria-hidden="true" /></a>
             </div>
           </div>
-          <figure className="hero-art">
-            <div className="art-grid" aria-hidden="true" />
+          <figure className="product-window">
+            <figcaption><span>Stock Atlas</span><span>Sample portfolio</span></figcaption>
             <picture>
-              <source
-                media="(max-width: 700px)"
-                type="image/avif"
-                srcSet="./art/compute-core-mobile.avif"
-              />
-              <source
-                srcSet="./art/compute-core-small.webp 640w, ./art/compute-core.webp 1280w"
-                sizes="(max-width: 700px) 90vw, (max-width: 1100px) 48vw, 570px"
-                type="image/webp"
-              />
-              <img
-                className="core-image"
-                src="./art/compute-core.webp"
-                width="1280"
-                height="1080"
-                fetchPriority="high"
-                decoding="async"
-                alt="Original exploded technical sculpture with a graphite interface layer, amber logic board and copper-contact foundation"
-              />
+              <source media="(max-width: 620px)" srcSet="./art/stock-chart.webp" width="740" height="325" />
+              <img src="./art/stock-dashboard.webp" width="1132" height="493" fetchPriority="high"
+                alt="Stock Atlas dashboard showing cost-basis history for sample trades in US dollars." />
             </picture>
-            <span className="layer-label label-interface" aria-hidden="true">
-              <i /> Interface
-            </span>
-            <span className="layer-label label-logic" aria-hidden="true">
-              <i /> Logic
-            </span>
-            <span className="layer-label label-foundation" aria-hidden="true">
-              <i /> Foundation
-            </span>
-            <figcaption>
-              <span>
-                <Layers3 size={14} aria-hidden="true" /> Anatomy of an application
-              </span>
-              <span>React · Node.js · Python</span>
-            </figcaption>
           </figure>
         </section>
-        <div className="hero-foot container">
-          <ul aria-label="Qualifications">
-            <li><strong>3.94 / 4.30</strong> GPA at Dalhousie</li>
-            <li><strong>2</strong> Irving Oil co-ops</li>
-            <li>Applied AI and Java model evaluation</li>
-          </ul>
-        </div>
-
         <section
           className="section container"
           id="work"
@@ -458,23 +355,60 @@ export function Home() {
               </a>
             </div>
           </div>
-          <div className="projects-grid">
-            {projects.filter((project) => project.art.kind === "image").map((project) => (
+          <div className="projects-grid featured-grid">
+            {projects.filter(project => project.showcase).map(project => (
               <ProjectCard key={project.slug} project={project} />
             ))}
-            {additionalShowcase.map((project) => (
-              <RepositoryCard key={project.name} project={project} featured />
-            ))}
           </div>
-          <div className="repository-collection" id="more-projects" aria-labelledby="more-projects-title">
-            <div className="repository-heading reveal">
-              <h3 id="more-projects-title">Coursework &amp; experiments</h3>
+        </section>
+
+        <section
+          className="section container experience-section"
+          id="experience"
+          aria-labelledby="experience-title"
+        >
+          <div className="experience-intro reveal">
+            <h2 id="experience-title">Professional experience<span className="accent">.</span></h2>
+
+            <div className="experience-metrics">
+              <div>
+                <strong>319</strong>
+                <span>Cisco ISE nodes audited</span>
+              </div>
+              <div>
+                <strong>3</strong>
+                <span>SolarWinds dashboards built</span>
+              </div>
             </div>
-            <div className="repository-grid">
-              {repositoryProjects.map((project) => (
-                <RepositoryCard key={project.name} project={project} />
-              ))}
-            </div>
+            <p className="metric-source">Network Analyst · Irving Oil</p>
+          </div>
+          <div className="timeline">
+            {experience.map(role => (
+              <details
+                className="role reveal"
+                key={`${role.company}-${role.role}`}
+              >
+                <summary>
+                  <div className="role-date">{role.period}</div>
+                  <div className="role-heading">
+                    <div>
+                      <h3>{role.role}</h3>
+                      <span>{role.company}</span>
+                    </div>
+                    <ChevronDown size={20} aria-hidden="true" />
+                  </div>
+                  <p>{role.points[0]}</p>
+                </summary>
+                <div className="role-details">
+                  <p className="technical-label">{role.location}</p>
+                  <ul>
+                    {role.points.slice(1).map((point) => (
+                      <li key={point}>{point}</li>
+                    ))}
+                  </ul>
+                </div>
+              </details>
+            ))}
           </div>
         </section>
 
@@ -519,56 +453,10 @@ export function Home() {
           </div>
         </section>
 
-        <section
-          className="section container experience-section"
-          id="experience"
-          aria-labelledby="experience-title"
-        >
-          <div className="experience-intro reveal">
-            <h2 id="experience-title">Professional experience<span className="accent">.</span></h2>
-            <p>
-              I evaluate model-generated Java code at Outlier AI. At Irving Oil, I mapped Azure dependencies and built SolarWinds dashboards. At Dalhousie, I automated IT support workflows.
-            </p>
-            <div className="experience-metrics">
-              <div>
-                <strong>319</strong>
-                <span>Cisco ISE nodes audited</span>
-              </div>
-              <div>
-                <strong>37</strong>
-                <span>Network maps updated</span>
-              </div>
-            </div>
-            <p className="metric-source">Network Analyst · Irving Oil</p>
-          </div>
-          <div className="timeline">
-            {experience.map((role, index) => (
-              <details
-                className="role reveal"
-                key={`${role.company}-${role.role}`}
-                open={index === 0 || index === 1}
-              >
-                <summary>
-                  <div className="role-date">{role.period}</div>
-                  <div className="role-heading">
-                    <div>
-                      <h3>{role.role}</h3>
-                      <span>{role.company}</span>
-                    </div>
-                    <ChevronDown size={20} aria-hidden="true" />
-                  </div>
-                  <p>{role.summary}</p>
-                </summary>
-                <div className="role-details">
-                  <p className="technical-label">{role.location}</p>
-                  <ul>
-                    {role.points.map((point) => (
-                      <li key={point}>{point}</li>
-                    ))}
-                  </ul>
-                </div>
-              </details>
-            ))}
+        <section className="section container" id="more-projects" aria-labelledby="more-projects-title">
+          <div className="section-heading"><h2 id="more-projects-title">Coursework &amp; experiments<span className="accent">.</span></h2></div>
+          <div className="repository-grid">
+            {repositoryProjects.map(project => <RepositoryCard key={project.name} project={project} />)}
           </div>
         </section>
 
@@ -577,8 +465,16 @@ export function Home() {
           id="about"
           aria-labelledby="about-title"
         >
-          <div className="about-photo reveal">
-            <ProfilePortrait />
+          <div className="about-media">
+            <div className="about-photo"><ProfilePortrait /></div>
+            <figure className="about-core">
+              <picture>
+                <source media="(max-width: 700px)" srcSet="./art/compute-core-mobile.avif" type="image/avif" />
+                <img className="core-image" src="./art/compute-core-small.webp" width="640" height="540"
+                  loading="lazy" decoding="async" alt="Exploded chip showing the interface, logic and foundation layers." />
+              </picture>
+              <figcaption>Anatomy of an application</figcaption>
+            </figure>
           </div>
           <div className="about-copy reveal">
             <h2 id="about-title">About me<span className="accent">.</span></h2>
@@ -684,9 +580,7 @@ function PortfolioExample() {
       </div>
       <div className="example-value">
         <p>Portfolio value</p>
-        <strong>
-          $2,160<span>.00</span>
-        </strong>
+        <strong data-portfolio-value>$2,160.00</strong>
         <span className="positive">+$160.00 unrealised P/L</span>
       </div>
       <div
@@ -734,8 +628,8 @@ function PortfolioExample() {
           <tbody>
             <tr>
               <th scope="row">AAPL</th>
-              <td>5</td>
-              <td>$900.00</td>
+              <td data-apple-shares>5</td>
+              <td data-apple-value>$900.00</td>
             </tr>
             <tr>
               <th scope="row">MSFT</th>
@@ -748,7 +642,7 @@ function PortfolioExample() {
               <th colSpan={2} scope="row">
                 Total
               </th>
-              <td>$2,160.00</td>
+              <td data-portfolio-value>$2,160.00</td>
             </tr>
           </tfoot>
         </table>
@@ -782,20 +676,25 @@ function PortfolioExample() {
               <td>3</td>
               <td>$1,200.00</td>
             </tr>
+            <tr data-extra-trade hidden>
+              <th scope="row">Buy AAPL</th><td>1</td><td>$180.00</td>
+            </tr>
           </tbody>
           <tfoot>
             <tr>
               <th colSpan={2} scope="row">
                 Cost basis
               </th>
-              <td>$2,000.00</td>
+              <td data-portfolio-basis>$2,000.00</td>
             </tr>
           </tfoot>
         </table>
       </div>
-      <p className="example-note">
-        Illustrative interface with fixed sample prices and zero fees.
-      </p>
+      <div className="sample-purchase">
+        <label><input type="checkbox" data-sample-trade /> Buy 1 more AAPL share at $180</label>
+        <p role="status" data-average-cost>AAPL average cost per share: $160.00</p>
+      </div>
+      <p className="example-note">Sample USD prices. Trades in this preview carry zero fees.</p>
     </div>
   );
 }
@@ -914,30 +813,38 @@ function ProcessExample() {
   );
 }
 
+function PlannerExample() {
+  return (
+    <div className="example-chat planner-example">
+      <div className="example-header"><span><ListChecks {...iconProps} /> My tasks</span><span className="technical-label">Sample board</span></div>
+      <p className="chat-instruction">Check off the work as you finish it.</p>
+      <fieldset className="planner-checklist">
+        <legend className="sr-only">Tasks for this week</legend>
+        {["Review the API design", "Plan the week", "Read one chapter"].map((task, index) => (
+          <label key={task}><input type="checkbox" data-planner-task defaultChecked={index === 0} /><span>{task}</span></label>
+        ))}
+      </fieldset>
+      <p className="planner-progress" role="status" data-planner-progress>1 of 3 tasks complete</p>
+    </div>
+  );
+}
+
 const casePreviews = {
-  portfolio: {
-    description: "Switch between sample holdings and their underlying transactions.",
-    Example: PortfolioExample,
-  },
-  helpdesk: {
-    description: "See how common support questions map to curated resources.",
-    Example: ChatExample,
-  },
-  scheduler: {
-    description: "Follow one process as the scheduler moves it between states.",
-    Example: ProcessExample,
-  },
+  portfolio: PortfolioExample,
+  planner: PlannerExample,
+  helpdesk: ChatExample,
+  scheduler: ProcessExample,
 };
 
 export function CaseStudy({ project }: { project: Project }) {
-  const preview = project.preview ? casePreviews[project.preview] : undefined;
+  const Preview = casePreviews[project.preview];
   const index = projects.findIndex((entry) => entry.slug === project.slug);
   const next = index >= 0 && projects.length > 1 ? projects[(index + 1) % projects.length] : undefined;
   const sections = [
+    { id: "preview", title: "Interactive preview" },
     { id: "challenge", title: "The challenge" },
     { id: "architecture", title: "Architecture" },
     { id: "decisions", title: "Implementation" },
-    ...(preview ? [{ id: "preview", title: "Interactive preview" }] : []),
     { id: "features", title: "Features & notes" },
   ];
   return (
@@ -969,19 +876,10 @@ export function CaseStudy({ project }: { project: Project }) {
                 </a>
               </div>
             </header>
-            <figure className="case-art">
-              {project.art.kind === "image" ? (
-                <img
-                  src={`../../art/${project.art.file}`}
-                  width="720"
-                  height="372"
-                  alt={project.art.alt}
-                  fetchPriority="high"
-                />
-              ) : (
-                <ProcessVisual />
-              )}
-            </figure>
+            <section className="opening-preview" id="preview" aria-labelledby="preview-title">
+              <h2 id="preview-title" className="eyebrow">Interactive preview</h2>
+              <Preview />
+            </section>
           </div>
           <div className="case-reading">
             <nav className="case-index" aria-label="In this case study">
@@ -1033,16 +931,6 @@ export function CaseStudy({ project }: { project: Project }) {
                   ))}
                 </div>
               </section>
-              {preview && (
-                <section className="case-section preview-section" id="preview">
-                  <div>
-                    <p className="eyebrow">An interactive illustration</p>
-                    <h2>Explore the flow</h2>
-                    <p>{preview.description}</p>
-                  </div>
-                  <preview.Example />
-                </section>
-              )}
               <section className="case-section feature-section" id="features">
                 <div>
                   <h2>Implemented in the source</h2>

@@ -31,14 +31,14 @@ export function ResumePage({ shareUrl }: { shareUrl: string }) {
       <main id="main-content" className="resume-page container">
         <a href="../" className="text-link resume-back"><ArrowLeft size={16} aria-hidden="true" /> Back to portfolio</a>
         <header className="resume-masthead">
-          <h1 className="resume-identity">
-            <span className="resume-kicker">Résumé</span>
-            <span className="resume-name">{resume.name}</span>
-          </h1>
-          <div className="resume-photo"><ProfilePortrait prefix="../" prominent /></div>
+          <div className="resume-identity">
+            <h1>
+              <span className="resume-kicker">Résumé</span>
+              <span className="resume-name">{resume.name}</span>
+            </h1>
+            <p className="resume-byline">Software engineer <span><MapPin size={14} aria-hidden="true" /> {contact.location}</span></p>
+          </div>
           <div className="resume-intro">
-            <p className="resume-role">Software engineer</p>
-            <p className="resume-location"><MapPin size={16} aria-hidden="true" /> {contact.location}</p>
             <div className="resume-actions">
               <a href={`../${profile.resume}`} download className="button button-primary">
                 <FileDown size={17} aria-hidden="true" /> Download PDF
@@ -53,6 +53,7 @@ export function ResumePage({ shareUrl }: { shareUrl: string }) {
               <input id="resume-share-url" value={shareUrl} readOnly />
             </div>
           </div>
+          <div className="resume-photo"><ProfilePortrait prefix="../" prominent /></div>
         </header>
         <address className="resume-contacts">
           <a href={`mailto:${profile.email}`}>{contact.email}</a>

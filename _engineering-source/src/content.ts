@@ -17,8 +17,8 @@ export interface Project {
   stack: string[];
   repository: string;
   demo?: string;
-  art: { kind: "image"; file: string; alt: string } | { kind: "scheduler" };
-  preview?: "portfolio" | "helpdesk" | "scheduler";
+  showcase?: { image: string; alt: string; action: string; width: number; height: number };
+  preview: "portfolio" | "planner" | "helpdesk" | "scheduler";
   tone: string;
   challenge: string;
   decisions: { title: string; body: string }[];
@@ -26,6 +26,8 @@ export interface Project {
   features: string[];
   notes: string;
 }
+
+export const stockDemoUrl = "https://yash-stock-portfolio-tracker.yashroushan.chatgpt.site";
 
 export const projects: Project[] = [
   {
@@ -37,11 +39,11 @@ export const projects: Project[] = [
       "A full-stack application that turns buy and sell transactions into holdings, cost basis, dividends and portfolio performance.",
     stack: ["React", "TypeScript", "Express", "PostgreSQL", "Docker"],
     repository: "https://github.com/YashRoushan/Stock-Portfolio-Tracker",
-    demo: "https://yash-stock-portfolio-tracker.yashroushan.chatgpt.site",
-    art: {
-      kind: "image",
-      file: "stock-preview.svg",
-      alt: "Illustrative sample portfolio showing holdings and cost basis",
+    demo: stockDemoUrl,
+    showcase: {
+      image: "stock-screen.webp", width: 1164, height: 422,
+      alt: "Stock Atlas overview with the sample portfolio selected and its valuation, gains and dividends visible.",
+      action: "Try with sample data",
     },
     preview: "portfolio",
     tone: "green",
@@ -87,6 +89,35 @@ export const projects: Project[] = [
       "The preview uses sample data. The source application runs locally with Docker and requires a configured quote provider for market prices. Its trend chart tracks cost basis by transaction date. Dividend records are entered manually.",
   },
   {
+    slug: "task-planner",
+    name: "Task Planner",
+    category: "Full-stack productivity app",
+    description: "Plan a week with a task board, checklists and a calendar in a private guest workspace.",
+    summary: "A task board, calendar and completion dashboard share one set of tasks. Start with the guest workspace to try the full workflow.",
+    stack: ["React", "TypeScript", "REST API", "D1"],
+    repository: "https://github.com/YashRoushan/To-Do-App",
+    demo: "https://yash-task-planner.yashroushan.chatgpt.site/",
+    showcase: {
+      image: "planner-screen.webp", width: 1090, height: 550,
+      alt: "Task Planner board with example cards grouped under To do, In progress and Done.",
+      action: "Try the guest workspace",
+    },
+    preview: "planner",
+    tone: "copper",
+    challenge: "Let visitors try a complete task workflow, save changes and return to it without creating an account or editing another visitor’s tasks.",
+    architecture: [
+      { title: "React interface", detail: "Board, calendar and completion views" },
+      { title: "Workers REST API", detail: "Guest sessions and task operations" },
+      { title: "D1 storage", detail: "Workspace tasks and their saved changes" },
+    ],
+    decisions: [
+      { title: "Start with a populated board", body: "Example tasks make the three states visible on the first visit. A visitor can edit a card or create one from scratch." },
+      { title: "Give each guest a workspace", body: "Changes belong to the guest session. Refreshing the board preserves its tasks." },
+    ],
+    features: ["Create and edit tasks", "Group cards by status", "Assign priorities and checklists", "Review due dates in the calendar"],
+    notes: "The public edition runs on Cloudflare Workers and D1. The original repository includes the Node.js and MongoDB implementation.",
+  },
+  {
     slug: "local-it-help-desk",
     name: "Local IT Help Desk Chatbot",
     demo: "./demos/helpdesk/",
@@ -96,10 +127,10 @@ export const projects: Project[] = [
       "A browser-based help-desk assistant that combines curated technical resources with local language-model inference.",
     stack: ["Python", "FastAPI", "Ollama", "REST APIs"],
     repository: "https://github.com/YashRoushan/localchatbot",
-    art: {
-      kind: "image",
-      file: "helpdesk-preview.svg",
-      alt: "Example IT help-desk conversation about a CSID password reset",
+    showcase: {
+      image: "chat-screen.webp", width: 977, height: 486,
+      alt: "The help desk answers an eduroam question with a link to Dalhousie wireless support.",
+      action: "Ask a support question",
     },
     preview: "helpdesk",
     tone: "violet",
@@ -151,7 +182,6 @@ export const projects: Project[] = [
       "A C/POSIX coursework project exploring process scheduling and concurrent execution across simulated nodes.",
     stack: ["C", "POSIX threads", "Mutexes", "Priority queues"],
     repository: "https://github.com/YashRoushan/Operating_System_Simulator",
-    art: { kind: "scheduler" },
     preview: "scheduler",
     tone: "copper",
     challenge:
@@ -208,17 +238,7 @@ export interface RepositoryProject {
   icon: "tasks" | "mobile" | "weather" | "game" | "jobs" | "walk" | "chat" | "systems";
 }
 
-export const additionalShowcase: RepositoryProject[] = [
-  {
-    name: "Task Planner",
-    category: "Full-stack productivity app",
-    description: "Organise tasks, priorities and checklists, then see the work in a calendar and completion dashboard.",
-    stack: ["React", "TypeScript", "REST API", "D1"],
-    repository: "https://github.com/YashRoushan/To-Do-App",
-    demo: "https://yash-task-planner.yashroushan.chatgpt.site/",
-    note: "Hosted edition of To-Do App. Isolated guest workspace with saved changes; no sign-up required.",
-    icon: "tasks",
-  },
+export const repositoryProjects: RepositoryProject[] = [
   {
     name: "Quick Cash",
     category: "Android marketplace · Team project",
@@ -227,9 +247,6 @@ export const additionalShowcase: RepositoryProject[] = [
     note: "I contributed location-aware search, listing workflows, payment-form validation and Android UI tests. Built with Krutik Chaudhary and the project team.",
     icon: "mobile",
   },
-];
-
-export const repositoryProjects: RepositoryProject[] = [
   {
     name: "Multi-Node Process Simulator",
     category: "Systems programming · University coursework",
@@ -295,7 +312,6 @@ export const experience = [
     role: "AI Trainer & Coding Evaluator",
     period: "Sep 2026 — Present",
     location: "Remote · Freelance",
-    summary: "Evaluating LLM-generated Java code and technical reasoning.",
     points: [
       "Reviewed Java responses for correctness, algorithmic efficiency, reasoning and edge-case behaviour.",
       "Applied prompt engineering and evaluation rubrics to assess instruction-following.",
@@ -307,7 +323,6 @@ export const experience = [
     role: "IT Analyst, Solutions",
     period: "Jan — Apr 2026",
     location: "Saint John, NB · Co-op",
-    summary: "Connecting application requirements to the systems behind them.",
     points: [
       "Mapped Azure migration dependencies across applications, network services and integration flows.",
       "Translated Paperless Pilot feedback into workflow issues and proposed fixes for technical stakeholders.",
@@ -319,11 +334,9 @@ export const experience = [
     role: "Network Analyst",
     period: "Sep 2025 — Jan 2026",
     location: "Saint John, NB · Co-op",
-    summary:
-      "Making enterprise infrastructure easier to understand and support.",
     points: [
-      "Built three SolarWinds dashboards from Network, Service Desk and Cloud requirements to support incident triage.",
-      "Audited 319 Cisco ISE nodes, investigated 29 systems and updated 37 network maps.",
+      "Built 3 SolarWinds dashboards for incident triage and audited 319 Cisco ISE nodes.",
+      "Investigated 29 systems and updated 37 network maps for infrastructure teams.",
       "Created two Azure cloud network maps and shared troubleshooting guidance with infrastructure teams.",
     ],
   },
@@ -332,8 +345,6 @@ export const experience = [
     role: "Backend Developer",
     period: "Jun — Dec 2025",
     location: "Remote",
-    summary:
-      "Building the API and data layer for everyday organisational workflows.",
     points: [
       "Developed Node.js/Express REST APIs and SQL schemas for member records and scheduling.",
       "Connected React interfaces to SQL-backed services with request validation and error handling.",
@@ -345,8 +356,6 @@ export const experience = [
     role: "Technical Helpdesk Assistant",
     period: "Jan — Apr 2025",
     location: "Halifax, NS · Co-op",
-    summary:
-      "Solving real technical problems for the people using the systems.",
     points: [
       "Diagnosed authentication, DHCP, AV and device incidents for students and staff.",
       "Automated support tasks with SQL and Power Automate.",
@@ -358,10 +367,9 @@ export const experience = [
     role: "Data Analyst Intern",
     period: "Dec 2021 — Sep 2022",
     location: "Delhi, India",
-    summary: "Turning product data into reports people could use.",
     points: [
+      "Built Excel and Power BI reports from product data for stakeholder reviews.",
       "Analysed product data and ETL workflows.",
-      "Built Excel and Power BI reports to support stakeholder decisions.",
     ],
   },
 ];

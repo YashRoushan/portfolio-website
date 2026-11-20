@@ -2,11 +2,12 @@
 
 [Open the portfolio](https://yashroushan.github.io/portfolio-website/engineering/) · [Source on `main`](https://github.com/YashRoushan/portfolio-website/tree/main/_engineering-source)
 
-The portfolio pairs Yash’s engineering experience with four showcased applications and a collection of coursework and experiments. Case-study previews are labelled illustrations. Separate **Open app** and **Try live demo** links lead to running applications.
+The homepage features three running applications with real screenshots, followed by professional experience. Each case study opens with an interactive sample.
 
 | Case study | Source repository |
 | --- | --- |
 | [Stock Portfolio Tracker](https://yashroushan.github.io/portfolio-website/engineering/work/stock-portfolio-tracker/) | [Stock-Portfolio-Tracker](https://github.com/YashRoushan/Stock-Portfolio-Tracker) |
+| [Task Planner](https://yashroushan.github.io/portfolio-website/engineering/work/task-planner/) | [To-Do-App](https://github.com/YashRoushan/To-Do-App) |
 | [Local IT Help Desk Chatbot](https://yashroushan.github.io/portfolio-website/engineering/work/local-it-help-desk/) | [localchatbot](https://github.com/YashRoushan/localchatbot) |
 | [Multi-Node Process Simulator](https://yashroushan.github.io/portfolio-website/engineering/work/process-simulator/) | [Operating_System_Simulator](https://github.com/YashRoushan/Operating_System_Simulator) |
 

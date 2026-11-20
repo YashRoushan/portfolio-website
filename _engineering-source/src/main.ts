@@ -162,6 +162,33 @@ if (snakeDetails && snakeContainer && snakeLink) {
 }
 
 const tabs = [...document.querySelectorAll<HTMLButtonElement>("[data-tab]")];
+const purchase = document.querySelector<HTMLInputElement>("[data-sample-trade]");
+purchase?.addEventListener("change", () => {
+  const shares = purchase.checked ? 6 : 5;
+  const appleBasis = 800 + (shares - 5) * 180;
+  const appleValue = shares * 180;
+  const usd = new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" });
+  const fields = {
+    "[data-apple-shares]": String(shares),
+    "[data-apple-value]": usd.format(appleValue),
+    "[data-portfolio-value]": usd.format(appleValue + 1260),
+    "[data-portfolio-basis]": usd.format(appleBasis + 1200),
+    "[data-average-cost]": `AAPL average cost per share: ${usd.format(appleBasis / shares)}`,
+  };
+  for (const [selector, value] of Object.entries(fields)) {
+    document.querySelectorAll(selector).forEach(node => { node.textContent = value; });
+  }
+  const tradeRow = document.querySelector<HTMLTableRowElement>("[data-extra-trade]");
+  if (tradeRow) tradeRow.hidden = !purchase.checked;
+});
+
+const plannerTasks = document.querySelectorAll<HTMLInputElement>("[data-planner-task]");
+const plannerProgress = document.querySelector("[data-planner-progress]");
+plannerTasks.forEach(task => task.addEventListener("change", () => {
+  const complete = Array.from(plannerTasks).filter(item => item.checked).length;
+  if (plannerProgress) plannerProgress.textContent = `${complete} of ${plannerTasks.length} tasks complete`;
+}));
+
 function activateTab(tab: HTMLButtonElement) {
   for (const item of tabs) {
     const selected = item === tab;
