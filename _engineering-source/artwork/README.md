@@ -1,3 +1,5 @@
-# Original artwork
+# Portfolio images
 
-The exploded assembly was modelled and rendered procedurally in Blender. Regeneration instructions are in `compute-core-source.py`. The project SVG illustrations are original, editable vector artwork in `public/art`. The mobile AVIF, Open Graph image and touch icon can be regenerated with `node scripts/generate-artwork.mjs` from the project root after `npm ci`.
+The homepage headshot and social sharing card use the portrait in `public/portraits/yash-700.webp`. To regenerate them and the touch icon, run `node scripts/generate-artwork.mjs` from the project root after `npm ci`.
+
+The featured product screenshots are in `public/art/`.
