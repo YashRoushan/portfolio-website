@@ -348,6 +348,7 @@ caseIndex?.addEventListener("click", (event) => {
 });
 
 if ("IntersectionObserver" in window) {
+  const scrollContainer = document.querySelector(".home-scroll");
   const sections = [
     ...document.querySelectorAll<HTMLElement>("main > section[id]"),
   ];
@@ -365,7 +366,7 @@ if ("IntersectionObserver" in window) {
         });
       });
     },
-    { rootMargin: "-15% 0px -60% 0px", threshold: 0 },
+    { root: scrollContainer, rootMargin: "-15% 0px -60% 0px", threshold: 0 },
   );
   if (document.getElementById("work"))
     sections.forEach((section) => sectionObserver.observe(section));
@@ -380,7 +381,7 @@ if ("IntersectionObserver" in window) {
           revealObserver.unobserve(entry.target);
         });
       },
-      { threshold: 0.08 },
+      { root: scrollContainer, threshold: 0.08 },
     );
     document
       .querySelectorAll(".reveal")

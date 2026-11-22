@@ -114,7 +114,7 @@ ${noIndex ? `  <base href="${escape(siteUrl.pathname)}" />\n` : ""}  <meta name=
   <script type="application/ld+json">${JSON.stringify(schema).replace(/</g, "\\u003c")}</script>
   <script type="module" src="/src/main.ts"></script>
 </head>
-<body id="top">
+<body ${path === "index.html" ? 'class="home-page"' : 'id="top"'}>
   <a class="skip-link" href="#main-content">Skip to content</a>
   ${renderToStaticMarkup(content)}
 </body>

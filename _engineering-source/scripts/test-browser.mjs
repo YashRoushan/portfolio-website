@@ -54,6 +54,59 @@ async function checkStyles(page) {
   )).toBe(true);
 }
 
+async function pinnedSections(page) {
+  await visit(page, site + "#experience");
+  await checkStyles(page);
+  await page.evaluate(() => document.fonts.ready);
+  const pane = page.getByRole("region", { name: "Portfolio content" });
+  const scrollTop = () => pane.evaluate(node => node.scrollTop);
+  const top = locator => locator.evaluate(node => node.getBoundingClientRect().top);
+  const header = page.locator(".site-header");
+  const frame = await pane.boundingBox();
+  await expect(page.getByRole("heading", { name: "Professional experience." })).toBeInViewport();
+  await page.mouse.move(frame.x + frame.width / 2, frame.y + frame.height / 2);
+
+  for (const id of ["work", "experience", "expertise", "more-projects"]) {
+    const section = pane.locator("#" + id);
+    const title = section.getByRole("heading", { level: 2 });
+    const items = section.locator(":scope > :last-child");
+    await section.evaluate(node => node.scrollIntoView({ block: "start", behavior: "instant" }));
+    await pane.evaluate(node => { node.scrollTop += 80; });
+    const start = await scrollTop();
+    const headingY = await top(title);
+    const itemsY = await top(items);
+    assert.ok(headingY >= frame.y - 1 && headingY < frame.y + 100, id + " heading is in the reading area");
+
+    await page.mouse.wheel(0, 140);
+    await expect.poll(scrollTop).toBe(start + 140);
+    assert.ok(Math.abs(await top(title) - headingY) <= 1, id + " heading shifted");
+    assert.ok(Math.abs(await top(items) - itemsY + 140) <= 1, id + " items did not scroll with the wheel");
+    assert.equal(await top(header), 0);
+    assert.equal(await page.evaluate(() => window.scrollY), 0);
+
+    await page.mouse.wheel(0, -140);
+    await expect.poll(scrollTop).toBe(start);
+    assert.ok(Math.abs(await top(title) - headingY) <= 1 && Math.abs(await top(items) - itemsY) <= 1,
+      id + " did not return to the same spot when scrolling up");
+  }
+
+  const role = pane.locator("#experience details").filter({ hasText: "319 Cisco ISE nodes" });
+  await role.locator("summary").press("Enter");
+  await expect(role).toHaveAttribute("open", "");
+  await role.locator("summary").press("Enter");
+  await expect(role).not.toHaveAttribute("open", "");
+  await pane.getByRole("link", { name: "Back to top" }).click();
+  await expect.poll(scrollTop).toBe(0);
+  await pane.press("PageDown");
+  await expect.poll(scrollTop).toBeGreaterThan(0);
+
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await expect(pane.locator("#experience .chapter-heading")).toHaveCSS("position", "static");
+  await expect(pane.locator("#experience h2")).toHaveCSS("position", "static");
+  await page.emulateMedia({ media: "print" });
+  await expect(pane).toHaveCSS("overflow-y", "visible");
+}
+
 async function portfolio(page, mobile) {
   await visit(page, site);
   await checkStyles(page);
@@ -379,6 +432,8 @@ try {
   } else {
     const mobile = { width: 375, height: 812 };
     const checks = [
+      ["Pinned sections, wheel reversal, keyboard and motion preferences at 1440px", pinnedSections],
+      ["Pinned sections, wheel reversal, keyboard and motion preferences at 375px", pinnedSections, mobile],
       ["Desktop portfolio and résumé accessibility at 1440px", (page) => portfolio(page, false)],
       ["Mobile navigation, layout and accessibility at 375px", (page) => portfolio(page, true), mobile],
       ["Case study navigation, previews and accessibility at 1440px", caseStudies],
