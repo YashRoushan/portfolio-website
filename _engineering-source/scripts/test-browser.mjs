@@ -55,56 +55,59 @@ async function checkStyles(page) {
 }
 
 async function pinnedSections(page) {
-  await visit(page, site + "#experience");
+  await visit(page, site);
   await checkStyles(page);
   await page.evaluate(() => document.fonts.ready);
-  const pane = page.getByRole("region", { name: "Portfolio content" });
-  const scrollTop = () => pane.evaluate(node => node.scrollTop);
+  const scrollTop = () => page.evaluate(() => window.scrollY);
   const top = locator => locator.evaluate(node => node.getBoundingClientRect().top);
   const header = page.locator(".site-header");
-  const frame = await pane.boundingBox();
+  await page.keyboard.press("PageDown");
+  await expect.poll(scrollTop).toBeGreaterThan(0);
+  await page.goto(site + "#experience");
+  const frame = await header.boundingBox();
   await expect(page.getByRole("heading", { name: "Professional experience." })).toBeInViewport();
-  await page.mouse.move(frame.x + frame.width / 2, frame.y + frame.height / 2);
+  await page.mouse.move(frame.width / 2, page.viewportSize().height / 2);
 
   for (const id of ["work", "experience", "expertise", "more-projects"]) {
-    const section = pane.locator("#" + id);
+    const section = page.locator("#" + id);
     const title = section.getByRole("heading", { level: 2 });
     const items = section.locator(":scope > :last-child");
     await section.evaluate(node => node.scrollIntoView({ block: "start", behavior: "instant" }));
-    await pane.evaluate(node => { node.scrollTop += 80; });
+    await page.evaluate(() => window.scrollBy({ top: 80, behavior: "instant" }));
     const start = await scrollTop();
     const headingY = await top(title);
     const itemsY = await top(items);
-    assert.ok(headingY >= frame.y - 1 && headingY < frame.y + 100, id + " heading is in the reading area");
+    assert.ok(headingY >= frame.height - 1 && headingY < frame.height + 100, id + " heading is in the reading area");
 
     await page.mouse.wheel(0, 140);
     await expect.poll(scrollTop).toBe(start + 140);
     assert.ok(Math.abs(await top(title) - headingY) <= 1, id + " heading shifted");
     assert.ok(Math.abs(await top(items) - itemsY + 140) <= 1, id + " items did not scroll with the wheel");
     assert.equal(await top(header), 0);
-    assert.equal(await page.evaluate(() => window.scrollY), 0);
 
     await page.mouse.wheel(0, -140);
     await expect.poll(scrollTop).toBe(start);
     assert.ok(Math.abs(await top(title) - headingY) <= 1 && Math.abs(await top(items) - itemsY) <= 1,
       id + " did not return to the same spot when scrolling up");
+    await section.evaluate(node => window.scrollBy({
+      top: node.getBoundingClientRect().bottom + 8, behavior: "instant",
+    }));
+    await expect(title).not.toBeInViewport();
   }
 
-  const role = pane.locator("#experience details").filter({ hasText: "319 Cisco ISE nodes" });
+  const role = page.locator("#experience details").filter({ hasText: "319 Cisco ISE nodes" });
   await role.locator("summary").press("Enter");
   await expect(role).toHaveAttribute("open", "");
   await role.locator("summary").press("Enter");
   await expect(role).not.toHaveAttribute("open", "");
-  await pane.getByRole("link", { name: "Back to top" }).click();
+  await page.getByRole("link", { name: "Back to top" }).click();
   await expect.poll(scrollTop).toBe(0);
-  await pane.press("PageDown");
-  await expect.poll(scrollTop).toBeGreaterThan(0);
 
   await page.emulateMedia({ reducedMotion: "reduce" });
-  await expect(pane.locator("#experience .chapter-heading")).toHaveCSS("position", "static");
-  await expect(pane.locator("#experience h2")).toHaveCSS("position", "static");
+  await expect(page.locator("#experience .chapter-heading")).toHaveCSS("position", "static");
+  await expect(page.locator("#experience h2")).toHaveCSS("position", "static");
   await page.emulateMedia({ media: "print" });
-  await expect(pane).toHaveCSS("overflow-y", "visible");
+  await expect(page.locator("html")).toHaveCSS("overflow-y", "visible");
 }
 
 async function portfolio(page, mobile) {

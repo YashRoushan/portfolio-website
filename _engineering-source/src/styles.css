@@ -14,6 +14,7 @@
 }
 
 :root {
+  --header-inner-height: 80px;
   color-scheme: dark;
   --bg: #111416;
   --surface: #181c1e;
@@ -332,7 +333,7 @@ section[id] {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 80px;
+  height: var(--header-inner-height);
   gap: 24px;
 }
 .brand,
@@ -1873,9 +1874,7 @@ tfoot th {
   }
 }
 @media (max-width: 850px) {
-  .header-inner {
-    height: 73px;
-  }
+  :root { --header-inner-height: 73px; }
   .brand {
     font-size: 13px;
     gap: 9px;
@@ -2108,8 +2107,8 @@ tfoot th {
   .container {
     width: calc(100% - 40px);
   }
+  :root { --header-inner-height: 69px; }
   .header-inner {
-    height: 69px;
     gap: 8px;
   }
   .brand {
@@ -3143,20 +3142,12 @@ tfoot th {
 
 @media screen {
   .home-page {
-    display: grid;
-    grid-template-rows: auto minmax(0, 1fr);
-    height: 100vh;
-    height: 100dvh;
-    overflow: hidden;
-  }
-  .home-scroll {
+    --header-offset: calc(var(--header-inner-height) + 1px);
     --chapter-inset: clamp(24px, 5vh, 56px);
-    min-height: 0;
-    overflow-y: auto;
-    scroll-padding-block-start: var(--chapter-inset);
+    scroll-padding-block-start: calc(var(--header-offset) + var(--chapter-inset));
+    scroll-behavior: auto;
   }
-  .home-scroll:focus-visible { outline-offset: -3px; }
-  .home-scroll section[id] { scroll-margin-block-start: 0; }
+  .home-page section[id] { scroll-margin-block-start: 0; }
   .scroll-chapter {
     display: grid;
     grid-template-columns: minmax(0, .63fr) minmax(0, 1.6fr);
@@ -3185,9 +3176,9 @@ tfoot th {
 }
 
 @media screen and (max-width: 800px) {
-  .home-scroll { --chapter-inset: 4.25rem; }
+  .home-page { --chapter-inset: 4.25rem; }
   .scroll-chapter { display: block; }
-  .home-scroll .scroll-chapter { scroll-margin-block-start: calc(0px - var(--chapter-inset)); }
+  .home-page .scroll-chapter { scroll-margin-block-start: calc(0px - var(--chapter-inset)); }
   .chapter-heading { display: contents; }
   .chapter-heading::before { display: none; }
   .chapter-heading h2 {
@@ -3207,14 +3198,18 @@ tfoot th {
   .chapter-heading .experience-metrics { margin-top: 0; }
   .chapter-heading .metric-source { margin: 12px 0 24px; }
 }
+@media screen and (max-width: 700px) {
+  .home-page:not(.has-js) { --header-offset: 0px; }
+  .home-page:not(.has-js) .site-header { position: static; }
+}
 @media screen and (max-width: 520px) {
   .scroll-chapter .expertise-grid { grid-template-columns: minmax(0, 1fr); }
 }
 
 /* Each heading is bounded by its own section. The cards share one native scrollbar. */
 @media screen and (min-width: 801px) and (min-height: 540px) and (prefers-reduced-motion: no-preference) {
-  .chapter-heading { position: sticky; top: var(--chapter-inset); }
+  .chapter-heading { position: sticky; top: calc(var(--header-offset) + var(--chapter-inset)); }
 }
 @media screen and (max-width: 800px) and (min-height: 440px) and (prefers-reduced-motion: no-preference) {
-  .chapter-heading h2 { position: sticky; top: 0; }
+  .chapter-heading h2 { position: sticky; top: var(--header-offset); }
 }

@@ -84,7 +84,7 @@ async function page(
     },
   } : noIndex ? webPage : profileSchema;
   const html = `<!doctype html>
-<html lang="en-CA" data-theme="dark">
+<html lang="en-CA" data-theme="dark"${path === "index.html" ? ' class="home-page"' : ""}>
 <head>
   <meta charset="utf-8" />
 ${noIndex ? `  <base href="${escape(siteUrl.pathname)}" />\n` : ""}  <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -114,7 +114,7 @@ ${noIndex ? `  <base href="${escape(siteUrl.pathname)}" />\n` : ""}  <meta name=
   <script type="application/ld+json">${JSON.stringify(schema).replace(/</g, "\\u003c")}</script>
   <script type="module" src="/src/main.ts"></script>
 </head>
-<body ${path === "index.html" ? 'class="home-page"' : 'id="top"'}>
+<body${path === "index.html" ? "" : ' id="top"'}>
   <a class="skip-link" href="#main-content">Skip to content</a>
   ${renderToStaticMarkup(content)}
 </body>

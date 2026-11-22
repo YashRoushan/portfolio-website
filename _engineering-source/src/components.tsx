@@ -302,17 +302,6 @@ function Contact({ prefix = "./" }: { prefix?: string }) {
 }
 
 export function Home() {
-  return (
-    <>
-      <SiteHeader />
-      <div className="home-scroll" role="region" aria-label="Portfolio content" tabIndex={0}>
-        <HomeContent />
-      </div>
-    </>
-  );
-}
-
-function HomeContent() {
   const expertiseIcons: Record<string, ReactNode> = {
     interface: <Monitor />,
     server: <Code2 />,
@@ -323,6 +312,7 @@ function HomeContent() {
   };
   return (
     <>
+      <SiteHeader />
       <main id="main-content" tabIndex={-1}>
         <section id="top" className="hero product-hero container" aria-labelledby="hero-title">
           <div className="hero-copy">
