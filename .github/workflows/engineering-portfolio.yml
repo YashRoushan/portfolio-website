@@ -176,7 +176,9 @@ jobs:
           done
           test -s "$source/index.html"
           # Cached HTML can still load the fingerprinted bundles from older releases.
-          rsync -r --delete --filter="P /assets/*" -- "$source/" "$destination/"
+          # A new bundle name can change HTML without changing its byte count.
+          rsync -r --checksum --delete --filter="P /assets/*" -- "$source/" "$destination/"
+          cmp -- "$source/index.html" "$destination/index.html"
           git add -A -- engineering/
           if git diff --cached --quiet; then
             echo 'Generated files already match main.'
