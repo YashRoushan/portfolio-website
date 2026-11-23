@@ -53,7 +53,7 @@ export function ResumePage({ shareUrl }: { shareUrl: string }) {
               <input id="resume-share-url" value={shareUrl} readOnly />
             </div>
           </div>
-          <div className="resume-photo"><ProfilePortrait prefix="../" prominent /></div>
+          <div className="resume-photo"><ProfilePortrait prefix="../" sizes="(max-width: 620px) 74px, 108px" /></div>
         </header>
         <address className="resume-contacts">
           <a href={`mailto:${profile.email}`}>{contact.email}</a>

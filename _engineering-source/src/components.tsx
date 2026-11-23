@@ -37,7 +37,6 @@ import {
   profile,
   projects,
   repositoryProjects,
-  stockDemoUrl,
   type Project,
   type RepositoryProject,
 } from "./content";
@@ -66,21 +65,19 @@ function Mark() {
   );
 }
 
-export function ProfilePortrait({ prefix = "./", prominent = false }: { prefix?: string; prominent?: boolean }) {
+export function ProfilePortrait({ prefix = "./", sizes }: { prefix?: string; sizes: string }) {
   const path = prefix + "portraits/yash-";
   return (
     <img
       className="profile-portrait"
       src={path + "700.webp"}
       srcSet={path + "360.webp 360w, " + path + "700.webp 700w"}
-      sizes={prominent
-        ? "(max-width: 620px) 74px, 108px"
-        : "(max-width: 640px) 80vw, (max-width: 1000px) 36vw, 400px"}
+      sizes={sizes}
       width={700}
       height={875}
       alt="Yash Roushan in a navy suit on stone steps"
-      loading={prominent ? "eager" : "lazy"}
-      fetchPriority={prominent ? "high" : undefined}
+      loading="eager"
+      fetchPriority="high"
       decoding="async"
     />
   );
@@ -99,7 +96,7 @@ export function SiteHeader({ prefix = "./", current = "" }: { prefix?: string; c
           className="navigation"
           aria-label="Main navigation"
         >
-          {["Work", "Experience", "Expertise", "About"].map((item) => (
+          {["About", "Work", "Experience", "Expertise"].map((item) => (
             <a
               key={item}
               href={`${prefix}#${item.toLowerCase()}`}
@@ -163,12 +160,17 @@ function ProjectCard({ project }: { project: Project }) {
   const screen = project.showcase;
   if (!screen || !project.demo) return null;
   const caseHref = `./work/${project.slug}/`;
+  const isDashboard = project.preview === "portfolio";
   return (
     <article className={`project-card featured-project ${project.tone}`}>
-      <div className={`product-still still-${project.preview}`}>
-        <img src={`./art/${screen.image}`} width={screen.width} height={screen.height}
-          alt={screen.alt} loading="lazy" decoding="async" />
-      </div>
+      <figure className={isDashboard ? "product-window" : `product-still still-${project.preview}`}>
+        {isDashboard && <figcaption><span>Stock Atlas</span><span>Sample portfolio</span></figcaption>}
+        <picture>
+          {isDashboard && <source media="(max-width: 620px)" srcSet="./art/stock-chart.webp" width="740" height="325" />}
+          <img src={`./art/${screen.image}`} width={screen.width} height={screen.height}
+            alt={screen.alt} loading={isDashboard ? "eager" : "lazy"} decoding="async" />
+        </picture>
+      </figure>
       <div className="project-body">
         <p className="eyebrow project-category">{project.category}</p>
         <h3>{project.name}</h3>
@@ -314,32 +316,21 @@ export function Home() {
     <>
       <SiteHeader />
       <main id="main-content" tabIndex={-1}>
-        <section id="top" className="hero product-hero container" aria-labelledby="hero-title">
-          <div className="hero-copy">
-            <div className="hero-identity">
-              <img className="hero-portrait" src="./portraits/yash-headshot.webp"
-                width="96" height="96" alt="Yash Roushan" loading="eager" />
-              <div>
-                <p className="hero-eyebrow eyebrow">Halifax, Nova Scotia</p>
-                <h1 id="hero-title">Yash Roushan<span className="accent">.</span></h1>
-              </div>
+        <section id="about" className="portrait-intro container" aria-labelledby="about-title">
+          <div className="intro-portrait">
+            <ProfilePortrait sizes="(max-width: 620px) 65vw, (max-width: 1100px) 42vw, 520px" />
+          </div>
+          <div className="intro-copy">
+            <div className="intro-identity">
+              <p id="about-title" className="eyebrow">About me</p>
+              <h1 id="hero-title">Yash Roushan<span className="accent">.</span></h1>
             </div>
-            <p className="hero-statement">Full-stack engineer building web apps and AI tools.</p>
-            <div className="hero-actions">
-              <a className="button button-primary" href={stockDemoUrl}>
-                Try Stock Atlas <ArrowUpRight {...iconProps} />
-              </a>
-              <a className="text-link" href="#work">Selected work <ArrowDownRight size={17} aria-hidden="true" /></a>
+            <p className="intro-statement">I’m a full-stack engineer in Halifax building web apps and AI tools.</p>
+            <div className="intro-actions">
+              <a className="button button-primary" href="#work">View selected work <ArrowDownRight {...iconProps} /></a>
+              <a className="text-link" href="#background">My background <ArrowDown size={16} aria-hidden="true" /></a>
             </div>
           </div>
-          <figure className="product-window">
-            <figcaption><span>Stock Atlas</span><span>Sample portfolio</span></figcaption>
-            <picture>
-              <source media="(max-width: 620px)" srcSet="./art/stock-chart.webp" width="740" height="325" />
-              <img src="./art/stock-dashboard.webp" width="1132" height="493" fetchPriority="high"
-                alt="Stock Atlas dashboard showing cost-basis history for sample trades in US dollars." />
-            </picture>
-          </figure>
         </section>
         <section
           className="section container scroll-chapter"
@@ -350,7 +341,12 @@ export function Home() {
             <h2 id="work-title">
               Selected work<span className="accent">.</span>
             </h2>
-            <div className="work-heading-actions">
+          </div>
+          <div className="featured-grid">
+            {projects.filter(project => project.showcase).map(project => (
+              <ProjectCard key={project.slug} project={project} />
+            ))}
+            <div className="work-collection-links">
               <a className="text-link" href="#more-projects">
                 Coursework & experiments <ArrowDown {...iconProps} />
               </a>
@@ -358,11 +354,6 @@ export function Home() {
                 All repositories <ArrowUpRight {...iconProps} />
               </a>
             </div>
-          </div>
-          <div className="featured-grid">
-            {projects.filter(project => project.showcase).map(project => (
-              <ProjectCard key={project.slug} project={project} />
-            ))}
           </div>
         </section>
 
@@ -464,14 +455,12 @@ export function Home() {
 
         <section
           className="section container about-section"
-          id="about"
-          aria-labelledby="about-title"
+          id="background"
+          aria-labelledby="background-title"
         >
-          <div className="about-photo"><ProfilePortrait /></div>
           <div className="about-copy reveal">
-            <h2 id="about-title">About me<span className="accent">.</span></h2>
+            <h2 id="background-title">Background &amp; education<span className="accent">.</span></h2>
             <p className="large-copy">
-              I’m Yash, a Computer Science graduate from Dalhousie University.
               I like making complicated software feel straightforward to use.
             </p>
             <p>
@@ -480,31 +469,27 @@ export function Home() {
               needed those tools to work. Both experiences shape how I design
               interfaces, build APIs and test what happens when something fails.
             </p>
-            <div className="education">
-              <div className="education-top">
-                <span className="education-symbol" aria-hidden="true">
-                  <Code2 size={20} />
-                </span>
-                <div>
-                  <h3>Dalhousie University</h3>
-                  <p>Bachelor of Computer Science · Completed September 2026</p>
-                  <p>Convocation October 2026</p>
-                </div>
-              </div>
-              <ul>
-                <li>
-                  <strong>
-                    3.94<span> / 4.30</span>
-                  </strong>
-                  <span>GPA</span>
-                </li>
-                <li>Dean’s List</li>
-                <li>Sexton Scholar</li>
-              </ul>
-            </div>
             <a className="text-link about-resume-link" href="./resume/">
               View my résumé <ArrowUpRight size={16} aria-hidden="true" />
             </a>
+          </div>
+          <div className="education">
+            <div className="education-top">
+              <span className="education-symbol" aria-hidden="true"><Code2 size={20} /></span>
+              <div>
+                <h3>Dalhousie University</h3>
+                <p>Bachelor of Computer Science · Completed September 2026</p>
+                <p>Convocation October 2026</p>
+              </div>
+            </div>
+            <ul>
+              <li>
+                <strong>3.94<span> / 4.30</span></strong>
+                <span>GPA</span>
+              </li>
+              <li>Dean’s List</li>
+              <li>Sexton Scholar</li>
+            </ul>
           </div>
         </section>
 

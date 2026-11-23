@@ -41,8 +41,8 @@ export const projects: Project[] = [
     repository: "https://github.com/YashRoushan/Stock-Portfolio-Tracker",
     demo: stockDemoUrl,
     showcase: {
-      image: "stock-screen.webp", width: 1164, height: 422,
-      alt: "Stock Atlas overview with the sample portfolio selected and its valuation, gains and dividends visible.",
+      image: "stock-dashboard.webp", width: 1132, height: 493,
+      alt: "Stock Atlas dashboard showing cost-basis history for sample trades in US dollars.",
       action: "Try with sample data",
     },
     preview: "portfolio",
