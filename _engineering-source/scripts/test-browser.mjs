@@ -62,7 +62,11 @@ async function pinnedSections(page) {
   const top = locator => locator.evaluate(node => node.getBoundingClientRect().top);
   const header = page.locator(".site-header");
   const frame = await header.boundingBox();
-  await expect(page.getByRole("heading", { name: "Professional experience." })).toBeInViewport();
+  const experienceTitle = page.getByRole("heading", { name: "Professional experience." });
+  await expect(experienceTitle).toBeInViewport();
+  if (page.viewportSize().width <= 800) {
+    await expect.poll(async () => Math.abs(await top(experienceTitle) - frame.height)).toBeLessThanOrEqual(1);
+  }
   await page.mouse.move(frame.width / 2, page.viewportSize().height / 2);
 
   for (const id of ["work", "experience", "expertise", "more-projects"]) {

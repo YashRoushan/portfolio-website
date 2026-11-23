@@ -3147,7 +3147,7 @@ tfoot th {
     scroll-padding-block-start: calc(var(--header-offset) + var(--chapter-inset));
     scroll-behavior: auto;
   }
-  .home-page section[id] { scroll-margin-block-start: 0; }
+  .home-page section { scroll-margin-block-start: 0; }
   .scroll-chapter {
     display: grid;
     grid-template-columns: minmax(0, .63fr) minmax(0, 1.6fr);
