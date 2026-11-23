@@ -313,8 +313,8 @@ export function Home() {
   return (
     <>
       <SiteHeader />
-      <main id="main-content">
-        <section className="hero product-hero container" aria-labelledby="hero-title">
+      <main id="main-content" tabIndex={-1}>
+        <section id="top" className="hero product-hero container" aria-labelledby="hero-title">
           <div className="hero-copy">
             <div className="hero-identity">
               <img className="hero-portrait" src="./portraits/yash-headshot.webp"
@@ -342,16 +342,14 @@ export function Home() {
           </figure>
         </section>
         <section
-          className="section container"
+          className="section container scroll-chapter"
           id="work"
           aria-labelledby="work-title"
         >
-          <div className="section-heading reveal">
-            <div>
-              <h2 id="work-title">
-                Selected work<span className="accent">.</span>
-              </h2>
-            </div>
+          <div className="chapter-heading">
+            <h2 id="work-title">
+              Selected work<span className="accent">.</span>
+            </h2>
             <div className="work-heading-actions">
               <a className="text-link" href="#more-projects">
                 Coursework & experiments <ArrowDown {...iconProps} />
@@ -361,7 +359,7 @@ export function Home() {
               </a>
             </div>
           </div>
-          <div className="projects-grid featured-grid">
+          <div className="featured-grid">
             {projects.filter(project => project.showcase).map(project => (
               <ProjectCard key={project.slug} project={project} />
             ))}
@@ -369,11 +367,11 @@ export function Home() {
         </section>
 
         <section
-          className="section container experience-section"
+          className="section container scroll-chapter"
           id="experience"
           aria-labelledby="experience-title"
         >
-          <div className="experience-intro reveal">
+          <div className="chapter-heading">
             <h2 id="experience-title">Professional experience<span className="accent">.</span></h2>
 
             <div className="experience-metrics">
@@ -419,16 +417,14 @@ export function Home() {
         </section>
 
         <section
-          className="section expertise-section container"
+          className="section container scroll-chapter"
           id="expertise"
           aria-labelledby="expertise-title"
         >
-          <div className="section-heading reveal">
-            <div>
-              <h2 id="expertise-title">
-                Technical expertise<span className="accent">.</span>
-              </h2>
-            </div>
+          <div className="chapter-heading">
+            <h2 id="expertise-title">
+              Technical expertise<span className="accent">.</span>
+            </h2>
           </div>
           <div className="expertise-grid">
             {expertise.map((item, index) => (
@@ -459,8 +455,8 @@ export function Home() {
           </div>
         </section>
 
-        <section className="section container" id="more-projects" aria-labelledby="more-projects-title">
-          <div className="section-heading"><h2 id="more-projects-title">Coursework &amp; experiments<span className="accent">.</span></h2></div>
+        <section className="section container scroll-chapter" id="more-projects" aria-labelledby="more-projects-title">
+          <div className="chapter-heading"><h2 id="more-projects-title">Coursework &amp; experiments<span className="accent">.</span></h2></div>
           <div className="repository-grid">
             {repositoryProjects.map(project => <RepositoryCard key={project.name} project={project} />)}
           </div>

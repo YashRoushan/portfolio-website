@@ -14,6 +14,7 @@
 }
 
 :root {
+  --header-inner-height: 80px;
   color-scheme: dark;
   --bg: #111416;
   --surface: #181c1e;
@@ -332,7 +333,7 @@ section[id] {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 80px;
+  height: var(--header-inner-height);
   gap: 24px;
 }
 .brand,
@@ -1873,9 +1874,7 @@ tfoot th {
   }
 }
 @media (max-width: 850px) {
-  .header-inner {
-    height: 73px;
-  }
+  :root { --header-inner-height: 73px; }
   .brand {
     font-size: 13px;
     gap: 9px;
@@ -2108,8 +2107,8 @@ tfoot th {
   .container {
     width: calc(100% - 40px);
   }
+  :root { --header-inner-height: 69px; }
   .header-inner {
-    height: 69px;
     gap: 8px;
   }
   .brand {
@@ -3075,11 +3074,15 @@ tfoot th {
 .product-window figcaption span:last-child { color: #d7d4c7; font: 400 11px/1.4 var(--mono); }
 .product-window picture, .product-window img { display: block; width: 100%; }
 .product-window picture { border-radius: 6px; overflow: hidden; }
-#work { padding-top: clamp(30px, 4vw, 54px); }
-.featured-grid { grid-template-columns: 1.12fr 1fr 1fr; gap: clamp(14px, 1.6vw, 24px); }
+.featured-grid {
+  container-type: inline-size;
+  display: grid;
+  gap: clamp(16px, 2vw, 28px);
+}
 .featured-project { min-width: 0; display: flex; flex-direction: column; }
 .product-still {
-  height: clamp(130px, 13vw, 182px);
+  aspect-ratio: 2.35;
+  max-height: 260px;
   display: grid;
   align-items: center;
   padding: 16px;
@@ -3099,6 +3102,18 @@ tfoot th {
 .featured-links { display: flex; flex-wrap: wrap; gap: 4px 20px; margin-top: 5px; }
 .featured-links a { display: inline-flex; align-items: center; gap: 5px; min-height: 34px; font-size: 13px; color: var(--muted); }
 .featured-links a:hover { color: var(--accent); text-decoration: underline; }
+@container (min-width: 580px) {
+  .featured-project {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+  }
+  .product-still {
+    aspect-ratio: auto;
+    max-height: none;
+    border-bottom: 0;
+    border-inline-end: 1px solid var(--border);
+  }
+}
 .opening-preview { min-width: 0; padding-block: 15px; }
 .opening-preview > h2 { margin-bottom: 9px; color: var(--accent); font-size: 11px; }
 .opening-preview .example-value { padding-block: 12px; }
@@ -3112,9 +3127,6 @@ tfoot th {
 .planner-checklist input:checked + span { text-decoration: line-through; color: var(--muted); }
 .planner-progress { padding: 14px 20px; background: var(--surface-hover); }
 @media (max-width: 900px) {
-  .featured-grid { grid-template-columns: 1fr 1fr; }
-  .featured-project:first-child { grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 1.1fr; }
-  .featured-project:first-child .product-still { height: 100%; border: 0; }
   .product-hero { gap: 20px; }
   .product-hero h1 { font-size: clamp(32px, 4.4vw, 42px); }
 }
@@ -3125,11 +3137,79 @@ tfoot th {
   .product-hero .hero-actions { margin-top: 16px; }
   .product-window { border-radius: 10px; }
   .product-window figcaption { padding-block: 8px; }
-  #work .section-heading { display: grid; gap: 6px; margin-bottom: 15px; }
-  #work .work-heading-actions { gap: 3px 16px; }
-  #work .work-heading-actions a { min-height: 32px; }
-  .featured-grid { grid-template-columns: 1fr; }
-  .featured-project:first-child { display: flex; }
-  .featured-project .product-still, .featured-project:first-child .product-still { height: auto; aspect-ratio: 2.35; border-bottom: 1px solid var(--border); }
   .opening-preview { padding-top: 0; }
+}
+
+@media screen {
+  .home-page {
+    --header-offset: calc(var(--header-inner-height) + 1px);
+    --chapter-inset: clamp(24px, 5vh, 56px);
+    scroll-padding-block-start: calc(var(--header-offset) + var(--chapter-inset));
+    scroll-behavior: auto;
+  }
+  .home-page section[id] { scroll-margin-block-start: 0; }
+  .scroll-chapter {
+    display: grid;
+    grid-template-columns: minmax(0, .63fr) minmax(0, 1.6fr);
+    column-gap: clamp(32px, 6vw, 92px);
+    margin-block-start: clamp(60px, 8vw, 115px);
+    padding-block-start: 0;
+  }
+  #work { margin-block-start: clamp(30px, 4vw, 54px); }
+  .chapter-heading { align-self: start; }
+  .chapter-heading::before {
+    content: "";
+    display: block;
+    width: 40px;
+    height: 2px;
+    margin-bottom: 18px;
+    background: var(--accent);
+  }
+  .chapter-heading h2 { font-size: clamp(30px, 3.1vw, 46px); }
+  .chapter-heading .work-heading-actions {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
+    margin-top: 18px;
+  }
+  .scroll-chapter .expertise-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media screen and (max-width: 800px) {
+  .home-page { --chapter-inset: 4.25rem; }
+  .scroll-chapter { display: block; }
+  .home-page .scroll-chapter { scroll-margin-block-start: calc(0px - var(--chapter-inset)); }
+  .chapter-heading { display: contents; }
+  .chapter-heading::before { display: none; }
+  .chapter-heading h2 {
+    z-index: 3;
+    margin-bottom: 16px;
+    padding-block: 12px;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+    font-size: clamp(21px, 4.5vw, 30px);
+    line-height: 1.15;
+  }
+  .chapter-heading .work-heading-actions {
+    flex-flow: row wrap;
+    gap: 0 20px;
+    margin: -8px 0 14px;
+  }
+  .chapter-heading .experience-metrics { margin-top: 0; }
+  .chapter-heading .metric-source { margin: 12px 0 24px; }
+}
+@media screen and (max-width: 700px) {
+  .home-page:not(.has-js) { --header-offset: 0px; }
+  .home-page:not(.has-js) .site-header { position: static; }
+}
+@media screen and (max-width: 520px) {
+  .scroll-chapter .expertise-grid { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* Each heading is bounded by its own section. The cards share one native scrollbar. */
+@media screen and (min-width: 801px) and (min-height: 540px) and (prefers-reduced-motion: no-preference) {
+  .chapter-heading { position: sticky; top: calc(var(--header-offset) + var(--chapter-inset)); }
+}
+@media screen and (max-width: 800px) and (min-height: 440px) and (prefers-reduced-motion: no-preference) {
+  .chapter-heading h2 { position: sticky; top: var(--header-offset); }
 }
