@@ -244,7 +244,7 @@ export const repositoryProjects: RepositoryProject[] = [
     category: "Android marketplace · Team project",
     description: "Co-developed a short-term jobs app that connects employers posting work with applicants searching for listings.",
     stack: ["Java", "Android SDK", "Firebase", "Espresso"],
-    note: "I contributed location-aware search, listing workflows, payment-form validation and Android UI tests. Built with Krutik Chaudhary and the project team.",
+    note: "I contributed location-aware search, listing workflows, payment-form validation and Android UI tests.",
     icon: "mobile",
   },
   {
