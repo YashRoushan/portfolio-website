@@ -55,15 +55,12 @@ async function checkStyles(page) {
 }
 
 async function pinnedSections(page) {
-  await visit(page, site);
+  await visit(page, site + "#experience");
   await checkStyles(page);
   await page.evaluate(() => document.fonts.ready);
   const scrollTop = () => page.evaluate(() => window.scrollY);
   const top = locator => locator.evaluate(node => node.getBoundingClientRect().top);
   const header = page.locator(".site-header");
-  await page.keyboard.press("PageDown");
-  await expect.poll(scrollTop).toBeGreaterThan(0);
-  await page.goto(site + "#experience");
   const frame = await header.boundingBox();
   await expect(page.getByRole("heading", { name: "Professional experience." })).toBeInViewport();
   await page.mouse.move(frame.width / 2, page.viewportSize().height / 2);
@@ -102,6 +99,12 @@ async function pinnedSections(page) {
   await expect(role).not.toHaveAttribute("open", "");
   await page.getByRole("link", { name: "Back to top" }).click();
   await expect.poll(scrollTop).toBe(0);
+
+  // Check the very first keystroke with the browser's initial focus.
+  await page.goto("about:blank");
+  await visit(page, site);
+  await page.keyboard.press("PageDown");
+  await expect.poll(scrollTop).toBeGreaterThan(0);
 
   await page.emulateMedia({ reducedMotion: "reduce" });
   await expect(page.locator("#experience .chapter-heading")).toHaveCSS("position", "static");
