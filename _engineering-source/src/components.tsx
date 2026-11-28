@@ -162,9 +162,14 @@ function ProjectCard({ project }: { project: Project }) {
   const caseHref = `./work/${project.slug}/`;
   const isDashboard = project.preview === "portfolio";
   return (
-    <article className={`project-card featured-project ${project.tone}`}>
+    <article id={project.slug} aria-labelledby={project.slug + "-title"} tabIndex={-1} className={`project-card featured-project ${project.tone}`}>
+      {isDashboard && (
+        <header className="featured-heading">
+          <h3 id={project.slug + "-title"}>{project.name}</h3>
+          <p>{project.category}</p>
+        </header>
+      )}
       <figure className={isDashboard ? "product-window" : `product-still still-${project.preview}`}>
-        {isDashboard && <figcaption><span>Stock Atlas</span><span>Sample portfolio</span></figcaption>}
         <picture>
           {isDashboard && <source media="(max-width: 620px)" srcSet="./art/stock-chart.webp" width="740" height="325" />}
           <img src={`./art/${screen.image}`} width={screen.width} height={screen.height}
@@ -172,8 +177,12 @@ function ProjectCard({ project }: { project: Project }) {
         </picture>
       </figure>
       <div className="project-body">
-        <p className="eyebrow project-category">{project.category}</p>
-        <h3>{project.name}</h3>
+        {!isDashboard && (
+          <>
+            <p className="eyebrow project-category">{project.category}</p>
+            <h3 id={project.slug + "-title"}>{project.name}</h3>
+          </>
+        )}
         <p className="project-description">{project.description}</p>
         <TagList tags={project.stack} />
         <div className="featured-actions">
@@ -304,6 +313,7 @@ function Contact({ prefix = "./" }: { prefix?: string }) {
 }
 
 export function Home() {
+  const featuredProjects = projects.filter(project => project.showcase);
   const expertiseIcons: Record<string, ReactNode> = {
     interface: <Monitor />,
     server: <Code2 />,
@@ -341,9 +351,14 @@ export function Home() {
             <h2 id="work-title">
               Selected work<span className="accent">.</span>
             </h2>
+            <nav className="project-index" aria-label="Featured projects">
+              {featuredProjects.map(project => (
+                <a key={project.slug} href={`#${project.slug}`}>{project.name}</a>
+              ))}
+            </nav>
           </div>
           <div className="featured-grid">
-            {projects.filter(project => project.showcase).map(project => (
+            {featuredProjects.map(project => (
               <ProjectCard key={project.slug} project={project} />
             ))}
             <div className="work-collection-links">
@@ -448,9 +463,15 @@ export function Home() {
 
         <section className="section container scroll-chapter" id="more-projects" aria-labelledby="more-projects-title">
           <div className="chapter-heading"><h2 id="more-projects-title">Coursework &amp; experiments<span className="accent">.</span></h2></div>
-          <div className="repository-grid">
-            {repositoryProjects.map(project => <RepositoryCard key={project.name} project={project} />)}
-          </div>
+          <details className="coursework-disclosure">
+            <summary>
+              <span><span className="when-closed">Show</span><span className="when-open">Hide</span> {repositoryProjects.length} coursework projects</span>
+              <ChevronDown {...iconProps} />
+            </summary>
+            <div className="repository-grid">
+              {repositoryProjects.map(project => <RepositoryCard key={project.name} project={project} />)}
+            </div>
+          </details>
         </section>
 
         <section

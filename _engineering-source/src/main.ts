@@ -347,6 +347,35 @@ caseIndex?.addEventListener("click", (event) => {
   heading.focus({ preventScroll: true });
 });
 
+const projectIndex = document.querySelector(".project-index");
+if (projectIndex) {
+  const links = [...projectIndex.querySelectorAll("a")];
+  const cards = links.map(link => document.getElementById(link.hash.slice(1))!);
+  const header = document.querySelector(".site-header");
+  let scheduled = false;
+  function updateProject() {
+    scheduled = false;
+    const readingLine = (header?.getBoundingClientRect().bottom ?? 0) + window.innerHeight * 0.2;
+    let current = 0;
+    for (let i = 1; i < cards.length; i++) {
+      if (cards[i].getBoundingClientRect().top <= readingLine) current = i;
+    }
+    links.forEach((link, i) => {
+      if (i === current) link.setAttribute("aria-current", "location");
+      else link.removeAttribute("aria-current");
+    });
+  }
+  function scheduleUpdate() {
+    if (scheduled) return;
+    scheduled = true;
+    requestAnimationFrame(updateProject);
+  }
+  window.addEventListener("scroll", scheduleUpdate, { passive: true });
+  window.addEventListener("resize", scheduleUpdate);
+  window.addEventListener("pageshow", scheduleUpdate);
+  updateProject();
+}
+
 if ("IntersectionObserver" in window) {
   const sections = [
     ...document.querySelectorAll<HTMLElement>("main > section[id]"),

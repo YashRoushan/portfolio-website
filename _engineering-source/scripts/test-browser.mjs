@@ -64,9 +64,9 @@ async function pinnedSections(page) {
   const frame = await header.boundingBox();
   const experienceTitle = page.getByRole("heading", { name: "Professional experience." });
   await expect(experienceTitle).toBeInViewport();
-  if (page.viewportSize().width <= 800) {
-    await expect.poll(async () => Math.abs(await top(experienceTitle) - frame.height)).toBeLessThanOrEqual(1);
-  }
+  const mobile = page.viewportSize().width <= 800;
+  assert.ok(await top(experienceTitle) >= frame.height - 1, "Header must not cover the anchor");
+  await page.locator(".coursework-disclosure summary").click();
   await page.mouse.move(frame.width / 2, page.viewportSize().height / 2);
 
   for (const id of ["work", "experience", "expertise", "more-projects"]) {
@@ -78,11 +78,12 @@ async function pinnedSections(page) {
     const start = await scrollTop();
     const headingY = await top(title);
     const itemsY = await top(items);
-    assert.ok(headingY >= frame.height - 1 && headingY < frame.height + 100, id + " heading is in the reading area");
+    if (!mobile) assert.ok(headingY >= frame.height - 1 && headingY < frame.height + 100, id + " heading is in the reading area");
 
     await page.mouse.wheel(0, 140);
     await expect.poll(scrollTop).toBe(start + 140);
-    assert.ok(Math.abs(await top(title) - headingY) <= 1, id + " heading shifted");
+    const expectedHeadingY = mobile ? headingY - 140 : headingY;
+    assert.ok(Math.abs(await top(title) - expectedHeadingY) <= 1, id + " heading scroll position");
     assert.ok(Math.abs(await top(items) - itemsY + 140) <= 1, id + " items did not scroll with the wheel");
     assert.equal(await top(header), 0);
 
@@ -138,7 +139,7 @@ async function portfolio(page, mobile) {
   assert.ok(projectBox.y > portraitBox.y + portraitBox.height, "Project screenshot should follow the portrait");
   assert.ok(projectBox.y + projectBox.height <= page.viewportSize().height * 2, "Dashboard should be within one scroll");
   await expect(dashboard).toHaveJSProperty("currentSrc", new URL(mobile ? "art/stock-chart.webp" : "art/stock-dashboard.webp", site).href);
-  await expect(page.locator("#work article h3")).toHaveText(["Stock Portfolio Tracker", "Task Planner", "Local IT Help Desk Chatbot"]);
+  await expect(page.locator("#work article h3")).toHaveText(["Stock Atlas", "Task Planner", "Local IT Help Desk Chatbot"]);
   await expect(page.locator("#work + #experience")).toHaveCount(1);
   await expect(page.locator("#experience summary").filter({ hasText: "319 Cisco ISE nodes" })).toContainText("3 SolarWinds dashboards");
   await intro.getByRole("link", { name: "My background" }).click();
@@ -154,7 +155,28 @@ async function portfolio(page, mobile) {
   await expect(intro.getByRole("heading", { level: 1 })).toBeInViewport();
   await intro.getByRole("link", { name: "View selected work" }).click();
   await expect(page).toHaveURL(/#work$/);
-  await expect(page.getByRole("heading", { name: "Quick Cash" })).toBeVisible();
+  const projects = page.getByRole("navigation", { name: "Featured projects" });
+  const links = projects.getByRole("link");
+  await expect(links).toHaveCount(3);
+  for (const link of await links.all()) {
+    await link.click();
+    await expect(link).toHaveAttribute("aria-current", "location");
+    const card = page.locator(await link.getAttribute("href"));
+    await expect(card.getByRole("heading")).toBeInViewport();
+    assert.ok((await card.boundingBox()).y >= (await page.locator(".site-header").boundingBox()).height - 1);
+  }
+  await page.locator("#task-planner").evaluate(node => window.scrollTo(0, window.scrollY + node.getBoundingClientRect().top - 110));
+  await expect(links.nth(1)).toHaveAttribute("aria-current", "location");
+  const coursework = page.locator(".coursework-disclosure");
+  const toggle = coursework.locator("summary");
+  await expect(toggle).toHaveAccessibleName("Show 7 coursework projects");
+  await expect(coursework).not.toHaveAttribute("open", "");
+  await expect(coursework.locator("article:visible")).toHaveCount(0);
+  await toggle.press("Enter");
+  await expect(coursework.locator("article:visible")).toHaveCount(7);
+  await expect(coursework.getByRole("heading", { name: "Quick Cash" })).toBeVisible();
+  await toggle.press("Space");
+  await expect(coursework.locator("article:visible")).toHaveCount(0);
   await fitsViewport(page);
   await a11y(page);
   const resumeLink = page.getByRole("link", { name: "View my résumé" });
@@ -456,7 +478,7 @@ try {
     const mobile = { width: 375, height: 812 };
     const checks = [
       ["Pinned sections, wheel reversal, keyboard and motion preferences at 1440px", pinnedSections],
-      ["Pinned sections, wheel reversal, keyboard and motion preferences at 375px", pinnedSections, mobile],
+      ["Mobile scrolling headings, keyboard and motion preferences at 375px", pinnedSections, mobile],
       ["Desktop portfolio and résumé accessibility at 1440px", (page) => portfolio(page, false)],
       ["Mobile navigation, layout and accessibility at 375px", (page) => portfolio(page, true), mobile],
       ["Case study navigation, previews and accessibility at 1440px", caseStudies],

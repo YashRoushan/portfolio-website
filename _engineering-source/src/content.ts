@@ -27,13 +27,13 @@ export interface Project {
   notes: string;
 }
 
-export const stockDemoUrl = "https://yash-stock-portfolio-tracker.yashroushan.chatgpt.site";
+export const stockDemoUrl = "https://yash-stock-portfolio-tracker.yashroushan.chatgpt.site/sample";
 
 export const projects: Project[] = [
   {
     slug: "stock-portfolio-tracker",
-    name: "Stock Portfolio Tracker",
-    category: "Full-stack application",
+    name: "Stock Atlas",
+    category: "Stock portfolio tracker",
     description: "A transaction ledger that turns trades and fees into holdings, cost basis and profit/loss.",
     summary:
       "A full-stack application that turns buy and sell transactions into holdings, cost basis, dividends and portfolio performance.",
