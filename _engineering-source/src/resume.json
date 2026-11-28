@@ -80,6 +80,7 @@
   "projects": [
     {
       "title": "Local IT Help Desk Chatbot",
+      "projectSlug": "local-it-help-desk",
       "context": "Python, FastAPI, Ollama",
       "period": "2025–2026",
       "points": [
@@ -89,6 +90,7 @@
     },
     {
       "title": "Stock Portfolio Tracker",
+      "projectSlug": "stock-portfolio-tracker",
       "context": "TypeScript, React, Node.js, PostgreSQL, Docker",
       "period": "2026",
       "points": [

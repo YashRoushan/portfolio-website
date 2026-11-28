@@ -372,7 +372,14 @@ async function helpdesk(page) {
 }
 
 async function stock(page) {
-  await visit(page, "https://yash-stock-portfolio-tracker.yashroushan.chatgpt.site/");
+  await visit(page, site);
+  await page.getByRole("link", { name: "Try with sample data" }).click();
+  await heading(page, "Sample portfolio");
+  await expect(page.getByRole("row", { name: /AAPL 45/ })).toBeVisible();
+  await expect(page.getByText("$34,382.50", { exact: true })).toBeVisible();
+  await expect(page.getByRole("img", { name: /Holdings value and cost basis/ })).toBeVisible();
+  await expect(page.locator("form")).toHaveCount(0);
+  await page.getByRole("link", { name: "Stock Atlas", exact: true }).click();
   const guest = page.waitForResponse((response) => response.url().endsWith("/api/auth/demo"));
   await page.getByRole("button", { name: "Try the demo" }).click();
   const session = await guest;
@@ -380,8 +387,8 @@ async function stock(page) {
   const { token } = await session.json();
   const origin = new URL(page.url()).origin;
   const headers = { Authorization: "Bearer " + token };
-  await heading(page, "Your portfolios");
-  await expect(page.getByRole("button", { name: "Sample portfolio" })).toBeVisible();
+  await heading(page, "Portfolio overview");
+  await expect(page.getByRole("combobox", { name: "Select portfolio" })).toHaveValue(/.+/);
   const list = await page.request.get(origin + "/api/portfolios", { headers });
   assert.ok(list.ok(), "Could not load portfolios");
   const { portfolios } = await list.json();

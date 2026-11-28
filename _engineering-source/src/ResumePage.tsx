@@ -1,18 +1,17 @@
 import { ArrowLeft, ArrowUpRight, FileDown, Gamepad2, MapPin, Share2 } from "lucide-react";
 import { ProfilePortrait, SiteFooter, SiteHeader } from "./components";
-import { profile, projects } from "./content";
+import { profile } from "./content";
 import resume from "./resume.json";
 
-type Entry = (typeof resume.experience)[number];
+type Entry = (typeof resume.experience)[number] & { projectSlug?: string };
 
-function ResumeEntries({ entries, linkProjects = false }: { entries: Entry[]; linkProjects?: boolean }) {
-  return entries.map(({ title, context, period, points }) => {
-    const project = linkProjects ? projects.find(item => item.name === title) : undefined;
+function ResumeEntries({ entries }: { entries: Entry[] }) {
+  return entries.map(({ title, context, period, points, projectSlug }) => {
     return (
       <div className="resume-entry" key={title + period}>
         <div className="resume-entry-heading">
-          <h3>{project ? (
-            <a href={`../work/${project.slug}/`}>{title} <ArrowUpRight size={18} aria-hidden="true" /></a>
+          <h3>{projectSlug ? (
+            <a href={`../work/${projectSlug}/`}>{title} <ArrowUpRight size={18} aria-hidden="true" /></a>
           ) : title}</h3>
           <span className="resume-period">{period}</span>
         </div>
@@ -75,7 +74,7 @@ export function ResumePage({ shareUrl }: { shareUrl: string }) {
             </section>
             <section aria-labelledby="resume-projects">
               <h2 id="resume-projects">Projects</h2>
-              <ResumeEntries entries={resume.projects} linkProjects />
+              <ResumeEntries entries={resume.projects} />
             </section>
             <section aria-labelledby="resume-skills">
               <h2 id="resume-skills">Technical skills</h2>
